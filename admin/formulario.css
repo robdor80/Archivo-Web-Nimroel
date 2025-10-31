@@ -281,3 +281,7 @@ select:focus {
   100% { text-shadow: 0 0 14px rgba(200,250,255,0.9); opacity: 1; }
 }
 
+select#coleccion {
+  text-transform: capitalize;
+}
+
