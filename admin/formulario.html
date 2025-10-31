@@ -9,10 +9,8 @@
 </head>
 
 <body>
-  <!-- 🌌 Fondo de runas flotantes -->
   <div id="runas"></div>
 
-  <!-- 💠 Contenedor principal -->
   <div class="fondo-cristal inicio">
     <header>
       <h1>Panel del Custodio</h1>
@@ -23,65 +21,18 @@
     <div class="contenedor-formulario">
       <!-- 🧙‍♂️ Formulario -->
       <form id="formCronica" class="formulario-cronicas">
-        <div class="grupo">
-          <label for="coleccion">Colección</label>
-          <input type="text" id="coleccion" placeholder="Ejemplo: cronicas">
-        </div>
-
-        <div class="grupo">
-          <label for="documento">Documento</label>
-          <input type="text" id="documento" placeholder="Ejemplo: aurora_004">
-        </div>
-
-        <div class="grupo">
-          <label for="titulo">Título</label>
-          <input type="text" id="titulo">
-        </div>
-
-        <div class="grupo">
-          <label for="era">Era</label>
-          <input type="text" id="era">
-        </div>
-
-        <div class="grupo">
-          <label for="anio">Año</label>
-          <input type="number" id="anio">
-        </div>
-
-        <div class="grupo">
-          <label for="fecha">Fecha</label>
-          <input type="text" id="fecha" placeholder="Ejemplo: 2456 d.A.">
-        </div>
-
-        <div class="grupo">
-          <label for="custodio">Custodio</label>
-          <input type="text" id="custodio">
-        </div>
-
-        <div class="grupo">
-          <label for="traduccion">Traducción</label>
-          <input type="text" id="traduccion">
-        </div>
-
-        <div class="grupo">
-          <label for="imagen">Imagen principal (URL)</label>
-          <input type="text" id="imagen" placeholder="https://..." oninput="actualizarVistaPrevia('imagen')">
-        </div>
-
-        <div class="grupo">
-          <label for="resumen">Resumen</label>
-          <textarea id="resumen" rows="3"></textarea>
-        </div>
-
-        <div class="grupo">
-          <label for="sello">Sello del custodio (URL)</label>
-          <input type="text" id="sello" placeholder="https://..." oninput="actualizarVistaPrevia('sello')">
-        </div>
-
-        <div class="grupo">
-          <label for="firma">Firma del custodio (URL)</label>
-          <input type="text" id="firma" placeholder="https://..." oninput="actualizarVistaPrevia('firma')">
-        </div>
+        <div class="grupo"><label for="coleccion">Colección</label><input type="text" id="coleccion" placeholder="Ejemplo: cronicas"></div>
+        <div class="grupo"><label for="documento">Documento</label><input type="text" id="documento" placeholder="Ejemplo: aurora_004"></div>
+        <div class="grupo"><label for="titulo">Título</label><input type="text" id="titulo"></div>
+        <div class="grupo"><label for="era">Era</label><input type="text" id="era"></div>
+        <div class="grupo"><label for="anio">Año</label><input type="number" id="anio"></div>
+        <div class="grupo"><label for="fecha">Fecha</label><input type="text" id="fecha" placeholder="Ejemplo: 2456 d.A."></div>
+        <div class="grupo"><label for="custodio">Custodio</label><input type="text" id="custodio"></div>
+        <div class="grupo"><label for="traduccion">Traducción</label><input type="text" id="traduccion"></div>
+        <div class="grupo"><label for="imagen">Imagen principal (URL)</label><input type="text" id="imagen" placeholder="https://..." oninput="actualizarVistaPrevia('imagen')"></div>
+        <div class="grupo"><label for="resumen">Resumen</label><textarea id="resumen" rows="3"></textarea></div>
+        <div class="grupo"><label for="sello">Sello del custodio (URL)</label><input type="text" id="sello" placeholder="https://..." oninput="actualizarVistaPrevia('sello')"></div>
+        <div class="grupo"><label for="firma">Firma del custodio (URL)</label><input type="text" id="firma" placeholder="https://..." oninput="actualizarVistaPrevia('firma')"></div>
 
         <div class="botones">
           <button type="submit" id="btnGuardar">Guardar</button>
@@ -90,27 +41,28 @@
         </div>
 
         <p id="mensaje" class="mensaje"></p>
+
+        <!-- 🔹 Panel inferior: sello y firma -->
+        <div class="panel-inferior">
+          <div class="vista-sello">
+            <h3>Sello del custodio</h3>
+            <img id="preview-sello" src="medios/img/runas/runa2.webp" alt="Vista previa sello">
+            <button class="abrir" id="abrir-sello" disabled>Abrir</button>
+          </div>
+
+          <div class="vista-firma">
+            <h3>Firma del custodio</h3>
+            <img id="preview-firma" src="medios/img/runas/runa3.webp" alt="Vista previa firma">
+            <button class="abrir" id="abrir-firma" disabled>Abrir</button>
+          </div>
+        </div>
       </form>
 
-      <!-- 🖼️ Vistas previas -->
-      <div class="panel-vistas">
-        <div class="vista-previa">
-          <h3>Imagen principal</h3>
-          <img id="preview-imagen" src="medios/img/runas/runa1.webp" alt="Vista previa principal">
-          <button class="abrir" id="abrir-imagen" disabled>Abrir imagen</button>
-        </div>
-
-        <div class="vista-previa">
-          <h3>Sello del custodio</h3>
-          <img id="preview-sello" src="medios/img/runas/runa2.webp" alt="Vista previa sello">
-          <button class="abrir" id="abrir-sello" disabled>Abrir imagen</button>
-        </div>
-
-        <div class="vista-previa">
-          <h3>Firma del custodio</h3>
-          <img id="preview-firma" src="medios/img/runas/runa3.webp" alt="Vista previa firma">
-          <button class="abrir" id="abrir-firma" disabled>Abrir imagen</button>
-        </div>
+      <!-- 🖼️ Imagen principal a la derecha -->
+      <div class="vista-imagen">
+        <h3>Imagen principal</h3>
+        <img id="preview-imagen" src="medios/img/runas/runa1.webp" alt="Vista previa principal">
+        <button class="abrir" id="abrir-imagen" disabled>Abrir</button>
       </div>
     </div>
   </div>
