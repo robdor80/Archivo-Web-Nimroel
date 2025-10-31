@@ -122,3 +122,38 @@ body {
   10% { opacity: 1; }
   100% { transform: translateY(110vh); opacity: 0.1; }
 }
+
+
+/* --- Móvil vertical --- */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .fondo-cristal.inicio {
+    width: 92%;
+    height: 85%;
+    padding: 0.8rem;
+  }
+
+  .cabecera h1 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .cabecera h2 {
+    font-size: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .separador {
+    width: 80%;
+    margin: 1rem auto 1.5rem;
+  }
+
+  .menu-inicio {
+    flex-direction: column;
+    gap: 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .menu-inicio a {
+    font-weight: 600;
+  }
+}
