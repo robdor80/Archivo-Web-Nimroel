@@ -208,6 +208,7 @@ body {
     width: calc(100% - 4rem);
     height: calc(100% - 4rem);
     margin: 2rem;
+    margin-top: 2rem;
     padding: 20px;
     border-radius: 10px;
     background: rgba(150, 190, 210, 0.02);
@@ -262,6 +263,7 @@ body {
     width: calc(100% - 4rem);
     height: calc(100% - 4rem);
     margin: 2rem;
+    margin-top: 2rem;
     padding: 20px;
     border-radius: 10px;
     background: rgba(150, 190, 210, 0.02);
@@ -315,6 +317,7 @@ body {
     width: calc(100% - 4rem);
     height: calc(100% - 4rem);
     margin: 2rem;
+    margin-top: 2rem;
     padding: 20px;
     border-radius: 12px;
     background: rgba(150, 190, 210, 0.03);
