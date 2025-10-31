@@ -141,3 +141,48 @@ main.cronicas-container {
   border: none;
   cursor: pointer;
 }
+
+/* ==========================================================
+   🔙 BOTONES DE NAVEGACIÓN (Volver y Terminal)
+   ========================================================== */
+
+.back-buttons {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.5rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+header.crumbs .back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #d8e7ff;
+  text-decoration: none;
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  background: rgba(30, 40, 60, 0.45);
+  border: 1px solid rgba(200, 220, 255, 0.25);
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+
+header.crumbs .back:hover {
+  background: rgba(60, 80, 120, 0.6);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(160, 210, 255, 0.3);
+}
+
+/* Estilo específico para el botón de la Terminal */
+.back-terminal {
+  background: rgba(40, 60, 80, 0.4);
+  border-color: rgba(150, 200, 255, 0.3);
+}
+
+.back-terminal:hover {
+  background: rgba(70, 100, 150, 0.65);
+  box-shadow: 0 0 16px rgba(150, 220, 255, 0.4);
+}

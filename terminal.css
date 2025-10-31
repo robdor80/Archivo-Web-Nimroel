@@ -809,6 +809,25 @@ body.horizontal .menu a:hover {
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
+/* ==========================================================
+   🔗 ENLACES EN FORMA DE TARJETA (clicables sin cambiar color)
+   ========================================================== */
+
+.enlace-tarjeta {
+  display: block;                /* toda la tarjeta clicable */
+  text-decoration: none;         /* sin subrayado */
+  color: inherit;                /* mantiene el color del texto */
+  cursor: pointer;               /* cambia el cursor a mano */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.enlace-tarjeta:hover {
+  transform: scale(1.03);        /* efecto igual que las demás tarjetas */
+  box-shadow: 0 0 30px rgba(100, 200, 255, 0.5);
+  text-decoration: none;         /* evita subrayado al pasar el ratón */
+  color: inherit;                /* mantiene color */
+}
+
 
 
 
