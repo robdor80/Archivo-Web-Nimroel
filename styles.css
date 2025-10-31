@@ -170,7 +170,7 @@ body {
     width: auto;
     height: auto;
     padding: 1rem;
-    margin: 40px 20px; /* ✅ margen superior/inferior 40px, laterales 20px */
+    margin: 15px; /* ✅ margen superior/inferior 40px, laterales 20px */
   }
 
   .cabecera h1 {
