@@ -258,3 +258,26 @@ select:focus {
     flex-direction: row;
   }
 }
+
+/* === Estado "Sin vista previa" === */
+.sin-vista-previa {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(150, 230, 255, 0.4);
+  border-radius: 10px;
+  color: #0c3642;
+  text-shadow: 0 0 8px rgba(150,230,255,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  min-height: 150px;
+  animation: brillarTexto 3s ease-in-out infinite alternate;
+}
+
+/* ✨ Animación de resplandor suave */
+@keyframes brillarTexto {
+  0% { text-shadow: 0 0 6px rgba(180,230,255,0.4); opacity: 0.8; }
+  100% { text-shadow: 0 0 14px rgba(200,250,255,0.9); opacity: 1; }
+}
+

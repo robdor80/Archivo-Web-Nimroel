@@ -93,9 +93,8 @@ form.addEventListener("submit", async (e) => {
     await setDoc(doc(db, coleccion, documento), datos);
     mensaje.textContent = `✅ Documento '${documento}' guardado correctamente en '${coleccion}'.`;
     console.log("✅ Guardado correctamente en Firestore.");
-
-    // Prueba directa de conexión
     console.log("🌐 Conexión activa con Firestore confirmada.");
+
     form.reset();
     actualizarVistaPrevia("imagen");
     actualizarVistaPrevia("sello");
@@ -142,29 +141,25 @@ function generarLluviaRunas() {
 window.addEventListener("DOMContentLoaded", generarLluviaRunas);
 
 // ===============================
-// 🖼️ VISTA PREVIA
+// 🖼️ VISTA PREVIA CON "SIN VISTA PREVIA"
 // ===============================
 window.actualizarVistaPrevia = function (tipo) {
   const url = campos[tipo].value.trim();
-  if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
-    vistas[tipo].src = url;
-    botonesAbrir[tipo].disabled = false;
-    botonesAbrir[tipo].onclick = () => window.open(url, "_blank");
-  } else {
-    vistas[tipo].src = "../../medios/img/runas/runa1.webp";
-    botonesAbrir[tipo].disabled = true;
-  }
-};
+  const vista = vistas[tipo];
+  const boton = botonesAbrir[tipo];
 
-// ===============================
-// 🧪 TEST MANUAL DE CONEXIÓN
-// ===============================
-window.testFirestore = async () => {
-  try {
-    const testDoc = doc(db, "prueba_conexion", "test");
-    await setDoc(testDoc, { estado: "ok", fecha: new Date().toISOString() });
-    console.log("✅ Firestore está respondiendo correctamente.");
-  } catch (err) {
-    console.error("❌ Error de conexión con Firestore:", err);
+  // Quitar cualquier estilo previo
+  vista.classList.remove("sin-vista-previa");
+  vista.textContent = "";
+
+  if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
+    vista.src = url;
+    boton.disabled = false;
+    boton.onclick = () => window.open(url, "_blank");
+  } else {
+    vista.removeAttribute("src");
+    vista.classList.add("sin-vista-previa");
+    vista.textContent = "Sin vista previa";
+    boton.disabled = true;
   }
 };
