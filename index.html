@@ -29,14 +29,14 @@
 
       <!-- Menú principal -->
       <nav class="menu-inicio">
-        <a href="#">Custodio</a>
+        <a href="#" id="btnCustodio">Custodio</a>
         <a href="#">Configuración</a>
         <a href="terminal.html">Terminal</a>
       </nav>
     </header>
 
     <!-- 💠 Disposición de Runas (dentro del cristal) -->
-    <section class="portal-runas">
+    <section class="portal-runas oculto" id="portalRunas">
       <div class="tabla-runas">
 
         <!-- Fila 1 -->
@@ -63,14 +63,14 @@
       </div>
 
       <!-- 🔐 Sección de acceso -->
-      <div class="acceso">
+      <div class="acceso oculto" id="zonaAcceso">
         <button id="btnGoogle">Iniciar sesión con Google</button>
         <button id="btnAcceso">Acceso</button>
       </div>
     </section>
   </div>
 
-  <!-- SCRIPT DE RUNAS -->
+  <!-- SCRIPT DE RUNAS VISUALES -->
   <script>
     const RUNAS = ["ᚠ","ᚢ","ᚦ","ᚨ","ᚱ","ᚲ","ᚷ","ᚹ","ᚺ","ᚾ","ᛁ","ᛃ","ᛇ","ᛉ","ᛊ","ᛏ","ᛒ","ᛖ","ᛗ","ᛚ","ᛜ","ᛞ","ᛟ"];
     function generarLluviaRunas() {
@@ -91,22 +91,34 @@
     window.addEventListener("DOMContentLoaded", generarLluviaRunas);
   </script>
 
+  <!-- SCRIPT PRINCIPAL -->
   <script>
-    // 🔄 Borra el caché de esta página al cargarla
-    if ('caches' in window) {
-      caches.keys().then(function(names) {
-        for (let name of names) caches.delete(name);
-      });
-    }
+    // Referencias
+    const btnCustodio = document.getElementById('btnCustodio');
+    const portalRunas = document.getElementById('portalRunas');
+    const zonaAcceso = document.getElementById('zonaAcceso');
 
-    // 🔁 Fuerza la recarga completa una vez (solo la primera vez)
+    // ✅ Ocultar por defecto
+    portalRunas.classList.add('oculto');
+    zonaAcceso.classList.add('oculto');
+
+    // 🎯 Mostrar solo runas al pulsar "Custodio"
+    btnCustodio.addEventListener('click', (e) => {
+      e.preventDefault();
+      portalRunas.classList.toggle('oculto');
+      zonaAcceso.classList.add('oculto');
+    });
+  </script>
+
+  <!-- 🔄 Limpieza de caché -->
+  <script>
+    if ('caches' in window) {
+      caches.keys().then(names => names.forEach(n => caches.delete(n)));
+    }
     if (!sessionStorage.getItem('cacheCleared')) {
       sessionStorage.setItem('cacheCleared', 'true');
       window.location.reload(true);
     }
   </script>
-
-  <!-- SCRIPT PRINCIPAL -->
-  <script src="terminal.js?v=1.4"></script>
 </body>
 </html>

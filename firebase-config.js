@@ -1,28 +1,44 @@
-// Importar módulos de Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+// ==========================================================
+// 🔥 CONFIGURACIÓN GENERAL DE FIREBASE — Archivo del Santuario
+// Incluye Firestore + Autenticación con Google
+// ==========================================================
 
-// Configuración de Firebase (usa tus propios datos)
+// Importar módulos principales de Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+// ==========================================================
+// ⚙️ Configuración de tu proyecto (mantén tus claves actuales)
+// ==========================================================
 const firebaseConfig = {
-  apiKey: "AIzaSy...",
+  apiKey: "AIzaSy...", // tus claves reales
   authDomain: "cronicas-de-nimroel.firebaseapp.com",
   projectId: "cronicas-de-nimroel",
   storageBucket: "cronicas-de-nimroel.appspot.com",
   messagingSenderId: "123456789",
   appId: "1:123456789:web:abcd1234"
-  };
+};
 
-// Inicializar Firebase y Firestore
+// ==========================================================
+// 🚀 Inicializar Firebase
+// ==========================================================
 const app = initializeApp(firebaseConfig);
+
+// Base de datos (por si la usas después)
 const db = getFirestore(app);
 
-// --- Prueba de lectura desde Firestore ---
-async function leerMensaje() {
-  const querySnapshot = await getDocs(collection(db, "pruebas"));
-  querySnapshot.forEach((doc) => {
-    console.log(doc.id, "=>", doc.data());
-  });
-}
+// ==========================================================
+// 🔐 Autenticación (login con Google)
+// ==========================================================
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
-// Ejecutar prueba al cargar
-leerMensaje();
+// Exportar todo lo necesario para otros scripts
+export { app, db, auth, provider, signInWithPopup, signOut, onAuthStateChanged };
