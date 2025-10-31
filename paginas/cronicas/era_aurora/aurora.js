@@ -26,16 +26,17 @@ function abrirModal(data) {
   document.getElementById("modal-custodio").textContent = data.custodio || "—";
   document.getElementById("modal-resumen").textContent = data.resumen || "";
 
+  const modalImagen = document.getElementById("modal-imagen");
   const sello = document.getElementById("modal-sello");
   const firma = document.getElementById("modal-firma");
-  const imagen = document.getElementById("modal-imagen");
 
   // Imagen principal en modal
   if (data.imagen) {
-    imagen.src = data.imagen;
-    imagen.style.display = "block";
+    modalImagen.src = data.imagen;
+    modalImagen.style.display = "block";
   } else {
-    imagen.style.display = "none";
+    modalImagen.src = "medios/img/placeholders/sin_imagen.webp";
+    modalImagen.style.display = "block";
   }
 
   // Sello
@@ -68,18 +69,25 @@ async function cargarCronicasAurora() {
       return;
     }
 
-    snapshot.forEach(doc => {
-      const data = doc.data();
+    snapshot.forEach(docSnap => {
+      const data = docSnap.data();
       const card = document.createElement("div");
       card.className = "cr-card";
+
+      // Imagen o marcador
+      const imagenSrc = data.imagen
+        ? data.imagen
+        : "medios/img/placeholders/sin_imagen.webp";
+
       card.innerHTML = `
         <div class="imagen-cronica">
-          <img src="${data.imagen || 'medios/img/runas/runa1.webp'}" alt="${data.titulo || 'Crónica sin título'}">
+          <img src="${imagenSrc}" alt="${data.titulo || "Sin título"}">
         </div>
         <h3>${data.titulo || "Sin título"}</h3>
         <p><strong>Custodio:</strong> ${data.custodio || "—"}</p>
         <p>${data.resumen || ""}</p>
       `;
+
       card.addEventListener("click", () => abrirModal(data));
       contenedor.appendChild(card);
     });
