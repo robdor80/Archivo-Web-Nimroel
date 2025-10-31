@@ -87,6 +87,12 @@ input, textarea {
   font-family: 'Cinzel', serif;
   resize: none;
 }
+
+input#coleccion,
+input#documento {
+  text-transform: none !important;
+}
+
 input:focus, textarea:focus {
   outline: none;
   border-color: rgba(150, 230, 255, 0.8);
