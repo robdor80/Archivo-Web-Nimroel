@@ -34,36 +34,37 @@
       </nav>
     </header>
 
-    <!-- 💠 Disposición de Runas -->
-    <section class="portal-runas oculto" id="portalRunas">
-      <div class="tabla-runas">
-        <div></div>
-        <a href="#" class="runa-enlace" data-num="1"><img src="medios/img/runas/runa1.webp" alt="Runa 1"></a>
-        <div></div>
-        <a href="#" class="runa-enlace" data-num="2"><img src="medios/img/runas/runa2.webp" alt="Runa 2"></a>
-        <div></div>
+    <!-- 💠 Disposición de Runas (dentro del cristal) -->
+<section class="portal-runas oculto" id="portalRunas">
+  <div class="tabla-runas">
+    <!-- Fila 1 -->
+    <div></div>
+    <a href="#" class="runa-enlace" data-num="1"><img src="medios/img/runas/runa1.webp" alt="Runa 1"></a>
+    <div></div>
+    <a href="#" class="runa-enlace" data-num="2"><img src="medios/img/runas/runa2.webp" alt="Runa 2"></a>
+    <div></div>
 
-        <a href="#" class="runa-enlace" data-num="3"><img src="medios/img/runas/runa3.webp" alt="Runa 3"></a>
-        <div></div>
-        <a href="#" class="runa-enlace" data-num="4"><img src="medios/img/runas/runa4.webp" alt="Runa 4"></a>
-        <div></div>
-        <a href="#" class="runa-enlace" data-num="5"><img src="medios/img/runas/runa5.webp" alt="Runa 5"></a>
+    <!-- Fila 2 -->
+    <a href="#" class="runa-enlace" data-num="3"><img src="medios/img/runas/runa3.webp" alt="Runa 3"></a>
+    <div></div>
+    <a href="#" class="runa-enlace" data-num="4"><img src="medios/img/runas/runa4.webp" alt="Runa 4"></a>
+    <div></div>
+    <a href="#" class="runa-enlace" data-num="5"><img src="medios/img/runas/runa5.webp" alt="Runa 5"></a>
 
-        <div></div>
-        <a href="#" class="runa-enlace" data-num="6"><img src="medios/img/runas/runa6.webp" alt="Runa 6"></a>
-        <div></div>
-        <a href="#" class="runa-enlace" data-num="7"><img src="medios/img/runas/runa7.webp" alt="Runa 7"></a>
-        <div></div>
-      </div>
-
-      <!-- 🔐 Zona de acceso -->
-      <div class="acceso oculto" id="zonaAcceso">
-        <button id="btnGoogle">Iniciar sesión con Google</button>
-        <button id="btnAcceso">Acceso</button>
-        <div id="mensajeSantuario" class="mensaje-santuario oculto"></div>
-      </div>
-    </section>
+    <!-- Fila 3 -->
+    <div></div>
+    <a href="#" class="runa-enlace" data-num="6"><img src="medios/img/runas/runa6.webp" alt="Runa 6"></a>
+    <div></div>
+    <a href="#" class="runa-enlace" data-num="7"><img src="medios/img/runas/runa7.webp" alt="Runa 7"></a>
+    <div></div>
   </div>
+
+  <!-- 🔐 Zona de acceso -->
+  <div class="acceso oculto" id="zonaAcceso">
+    <button id="btnGoogle">Iniciar sesión con Google</button>
+    <button id="btnAcceso">Acceso</button>
+  </div>
+</section>
 
   <!-- 🌧️ Lluvia de runas decorativa -->
   <script>
@@ -87,55 +88,58 @@
   </script>
 
   <!-- ⚙️ Script principal -->
-  <script>
-    const btnCustodio = document.getElementById('btnCustodio');
-    const portalRunas = document.getElementById('portalRunas');
-    const zonaAcceso = document.getElementById('zonaAcceso');
-    const runas = document.querySelectorAll('.runa-enlace');
+<script>
+  const btnCustodio = document.getElementById('btnCustodio');
+  const portalRunas = document.getElementById('portalRunas');
+  const zonaAcceso = document.getElementById('zonaAcceso');
+  const runas = document.querySelectorAll('.runa-enlace');
 
-    let secuenciaCorrecta = ["6", "7", "7", "4"];
-    let secuenciaActual = [];
-    let bloqueado = false;
+  let secuenciaCorrecta = ["6", "7", "7", "4"];
+  let secuenciaActual = [];
+  let bloqueado = false;
 
-    portalRunas.classList.add('oculto');
+  // Ocultar todo al inicio
+  portalRunas.classList.add('oculto');
+  zonaAcceso.classList.add('oculto');
+
+  // Mostrar / ocultar runas al pulsar "Custodio"
+  btnCustodio.addEventListener('click', (e) => {
+    e.preventDefault();
+    portalRunas.classList.toggle('oculto');
     zonaAcceso.classList.add('oculto');
+    secuenciaActual = [];
+  });
 
-    btnCustodio.addEventListener('click', (e) => {
+  // Controlar pulsaciones de runas con retardo
+  runas.forEach(runa => {
+    runa.addEventListener('click', (e) => {
       e.preventDefault();
-      portalRunas.classList.toggle('oculto');
-      zonaAcceso.classList.add('oculto');
-      secuenciaActual = [];
-    });
+      if (bloqueado) return;
+      bloqueado = true;
 
-    runas.forEach(runa => {
-      runa.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (bloqueado) return;
-        bloqueado = true;
+      const num = runa.dataset.num;
+      secuenciaActual.push(num);
 
-        const num = runa.dataset.num;
-        secuenciaActual.push(num);
+      if (secuenciaActual.length === 4) {
+        if (JSON.stringify(secuenciaActual) === JSON.stringify(secuenciaCorrecta)) {
+          runas.forEach(r => r.classList.remove('runa-error'));
+          runa.classList.add('runa-acierto');
 
-        if (secuenciaActual.length === 4) {
-          if (JSON.stringify(secuenciaActual) === JSON.stringify(secuenciaCorrecta)) {
-            runas.forEach(r => r.classList.remove('runa-error'));
-            runa.classList.add('runa-acierto');
-            setTimeout(() => {
-              zonaAcceso.classList.remove('oculto');
-              zonaAcceso.classList.add('aparecer', 'mostrar');
-            }, 500);
-          } else {
-            runas.forEach(r => r.classList.add('runa-error'));
-            setTimeout(() => {
-              runas.forEach(r => r.classList.remove('runa-error'));
-            }, 600);
-          }
-          secuenciaActual = [];
+          setTimeout(() => {
+            zonaAcceso.classList.remove('oculto');
+            zonaAcceso.classList.add('aparecer', 'mostrar');
+          }, 500);
+        } else {
+          runas.forEach(r => r.classList.add('runa-error'));
+          setTimeout(() => runas.forEach(r => r.classList.remove('runa-error')), 600);
         }
-        setTimeout(() => bloqueado = false, 300);
-      });
+        secuenciaActual = [];
+      }
+
+      setTimeout(() => bloqueado = false, 300);
     });
-  </script>
+  });
+</script>
 
   <!-- ==========================================================
        🔐 LOGIN CON GOOGLE — SOLO PARA ROB.DOR.80@GMAIL.COM
