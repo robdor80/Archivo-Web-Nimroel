@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
+body {
+  margin: 0;
+  height: 100dvh;
+  background: #bfc9c9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Cinzel', serif;
+  overflow: hidden;
+}
+
+/* Fondo de runas */
+#runas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.runa {
+  position: absolute;
+  color: #0c3642;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+               0 0 20px rgba(100, 200, 255, 0.5);
+  opacity: 0.9;
+  animation: caer linear infinite;
+}
+@keyframes caer {
+  0% { transform: translateY(-10vh); opacity: 0.2; }
+  10% { opacity: 1; }
+  100% { transform: translateY(110vh); opacity: 0.1; }
+}
+
+/* Cristal */
+.fondo-cristal.inicio {
+  width: 95%;
+  max-width: 1200px;
+  padding: 2rem;
+  border-radius: 15px;
+  background: rgba(150, 190, 210, 0.05);
+  backdrop-filter: blur(25px) saturate(140%);
+  border: 1px solid rgba(200, 230, 255, 0.3);
+  box-shadow: 0 0 40px rgba(120, 200, 255, 0.4),
+              inset 0 0 80px rgba(180, 230, 255, 0.2);
+  animation: brilloCristal 4s ease-in-out infinite alternate;
+  z-index: 1;
+}
+@keyframes brilloCristal {
+  0% { box-shadow: 0 0 25px rgba(120, 200, 255, 0.3), inset 0 0 60px rgba(180, 230, 255, 0.2); }
+  100% { box-shadow: 0 0 60px rgba(150, 230, 255, 0.6), inset 0 0 100px rgba(200, 240, 255, 0.35); }
+}
+
+/* Estructura */
+.contenedor-formulario {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.formulario-cronicas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Campos */
+label {
+  color: #0c3642;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+input, textarea {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(200, 230, 255, 0.4);
+  border-radius: 6px;
+  color: #0c3642;
+  padding: 0.5rem;
+  font-family: 'Cinzel', serif;
+  resize: none;
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: rgba(150, 230, 255, 0.8);
+  box-shadow: 0 0 10px rgba(150, 230, 255, 0.4);
+}
+
+/* Panel de vistas */
+.panel-vistas {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.vista-previa {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(150, 230, 255, 0.4);
+  border-radius: 12px;
+  padding: 0.8rem;
+  text-align: center;
+  color: #0c3642;
+  box-shadow: inset 0 0 30px rgba(150, 230, 255, 0.2);
+}
+.vista-previa h3 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+.vista-previa img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(180, 240, 255, 0.3);
+  margin-bottom: 0.5rem;
+}
+.vista-previa button {
+  background: none;
+  border: 1px solid rgba(150, 230, 255, 0.6);
+  border-radius: 8px;
+  color: #0c3642;
+  font-family: 'Cinzel', serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 8px rgba(180, 240, 255, 0.6);
+}
+.vista-previa button:hover:enabled {
+  color: #eafaff;
+  background: rgba(150, 230, 255, 0.1);
+  box-shadow: 0 0 10px rgba(180, 240, 255, 0.3);
+}
+.vista-previa button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Botones */
+.botones {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 950px) {
+  .contenedor-formulario {
+    flex-direction: column;
+    align-items: center;
+  }
+  .panel-vistas {
+    width: 90%;
+    max-width: 400px;
+  }
+}
