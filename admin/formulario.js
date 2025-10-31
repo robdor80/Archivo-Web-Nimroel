@@ -2,17 +2,21 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebas
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-// 🔥 Configuración Firebase
+// ===============================
+// 🔥 CONFIGURACIÓN DE FIREBASE
+// ===============================
 const firebaseConfig = {
   apiKey: "AIzaSyD3NEbGcUwBxwoOGBPO8PukmPHcfl42bE8",
   authDomain: "cronicas-de-nimroel.firebaseapp.com",
   projectId: "cronicas-de-nimroel",
-  storageBucket: "cronicas-de-nimroel.firebasestorage.app",
+  storageBucket: "cronicas-de-nimroel.appspot.com", // ✅ corregido (.app → .appspot.com)
   messagingSenderId: "689465837057",
   appId: "1:689465837057:web:aecddb8b4a247bfe0de200"
 };
 
-// 🔧 Inicialización
+// ===============================
+// ⚙️ INICIALIZACIÓN
+// ===============================
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
@@ -21,7 +25,9 @@ const form = document.getElementById("formCronica");
 const mensaje = document.getElementById("mensaje");
 const btnSalir = document.getElementById("btnSalir");
 
-// 🖼️ Referencias a campos y vistas
+// ===============================
+// 🖼️ REFERENCIAS
+// ===============================
 const campos = {
   imagen: document.getElementById("imagen"),
   sello: document.getElementById("sello"),
@@ -38,25 +44,32 @@ const botonesAbrir = {
   firma: document.getElementById("abrir-firma")
 };
 
-// 🔐 Verificar sesión (solo Rob.Dor)
+// ===============================
+// 🔐 VERIFICAR SESIÓN
+// ===============================
 onAuthStateChanged(auth, (user) => {
   if (!user || user.email !== "rob.dor.80@gmail.com") {
+    console.warn("⚠️ Usuario no autorizado o sesión no iniciada.");
     window.location.href = "../../index.html";
+  } else {
+    console.log("✅ Usuario autenticado:", user.email);
   }
 });
 
-// 💾 Guardar crónica
+// ===============================
+// 💾 GUARDAR CRÓNICA / DOCUMENTO
+// ===============================
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  const coleccion = document.getElementById("coleccion")?.value.trim().toLowerCase() || "cronicas";
   const documento = document.getElementById("documento").value.trim().toLowerCase();
 
-  if (!documento) {
-    mensaje.textContent = "⚠️ Debes indicar el nombre del documento (ejemplo: aurora_005).";
+  if (!coleccion || !documento) {
+    mensaje.textContent = "⚠️ Debes indicar colección y documento.";
     return;
   }
 
-  // Obtenemos los datos
   const datos = {
     titulo: document.getElementById("titulo").value.trim(),
     era: document.getElementById("era").value.trim(),
@@ -70,24 +83,26 @@ form.addEventListener("submit", async (e) => {
     firma: campos.firma.value.trim()
   };
 
+  console.log(`📦 Intentando guardar en: ${coleccion}/${documento}`, datos);
+
   try {
-    // 👇 Guardamos directamente dentro de la colección "cronicas"
-    await setDoc(doc(db, "cronicas", documento), datos);
+    await setDoc(doc(db, coleccion, documento), datos);
+    mensaje.textContent = `✅ Documento '${documento}' guardado correctamente en '${coleccion}'.`;
+    console.log("✅ Guardado correctamente en Firestore.");
 
-    mensaje.textContent = "✅ Crónica guardada correctamente en la colección 'cronicas'.";
     form.reset();
-
-    // Reiniciar vistas previas
     actualizarVistaPrevia("imagen");
     actualizarVistaPrevia("sello");
     actualizarVistaPrevia("firma");
   } catch (error) {
-    console.error("Error al guardar:", error);
+    console.error("❌ Error al guardar:", error);
     mensaje.textContent = "❌ Error al guardar la crónica.";
   }
 });
 
-// 🚪 Salir (cerrar sesión)
+// ===============================
+// 🚪 SALIR (Cerrar sesión)
+// ===============================
 btnSalir.addEventListener("click", async () => {
   try {
     await signOut(auth);
@@ -97,12 +112,10 @@ btnSalir.addEventListener("click", async () => {
   }
 });
 
-// 🌧️ Lluvia de runas
-const RUNAS = [
-  "ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ", "ᚾ",
-  "ᛁ", "ᛃ", "ᛇ", "ᛉ", "ᛊ", "ᛏ", "ᛒ", "ᛖ", "ᛗ", "ᛚ",
-  "ᛜ", "ᛞ", "ᛟ"
-];
+// ===============================
+// 🌧️ LLUVIA DE RUNAS
+// ===============================
+const RUNAS = ["ᚠ","ᚢ","ᚦ","ᚨ","ᚱ","ᚲ","ᚷ","ᚹ","ᚺ","ᚾ","ᛁ","ᛃ","ᛇ","ᛉ","ᛊ","ᛏ","ᛒ","ᛖ","ᛗ","ᛚ","ᛜ","ᛞ","ᛟ"];
 function generarLluviaRunas() {
   const capa = document.getElementById("runas");
   capa.innerHTML = "";
@@ -120,7 +133,9 @@ function generarLluviaRunas() {
 }
 window.addEventListener("DOMContentLoaded", generarLluviaRunas);
 
-// 🖼️ Vista previa dinámica
+// ===============================
+// 🖼️ VISTA PREVIA
+// ===============================
 window.actualizarVistaPrevia = function (tipo) {
   const url = campos[tipo].value.trim();
   if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
