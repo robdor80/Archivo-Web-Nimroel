@@ -310,3 +310,13 @@ body {
     padding: 20px;
   }
 }
+
+/* ==========================================================
+   ⚠️ Corrección definitiva — Forzar ocultamiento total
+   ========================================================== */
+.oculto {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
