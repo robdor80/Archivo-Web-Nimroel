@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crónicas del Santuario — Archivos</title>
+
+  <!-- BASE PARA GITHUB -->
+  <base href="/Cronicas-de-Nimroel/">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="paginas/cronicas/cronicas.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#0e111c">
+</head>
+
+<body>
+  <header class="crumbs">
+    <a class="back" href="index.html">
+      <svg viewBox="0 0 24 24" width="18" height="18">
+        <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Inicio</span>
+    </a>
+    <h1>Crónicas del Santuario</h1>
+    <p class="subtitle">Consulta los registros históricos ordenados por Era</p>
+  </header>
+
+  <!-- CONTENEDOR DE TODAS LAS ERAS -->
+  <main class="eras-container">
+
+    <a href="paginas/cronicas/era_aurora/index.html" class="era-panel-link">
+      <section class="era-panel">
+        <h2>Era de la Aurora</h2>
+      </section>
+    </a>
+
+    <a href="paginas/cronicas/era_despertar/index.html" class="era-panel-link">
+      <section class="era-panel">
+        <h2>Era del Despertar</h2>
+      </section>
+    </a>
+
+    <a href="paginas/cronicas/era_conocimiento/index.html" class="era-panel-link">
+      <section class="era-panel">
+        <h2>Era del Conocimiento</h2>
+      </section>
+    </a>
+
+    <a href="paginas/cronicas/era_poder/index.html" class="era-panel-link">
+      <section class="era-panel">
+        <h2>Era del Poder</h2>
+      </section>
+    </a>
+
+  </main>
+
+  <!-- Scripts -->
+  <script type="module" src="paginas/cronicas/firebase-config.js"></script>
+  <script src="paginas/cronicas/cronicas.js" type="module"></script>
+</body>
+</html>

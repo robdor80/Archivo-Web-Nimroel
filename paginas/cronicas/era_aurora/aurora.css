@@ -1,0 +1,143 @@
+/* ==========================================================
+   ERA DE LA AURORA — ESTILO VISUAL
+   ========================================================== */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(900px 520px at 70% -10%, #171a2a 0%, #0e111c 55%, #0a0b12 100%);
+  overflow-x: hidden;
+  color: #eaf2ff;
+  font-family: "Cinzel", serif;
+}
+
+/* CABECERA */
+header.crumbs {
+  position: relative;
+  text-align: center;
+  padding: 4rem 1rem 2.5rem;
+}
+
+header.crumbs .back {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #d8e7ff;
+  text-decoration: none;
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  background: rgba(30, 40, 60, 0.45);
+  border: 1px solid rgba(200, 220, 255, 0.25);
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+header.crumbs .back:hover {
+  background: rgba(60, 80, 120, 0.6);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(160, 210, 255, 0.3);
+}
+
+header.crumbs h1 {
+  font-size: clamp(2.6rem, 5vw, 3.4rem);
+  font-weight: 700;
+  color: #d7e9ff;
+  text-shadow: 0 0 25px rgba(180, 220, 255, 0.5);
+}
+
+header.crumbs .subtitle {
+  font-size: 1.1rem;
+  color: #a5b6d9;
+  opacity: 0.9;
+}
+
+/* CONTENEDOR PRINCIPAL */
+main.cronicas-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 3rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* TARJETAS */
+.cr-card {
+  background: rgba(180, 210, 255, 0.05);
+  border: 1px solid rgba(180, 210, 255, 0.18);
+  border-radius: 16px;
+  padding: 1.6rem;
+  backdrop-filter: blur(14px);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.cr-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(220, 230, 255, 0.35);
+  box-shadow: 0 0 35px rgba(180, 230, 255, 0.25);
+}
+
+.cr-card h3 {
+  color: #fff;
+  font-size: 1.25rem;
+  margin-bottom: 0.3rem;
+}
+
+.cr-card p {
+  color: #a8bde2;
+  font-size: 0.95rem;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 50;
+}
+
+.modal.hidden { display: none; }
+
+.modal-content {
+  background: rgba(20, 25, 40, 0.95);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  color: #dfe8ff;
+  text-align: center;
+  position: relative;
+}
+
+.modal-imagenes {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.modal-imagenes img {
+  max-width: 140px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 14px;
+  font-size: 1.6rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}

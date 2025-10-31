@@ -1,0 +1,79 @@
+// ==========================================================
+// CRÓNICAS — ERA DE LA AURORA
+// Carga dinámica de registros desde Firestore
+// ==========================================================
+
+import { db } from "../firebase-config.js";
+import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+// Elementos del DOM
+const contenedor = document.getElementById("contenedor-aurora");
+const modal = document.getElementById("modal-cronica");
+const cerrarModal = document.getElementById("cerrarModal");
+
+// Cerrar modal
+if (cerrarModal && modal) {
+  cerrarModal.addEventListener("click", () => modal.classList.add("hidden"));
+  modal.addEventListener("click", e => {
+    if (e.target === modal) modal.classList.add("hidden");
+  });
+}
+
+// Mostrar datos en modal
+function abrirModal(data) {
+  document.getElementById("modal-titulo").textContent = data.titulo || "Sin título";
+  document.getElementById("modal-era").textContent = data.era || "Desconocida";
+  document.getElementById("modal-custodio").textContent = data.custodio || "—";
+  document.getElementById("modal-resumen").textContent = data.resumen || "";
+
+  const sello = document.getElementById("modal-sello");
+  const firma = document.getElementById("modal-firma");
+
+  if (data.sello) {
+    sello.src = data.sello;
+    sello.style.display = "inline-block";
+  } else {
+    sello.style.display = "none";
+  }
+
+  if (data.firma) {
+    firma.src = data.firma;
+    firma.style.display = "inline-block";
+  } else {
+    firma.style.display = "none";
+  }
+
+  modal.classList.remove("hidden");
+}
+
+
+// Cargar crónicas filtradas por Era
+async function cargarCronicasAurora() {
+  try {
+    const q = query(collection(db, "cronicas"), where("era", "==", "Era de la Aurora"));
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const card = document.createElement("div");
+      card.className = "cr-card";
+      card.innerHTML = `
+        <h3>${data.titulo || "Sin título"}</h3>
+        <p><strong>Custodio:</strong> ${data.custodio || "—"}</p>
+        <p>${data.resumen || ""}</p>
+      `;
+      card.addEventListener("click", () => abrirModal(data));
+      contenedor.appendChild(card);
+    });
+
+    if (snapshot.empty) {
+      contenedor.innerHTML = `<p style="text-align:center;color:#a8bde2;">No hay crónicas registradas para esta era.</p>`;
+    }
+
+  } catch (error) {
+    console.error("❌ Error al cargar las crónicas:", error);
+  }
+}
+
+// Ejecutar carga
+cargarCronicasAurora();

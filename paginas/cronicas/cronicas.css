@@ -1,0 +1,189 @@
+/* ==========================================================
+   CRÓNICAS DEL SANTUARIO — ESTILO FINAL CON TARJETAS ENLACE Y FONDO EN PC/TABLET
+   ========================================================== */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(900px 520px at 70% -10%, #171a2a 0%, #0e111c 55%, #0a0b12 100%);
+  overflow-x: hidden;
+  color: #eaf2ff;
+  font-family: "Cinzel", serif;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ==========================================================
+   FONDO DE IMAGEN (solo visible en PC y tablet)
+   ========================================================== */
+@media (min-width: 700px) {
+  body {
+    background-image: 
+      linear-gradient(
+        rgba(10, 12, 20, 0.6),
+        rgba(10, 12, 20, 0.8)
+      ),
+      url("../../medios/img/fondos/fondo_cronicas.webp");
+  }
+}
+
+/* ==========================================================
+   CABECERA LIMPIA
+   ========================================================== */
+header.crumbs {
+  position: relative;
+  text-align: center;
+  padding: 4rem 1rem 2.5rem;
+  background: none;
+  box-shadow: none;
+  border: none;
+  z-index: 2;
+}
+
+header.crumbs .back {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #d8e7ff;
+  text-decoration: none;
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  background: rgba(30, 40, 60, 0.45);
+  border: 1px solid rgba(200, 220, 255, 0.25);
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+header.crumbs .back:hover {
+  background: rgba(60, 80, 120, 0.6);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(160, 210, 255, 0.3);
+}
+
+header.crumbs h1 {
+  font-size: clamp(2.8rem, 6vw, 3.6rem);
+  font-weight: 700;
+  color: #d7e9ff;
+  text-shadow: 0 0 25px rgba(180, 220, 255, 0.5);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.8rem;
+}
+
+header.crumbs .subtitle {
+  font-size: 1.1rem;
+  color: #a5b6d9;
+  opacity: 0.9;
+}
+
+/* ==========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================== */
+main.eras-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2.5rem;
+  padding: 2rem 3rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ==========================================================
+   ENLACES DE ERA (clickables)
+   ========================================================== */
+.era-panel-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.era-panel-link:hover {
+  transform: translateY(-4px);
+  cursor: pointer;
+}
+
+/* ==========================================================
+   PANEL DE ERA
+   ========================================================== */
+.era-panel {
+  background: rgba(180, 210, 255, 0.03);
+  border: 1px solid rgba(180, 210, 255, 0.18);
+  border-radius: 18px;
+  padding: 2.2rem;
+  backdrop-filter: blur(18px) brightness(1.1);
+  -webkit-backdrop-filter: blur(18px) brightness(1.1);
+  box-shadow: 0 0 25px rgba(150, 200, 255, 0.08);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.era-panel:hover {
+  border-color: rgba(220, 230, 255, 0.35);
+  box-shadow: 0 0 45px rgba(180, 230, 255, 0.25);
+}
+
+.era-panel h2 {
+  color: #eaf2ff;
+  text-align: center;
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 12px rgba(180, 220, 255, 0.25);
+}
+
+.era-panel p {
+  color: #a8bde2;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 0.6rem;
+  line-height: 1.4;
+}
+
+/* ==========================================================
+   MEDIA QUERIES
+   ========================================================== */
+@media (max-width: 1024px) {
+  main.eras-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+  main.eras-container {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+
+  header.crumbs h1 {
+    font-size: clamp(2rem, 7vw, 2.8rem);
+  }
+
+  .era-panel p {
+    font-size: 0.95rem;
+  }
+
+  /* En móvil, fondo liso sin imagen */
+  body {
+    background: radial-gradient(900px 520px at 70% -10%, #171a2a 0%, #0e111c 55%, #0a0b12 100%);
+    background-image: none;
+  }
+}
+
+/* Tarjetas de Era como enlaces */
+.era-panel-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.era-panel {
+  cursor: pointer;
+}

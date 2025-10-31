@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Santuario de Nimroel — Terminal de Cristal</title>
+
+  <!-- ⚙️ PARA GITHUB (descomentar antes de subir):
+  <base href="/Cronicas-de-Nimroel/"> -->
+
+  <link rel="stylesheet" href="terminal.css" />
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+  <meta name="theme-color" content="#0e111c">
+</head>
+
+<body>
+  <!-- 🌌 Capa de runas flotantes -->
+  <div id="runas"></div>
+
+  <!-- 💠 Cristal principal -->
+  <div class="fondo-cristal">
+    <h1>Terminal del Archivo</h1>
+    <!-- ⚙️ Menú de tres puntos (solo visible en PC) -->
+    <div class="menu-pc-container">
+      <div class="menu-pc-puntos" id="menuPcPuntos">⋮</div>
+      <div class="menu-pc" id="menuPc">
+        <a href="#">Custodio</a>
+        <a href="#" id="musicaPc">Activar canto</a>
+      </div>
+    </div>
+
+
+    <!-- Menú hamburguesa -->
+    <div class="menu-container">
+      <div class="hamburguesa" id="hamburguesa">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="menu" id="menu">
+        <a href="#">Custodio</a>
+        <a href="#">Música</a>
+      </div>
+    </div>
+
+    <!-- 🔷 Tarjetas -->
+    <div class="tarjeta azul">Crónicas de Nimroel</div>
+    <div class="tarjeta azul">Magia</div>
+    <div class="tarjeta azul">Mapas</div>
+    <div class="tarjeta azul">Personajes</div>
+    <div class="tarjeta azul">Razas</div>
+    <div class="tarjeta azul">Línea temporal</div>
+  </div>
+
+  <!-- SCRIPT PRINCIPAL -->
+  <script src="terminal.js"></script>
+
+</body>
+</html>
