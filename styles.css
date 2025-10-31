@@ -192,7 +192,7 @@ body {
     display: flex;
     flex-direction: row; /* ✅ horizontal */
     justify-content: center;
-    align-items: center;
+    /*align-items: center;*/
     gap: 1rem;
     font-size: 1rem;
   }
