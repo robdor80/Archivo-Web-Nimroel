@@ -867,6 +867,22 @@ body.horizontal .menu a:hover {
   height: 100%;                  /* ocupa toda la altura de la tarjeta */
 }
 
+/* ==========================================================
+   🧭 FIX — Centrado perfecto en móvil vertical
+   ========================================================== */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .tarjeta,
+  .enlace-tarjeta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    height: auto !important;
+    min-height: 15vh !important;  /* altura más coherente */
+  }
+}
+
+
 
 
 
