@@ -2,68 +2,355 @@
    💠 ESTILOS GENERALES (BASE)
    ================================ */
 
-body {
-  margin: 0;
-  height: 100dvh;
-  background: #BFC9C9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Cinzel', serif;
-  overflow: hidden;
-}
+/* Aquí dejaremos cosas comunes más adelante si hiciera falta,
+   pero por ahora el diseño se activa solo con las media queries
+   de móvil y tablet vertical. */
 
-/* --- Cristal principal --- */
-.fondo-cristal {
-  width: 90%;
-  height: 90%;
-  border-radius: 10px;
-  position: relative;
-  background: rgba(150, 190, 210, 0.01);
-  backdrop-filter: blur(25px) saturate(5%);
-  -webkit-backdrop-filter: blur(25px) saturate(140%);
-  border: 1px solid rgba(200, 230, 255, 0.3);
-  box-shadow:
-    0 0 25px rgba(120, 200, 255, 0.3),
-    inset 0 0 60px rgba(180, 230, 255, 0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scroll-behavior: smooth;
-  animation: brilloCristal 4s ease-in-out infinite alternate;
-}
 
-@keyframes brilloCristal {
-  0% {
+/* ================================
+   📱 MÓVIL EN VERTICAL
+   ================================ */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+
+  body {
+    margin: 0;
+    height: 100dvh;
+    background: #BFC9C9; /* ✅ Tu fondo original restaurado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: 'Cinzel', serif;
+  }
+
+  /* --- Cristal principal --- */
+  .fondo-cristal {
+    width: 90%;
+    height: calc(90% - 10px);
+    border-radius: 10px;
+    position: relative;
+    background: rgba(150, 190, 210, 0.01);
+    backdrop-filter: blur(25px) saturate(5%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border: 1px solid rgba(200, 230, 255, 0.3);
     box-shadow:
       0 0 25px rgba(120, 200, 255, 0.3),
       inset 0 0 60px rgba(180, 230, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+    padding: 3% 0;
+    animation: brilloCristal 4s ease-in-out infinite alternate;
   }
-  100% {
-    box-shadow:
-      0 0 60px rgba(150, 230, 255, 0.6),
-      inset 0 0 100px rgba(200, 240, 255, 0.35);
+
+  /* 👇 Ocultar la barra de scroll */
+  .fondo-cristal::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  .fondo-cristal {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  @keyframes brilloCristal {
+    0% {
+      box-shadow:
+        0 0 25px rgba(120, 200, 255, 0.3),
+        inset 0 0 60px rgba(180, 230, 255, 0.2);
+    }
+    100% {
+      box-shadow:
+        0 0 60px rgba(150, 230, 255, 0.6),
+        inset 0 0 100px rgba(200, 240, 255, 0.35);
+    }
+  }
+
+  /* --- Título centrado --- */
+  h1 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: bold;
+    color: #0c3642;
+    text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+                 0 0 20px rgba(100, 200, 255, 0.5);
+    margin: 0;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  /* --- Menú hamburguesa --- */
+  .menu-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 15px 0 25px 0;
+    padding-right: 5%;
+    position: relative;
+  }
+
+  .hamburguesa {
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .hamburguesa span {
+    display: block;
+    height: 4px;
+    border-radius: 2px;
+    background: #0c3642;
+    box-shadow: 0 0 6px rgba(150, 220, 255, 0.7);
+    transition: all 0.3s ease;
+  }
+
+  .hamburguesa.abierto span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburguesa.abierto span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburguesa.abierto span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+  /* --- Panel del menú flotante --- */
+  .menu {
+    position: absolute;
+    top: 35px;
+    right: 5%;
+    background: rgba(240, 250, 255, 0.9);
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(15px) saturate(150%);
+    border: 1px solid rgba(180, 220, 255, 0.6);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(80, 150, 200, 0.4);
+    text-align: left;
+    padding: 12px 22px;
+    display: none;
+    animation: aparecer 0.3s ease forwards;
+    z-index: 10;
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .menu a {
+    display: block;
+    color: black;
+    text-decoration: none;
+    margin: 10px 0;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  .menu a:hover {
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* --- Tarjetas mágicas --- */
+  .tarjeta {
+    width: 80%;
+    min-height: 15%;
+    margin: 2% 0;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    letter-spacing: 0.5px;
+    font-size: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .tarjeta:hover { transform: scale(1.03); }
+
+  /* 💠 Todas las tarjetas son azules */
+  .roja,
+  .amarilla,
+  .verde,
+  .violeta,
+  .azul,
+  .naranja {
+    background: rgba(0,128,255,0.1);
+    border: 1px solid rgba(100,180,255,0.4);
+    box-shadow: 0 0 25px rgba(0,128,255,0.4);
   }
 }
 
-/* --- Título --- */
-h1 {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: bold;
-  color: #0c3642;
-  text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
-               0 0 20px rgba(100, 200, 255, 0.5);
-  margin: 20px 0;
-  letter-spacing: 1px;
-  text-align: center;
+
+/* ================================
+   💻 TABLET EN VERTICAL
+   ================================ */
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #BFC9C9;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+  }
+
+  .fondo-cristal {
+    width: min(90vw, 900px);
+    height: 90%;
+    border-radius: 10px;
+    position: relative;
+    background: rgba(150, 190, 210, 0.01);
+    backdrop-filter: blur(25px) saturate(5%);
+    -webkit-backdrop-filter: blur(25px) saturate(160%);
+    border: 1px solid rgba(170, 230, 255, 0.8);
+    box-shadow:
+      0 0 40px rgba(120, 220, 255, 0.7),
+      inset 0 0 80px rgba(200, 240, 255, 0.5);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    padding: 3% 0;
+    animation: brilloCristal 4s ease-in-out infinite alternate;
+  }
+
+  .fondo-cristal::-webkit-scrollbar { display: none; }
+
+  h1 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: bold;
+    color: #0c3642;
+    text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+                 0 0 20px rgba(100, 200, 255, 0.5);
+    margin: 0;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  .menu-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 15px 0 25px 0;
+    padding-right: 5%;
+    position: relative;
+  }
+
+  .tarjeta {
+    width: 80%;
+    min-height: 15%;
+    margin: 2% 0;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(0,128,255,0.1);
+    border: 1px solid rgba(100,180,255,0.4);
+    box-shadow: 0 0 25px rgba(0,128,255,0.4);
+  }
+
+  .tarjeta:hover { transform: scale(1.03); }
+}
+
+/* 🔧 Asegura que el menú hamburguesa se muestre en tablet vertical */
+.hamburguesa {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
 }
 
 /* ==========================================================
-   💧 LLUVIA DE RUNAS (EFECTO)
+   🍔 FIX — Mostrar menú hamburguesa en TABLET VERTICAL
    ========================================================== */
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+
+  .hamburguesa {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+    z-index: 20;
+  }
+
+  .hamburguesa span {
+    display: block;
+    height: 4px;
+    border-radius: 2px;
+    background: #0c3642;
+    box-shadow: 0 0 6px rgba(150, 220, 255, 0.7);
+    transition: all 0.3s ease;
+  }
+
+    /* --- Panel del menú flotante (estilo chulo) --- */
+  .menu {
+    position: absolute;
+    top: 35px;
+    right: 5%;
+    background: rgba(240, 250, 255, 0.9);
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(15px) saturate(150%);
+    border: 1px solid rgba(180, 220, 255, 0.6);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(80, 150, 200, 0.4);
+    text-align: left;
+    padding: 12px 22px;
+    display: none;
+    animation: aparecer 0.3s ease forwards;
+    z-index: 10;
+  }
+
+  .menu a {
+    display: block;
+    color: black;
+    text-decoration: none;
+    margin: 10px 0;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: text-shadow 0.3s ease;
+  }
+
+  .menu a:hover {
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  }
+
+}
+
+
+
+
+/* ==========================================================
+   💧 LLUVIA DE RUNAS MATRIX (EFECTO)
+   ========================================================== */
+
 #runas {
   position: fixed;
   top: 0;
@@ -74,6 +361,8 @@ h1 {
   overflow: hidden;
   z-index: 0;
   background: transparent;
+  overscroll-behavior: none;
+  contain: strict;
 }
 
 .runa {
@@ -92,43 +381,639 @@ h1 {
   100% { transform: translateY(110vh); opacity: 0.1; }
 }
 
+@media screen and (max-width: 767px) {
+  .runa { font-size: 1.2rem; animation-duration: 8s; }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .runa { font-size: 1.4rem; animation-duration: 10s; }
+}
+
+
 /* ==========================================================
-   🔷 TARJETAS
+   🧭 ESTILOS HORIZONTALES (para móvil y tablet)
    ========================================================== */
-.tarjeta {
-  width: 80%;
-  min-height: 15%;
-  margin: 2% 0;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+
+body.horizontal {
+  background: #BFC9C9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible; /* ✅ permite scroll interno */
+  height: 100dvh;
+  font-family: 'Cinzel', serif;
+}
+
+/* --- Contenedor principal con scroll interno --- */
+body.horizontal .fondo-cristal {
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+  background: rgba(150, 190, 210, 0.01);
+  backdrop-filter: blur(25px) saturate(5%);
+  -webkit-backdrop-filter: blur(25px) saturate(140%);
+  border: 1px solid rgba(200, 230, 255, 0.3);
+  box-shadow:
+    0 0 25px rgba(120, 200, 255, 0.3),
+    inset 0 0 60px rgba(180, 230, 255, 0.2);
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  padding: 2% 0;
+  animation: brilloCristal 4s ease-in-out infinite alternate;
+}
+
+body.horizontal .fondo-cristal::after {
+  content: "";
+  display: block;
+  height: 8vh;
+}
+
+/* 👇 Ocultar barra de scroll */
+body.horizontal .fondo-cristal::-webkit-scrollbar { display: none; }
+body.horizontal .fondo-cristal { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* --- Título --- */
+body.horizontal h1 {
+  width: 100%;
+  text-align: center;
+  font-size: clamp(1.4rem, 3vw, 2.3rem);
+  margin: 10px 0 15px 0;
+  color: #0c3642;
+  text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+               0 0 20px rgba(100, 200, 255, 0.5);
+}
+
+/* --- Menú hamburguesa --- */
+body.horizontal .menu-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  padding-right: 5%;
+  position: relative;
+}
+
+/* --- Tarjetas en 2 columnas --- */
+body.horizontal .tarjeta {
+  flex: 0 0 45%;
+  margin: 2%;
+  min-height: 22vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  letter-spacing: 0.5px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   font-size: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   background: rgba(0,128,255,0.1);
   border: 1px solid rgba(100,180,255,0.4);
   box-shadow: 0 0 25px rgba(0,128,255,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.tarjeta:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 35px rgba(100, 200, 255, 0.6);
+body.horizontal .tarjeta:hover { transform: scale(1.03); }
+
+
+body.horizontal .menu {
+  display: none;
+  position: absolute;
+  top: 35px;
+  right: 5%;
+  background: rgba(240, 250, 255, 0.9);
+  backdrop-filter: blur(15px) saturate(150%);
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+  border: 1px solid rgba(180, 220, 255, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(80, 150, 200, 0.4);
+  text-align: left;
+  padding: 12px 22px;
+  animation: aparecer 0.3s ease forwards;
+  z-index: 25;
+}
+
+
+body.horizontal .hamburguesa {
+  display: flex !important;
+}
+
+
+/* ==========================================================
+   🪶 FIX VISUAL — Mostrar icono de menú hamburguesa en horizontal
+   ========================================================== */
+body.horizontal .hamburguesa {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 20; /* asegúrate de que esté por encima del fondo */
+}
+
+body.horizontal .hamburguesa span {
+  display: block;
+  height: 4px;
+  border-radius: 2px;
+  background: #0c3642;
+  box-shadow: 0 0 6px rgba(150, 220, 255, 0.7);
+  transition: all 0.3s ease;
 }
 
 /* ==========================================================
-   🔗 ENLACES INTERNOS — ESTILO LIMPIO
+   🌫️ ESTILO DEL MENÚ FLOTANTE EN HORIZONTAL (idéntico al vertical)
    ========================================================== */
+body.horizontal .menu {
+  position: absolute;
+  top: 35px;
+  right: 5%;
+  background: rgba(240, 250, 255, 0.9);
+  backdrop-filter: blur(15px) saturate(150%);
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+  border: 1px solid rgba(180, 220, 255, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(80, 150, 200, 0.4);
+  text-align: left;
+  padding: 12px 22px;
+  animation: aparecer 0.3s ease forwards;
+  z-index: 25;
+}
+
+/* Enlaces dentro del menú */
+body.horizontal .menu a {
+  display: block;
+  color: black;
+  text-decoration: none;
+  margin: 10px 0;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  transition: text-shadow 0.3s ease;
+}
+
+/* Efecto hover */
+body.horizontal .menu a:hover {
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ==========================================================
+   🖥️ VERSIÓN DEFINITIVA PARA PC (3 columnas × 2 filas, sin scroll)
+   ========================================================== */
+@media only screen and (min-width: 1366px) {
+
+  body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: #BFC9C9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+  }
+
+  .fondo-cristal {
+    width: 85%;
+    height: 80%;
+    border-radius: 10px;
+    background: rgba(150, 190, 210, 0.02);
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border: 1px solid rgba(200, 230, 255, 0.3);
+    box-shadow:
+      0 0 40px rgba(120, 200, 255, 0.4),
+      inset 0 0 80px rgba(180, 230, 255, 0.2);
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* 🟦 Tres columnas */
+    grid-template-rows: repeat(2, 1fr);     /* 🟦 Dos filas */
+    gap: 1.5rem;
+    align-items: center;
+    justify-items: center;
+    padding: 2%;
+    overflow: hidden;
+  }
+
+  h1 {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: clamp(1.8rem, 2vw, 2.6rem);
+    color: #0c3642;
+    text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+                 0 0 20px rgba(100, 200, 255, 0.5);
+    margin: 0 0 10px 0;
+  }
+
+  .menu-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 3%;
+    margin-bottom: 10px;
+  }
+
+  .hamburguesa {
+    display: none !important; /* 🚫 No hamburguesa en PC */
+  }
+
+  /* Tarjetas más pequeñas y elegantes */
+  .tarjeta {
+    width: 90%;
+    height: 85%;
+    border-radius: 18px;
+    background: rgba(0,128,255,0.08);
+    border: 1px solid rgba(100,180,255,0.4);
+    box-shadow: 0 0 20px rgba(0,128,255,0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .tarjeta:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 30px rgba(100, 200, 255, 0.5);
+  }
+}
+
+/* ==========================================================
+   🖥️ MODO PC (solo escritorio, no tablets ni móviles)
+   ========================================================== */
+@media only screen and (min-width: 1366px) {
+
+  body.desktop {
+    margin: 0;
+    background: #BFC9C9;
+    font-family: 'Cinzel', serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  body.desktop .fondo-cristal {
+    width: 80%;
+    height: 85%;
+    border-radius: 10px;
+    background: rgba(150, 190, 210, 0.02);
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border: 1px solid rgba(200, 230, 255, 0.3);
+    box-shadow:
+      0 0 40px rgba(120, 200, 255, 0.4),
+      inset 0 0 80px rgba(180, 230, 255, 0.2);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1.5rem;
+    align-items: center;
+    justify-items: center;
+    overflow: hidden;
+    padding: 2% 0;
+    animation: brilloCristal 5s ease-in-out infinite alternate;
+  }
+
+  body.desktop .hamburguesa {
+    display: none !important;
+  }
+
+  body.desktop h1 {
+    width: 100%;
+    font-size: clamp(2rem, 2.5vw, 3rem);
+    text-align: center;
+    margin-bottom: 15px;
+    color: #0c3642;
+    text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+                 0 0 20px rgba(100, 200, 255, 0.5);
+  }
+
+  body.desktop .tarjeta {
+    width: 90%;
+    height: 85%;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.1rem;
+    background: rgba(0,128,255,0.08);
+    border: 1px solid rgba(100,180,255,0.4);
+    box-shadow: 0 0 25px rgba(0,128,255,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  body.desktop .tarjeta:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 30px rgba(100, 200, 255, 0.5);
+  }
+}
+
+/* ==========================================================
+   🖥️ MENÚ DE TRES PUNTOS (solo visible en PC)
+   ========================================================== */
+
+/* 🔒 Primero, ocultamos por defecto en todas las pantallas */
+.menu-pc-container {
+  display: none;
+}
+
+/* 💻 Solo se muestra a partir de pantallas de escritorio reales */
+@media only screen and (min-width: 1366px) {
+
+  .menu-pc-container {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    z-index: 50;
+  }
+
+  /* Icono ⋮ */
+  .menu-pc-puntos {
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #0c3642;
+    text-shadow: 0 0 8px rgba(100, 200, 255, 0.6);
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .menu-pc-puntos:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 12px rgba(180, 240, 255, 0.9);
+  }
+
+  /* Panel translúcido con opciones */
+  .menu-pc {
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    background: rgba(240, 250, 255, 0.9);
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(15px) saturate(150%);
+    border: 1px solid rgba(180, 220, 255, 0.6);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(80, 150, 200, 0.4);
+    text-align: left;
+    padding: 12px 22px;
+    animation: aparecer 0.3s ease forwards;
+    z-index: 60;
+  }
+
+  .menu-pc a {
+    display: block;
+    color: black;
+    text-decoration: none;
+    margin: 10px 0;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: text-shadow 0.3s ease;
+  }
+
+  .menu-pc a:hover {
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Ocultar hamburguesa en PC */
+  .hamburguesa {
+    display: none !important;
+  }
+}
+
+/* ==========================================================
+   🪄 FIX — Animación de la hamburguesa en todas las orientaciones
+   ========================================================== */
+.hamburguesa.abierto span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburguesa.abierto span:nth-child(2) {
+  opacity: 0;
+}
+.hamburguesa.abierto span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ==========================================================
+   🔗 ENLACES EN FORMA DE TARJETA (clicables sin cambiar color)
+   ========================================================== */
+
+.enlace-tarjeta {
+  display: block;                /* toda la tarjeta clicable */
+  text-decoration: none;         /* sin subrayado */
+  color: inherit;                /* mantiene el color del texto */
+  cursor: pointer;               /* cambia el cursor a mano */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.enlace-tarjeta:hover {
+  transform: scale(1.03);        /* efecto igual que las demás tarjetas */
+  box-shadow: 0 0 30px rgba(100, 200, 255, 0.5);
+  text-decoration: none;         /* evita subrayado al pasar el ratón */
+  color: inherit;                /* mantiene color */
+}
+
+/* ==========================================================
+   🔗 ENLACES EN FORMA DE TARJETA — SIN COLOR NI SUBRAYADO
+   ========================================================== */
+
+.enlace-tarjeta,
+.enlace-tarjeta:link,
+.enlace-tarjeta:visited,
+.enlace-tarjeta:hover,
+.enlace-tarjeta:active {
+  display: block;                /* toda la tarjeta clicable */
+  text-decoration: none;         /* sin subrayado */
+  color: inherit !important;     /* mantiene el color original del texto */
+  cursor: pointer;               /* cursor de mano */
+  background: rgba(0,128,255,0.1);
+  border: 1px solid rgba(100,180,255,0.4);
+  box-shadow: 0 0 25px rgba(0,128,255,0.4);
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto al pasar el ratón */
+.enlace-tarjeta:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px rgba(100, 200, 255, 0.5);
+  text-decoration: none;
+  color: inherit !important;
+}
+
+/* ==========================================================
+   🔧 CORRECCIÓN — Centrado vertical del texto en enlaces-tarjeta
+   ========================================================== */
+.enlace-tarjeta {
+  display: flex !important;      /* fuerza el uso de flexbox */
+  align-items: center;           /* centra verticalmente */
+  justify-content: center;       /* centra horizontalmente */
+  text-align: center;            /* centra el texto */
+  height: 100%;                  /* ocupa toda la altura de la tarjeta */
+}
+
+/* ==========================================================
+   🧭 FIX — Centrado perfecto en móvil vertical
+   ========================================================== */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .tarjeta,
+  .enlace-tarjeta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    height: auto !important;
+    min-height: 15vh !important;  /* altura más coherente */
+  }
+}
+
+/* ==========================================================
+   🔙 BOTÓN VOLVER AL INICIO
+   ========================================================== */
+.btn-volver {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(30, 40, 60, 0.45);
+  border: 1px solid rgba(200, 220, 255, 0.25);
+  border-radius: 8px;
+  color: #0c3642;
+  text-decoration: none;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  z-index: 20;
+}
+
+.btn-volver:hover {
+  background: rgba(60, 80, 120, 0.6);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(160, 210, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* ==========================================================
+   📏 FIX DEFINITIVO — Igualar altura de tarjetas en tablet horizontal
+   ========================================================== */
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+  body.horizontal .fondo-cristal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: flex-start;
+  }
+
+  /* Tarjetas normales */
+  body.horizontal .tarjeta,
+  body.horizontal .enlace-tarjeta {
+    flex: 0 0 45%;
+    height: 20vh !important;        /* ✅ altura fija y consistente */
+    min-height: unset !important;
+    max-height: unset !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+}
+
+/* ==========================================================
+   🧩 FIX REAL — Igualar altura entre tarjetas y enlaces en tablet horizontal
+   ========================================================== */
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+
+  body.horizontal .fondo-cristal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+  }
+
+  /* Todas las tarjetas y enlaces */
+  body.horizontal .tarjeta,
+  body.horizontal .enlace-tarjeta {
+    flex: 0 0 45%;
+    box-sizing: border-box;
+    height: 18vh !important;           /* altura exacta y fija */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    overflow: hidden !important;       /* evita que el contenido fuerce el tamaño */
+  }
+
+  /* Fuerza que los enlaces no hereden tamaños inconsistentes */
+  body.horizontal .enlace-tarjeta {
+    min-height: unset !important;
+    max-height: unset !important;
+  }
+
+  /* Corrección estética: igual margen entre filas */
+  body.horizontal .tarjeta:nth-child(odd),
+  body.horizontal .enlace-tarjeta:nth-child(odd) {
+    margin-right: 2%;
+  }
+}
+
+/* ==========================================================
+   🔗 NUEVO SISTEMA DE ENLACE INTERNO EN TARJETAS
+   ========================================================== */
+
+.texto-enlace {
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
+
+.texto-enlace:hover {
+  text-shadow: 0 0 8px rgba(100, 200, 255, 0.7);
+  transform: scale(1.05);
+  text-decoration: none;
+}
+
+/* Corrige posibles herencias antiguas */
+.tarjeta, .azul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ==========================================================
+   🔗 ESTILO LIMPIO Y UNIFICADO PARA LOS ENLACES INTERNOS
+   ========================================================== */
+
 .texto-enlace,
 .texto-enlace:link,
 .texto-enlace:visited,
 .texto-enlace:hover,
 .texto-enlace:active {
-  color: inherit !important;
-  text-decoration: none !important;
+  color: inherit !important;          /* usa el color del texto del contenedor */
+  text-decoration: none !important;   /* sin subrayado */
   font-weight: bold;
   transition: all 0.3s ease;
   padding: 0.5rem 1rem;
@@ -136,22 +1021,24 @@ h1 {
   cursor: pointer;
 }
 
+/* 💫 Efecto al pasar el ratón */
 .texto-enlace:hover {
   text-shadow: 0 0 8px rgba(100, 200, 255, 0.7);
   transform: scale(1.05);
 }
 
+/* 🌙 Opcional: ligero brillo permanente, coherente con el cristal */
 .texto-enlace {
   text-shadow: 0 0 4px rgba(180, 240, 255, 0.5);
 }
 
 /* ==========================================================
-   🔙 BOTÓN VOLVER AL INICIO
+   🔙 BOTÓN VOLVER + MENÚ HAMBURGUESA — ALINEADOS
    ========================================================== */
 .barra-superior {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between; /* Botón izq. / menú der. */
   align-items: center;
   padding: 10px 5%;
   box-sizing: border-box;
@@ -159,6 +1046,7 @@ h1 {
   z-index: 10;
 }
 
+/* Botón de volver */
 .btn-volver {
   display: inline-flex;
   align-items: center;
@@ -183,84 +1071,22 @@ h1 {
   transform: scale(1.05);
 }
 
-/* ==========================================================
-   📏 TARJETAS — IGUAL ALTURA EN TABLET HORIZONTAL
-   ========================================================== */
-@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
-  .fondo-cristal {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-content: flex-start;
-  }
-
-  .tarjeta {
-    flex: 0 0 45%;
-    height: 18vh !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-  }
+/* Ajuste para el contenedor del menú */
+.menu-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 20;
 }
 
-/* ==========================================================
-   📱 MÓVIL VERTICAL — TEXTO MÁS PEQUEÑO
-   ========================================================== */
-@media screen and (max-width: 767px) and (orientation: portrait) {
-  h1 { font-size: 1.3rem; }
-  .tarjeta { font-size: 0.9rem; }
-  .btn-volver { font-size: 0.8rem; }
-}
 
-/* ==========================================================
-   💻 TABLET VERTICAL
-   ========================================================== */
-@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
-  .tarjeta {
-    width: 80%;
-    min-height: 15%;
-  }
-}
 
-/* ==========================================================
-   🖥️ PC — 3x2 GRID
-   ========================================================== */
-@media only screen and (min-width: 1366px) {
-  body {
-    height: 100vh;
-    overflow: hidden;
-  }
 
-  .fondo-cristal {
-    width: 85%;
-    height: 80%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 1.5rem;
-    align-items: center;
-    justify-items: center;
-    padding: 2%;
-  }
 
-  h1 {
-    grid-column: 1 / -1;
-    margin-bottom: 10px;
-  }
 
-  .tarjeta {
-    width: 90%;
-    height: 85%;
-    border-radius: 18px;
-    background: rgba(0,128,255,0.08);
-    border: 1px solid rgba(100,180,255,0.4);
-    box-shadow: 0 0 20px rgba(0,128,255,0.25);
-    font-size: 1.1rem;
-  }
 
-  .tarjeta:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 30px rgba(100, 200, 255, 0.5);
-  }
-}
+
+
+
+
+
