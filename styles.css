@@ -124,6 +124,77 @@ body {
 }
 
 
+/* ==========================================================
+   🔮 PORTAL DE RUNAS (disposición 5x3)
+   ========================================================== */
+
+.portal-runas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 2rem;
+}
+
+.tabla-runas {
+  display: grid;
+  grid-template-columns: repeat(5, 80px); /* 🧱 5 columnas */
+  grid-template-rows: repeat(3, 80px);    /* 🧱 3 filas */
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.tabla-runas div {
+  width: 80px;
+  height: 80px;
+}
+
+.runa-enlace img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(150, 220, 255, 0.7));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.runa-enlace img:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 15px rgba(180, 240, 255, 1));
+}
+
+/* ==========================================================
+   🔐 SECCIÓN DE ACCESO
+   ========================================================== */
+
+.acceso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.acceso button {
+  background: rgba(15, 30, 40, 0.6);
+  border: 1px solid rgba(180, 230, 255, 0.4);
+  border-radius: 8px;
+  padding: 0.6rem 1.4rem;
+  color: #eafaff;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+
+.acceso button:hover {
+  background: rgba(50, 80, 100, 0.7);
+  box-shadow: 0 0 10px rgba(120, 200, 255, 0.4);
+  transform: scale(1.05);
+}
+
+
 /* MEDIA QUERIES */
 
 /* --- Móvil vertical --- */
