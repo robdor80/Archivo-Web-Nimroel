@@ -938,6 +938,45 @@ body.horizontal .menu a:hover {
   }
 }
 
+/* ==========================================================
+   🧩 FIX REAL — Igualar altura entre tarjetas y enlaces en tablet horizontal
+   ========================================================== */
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+
+  body.horizontal .fondo-cristal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+  }
+
+  /* Todas las tarjetas y enlaces */
+  body.horizontal .tarjeta,
+  body.horizontal .enlace-tarjeta {
+    flex: 0 0 45%;
+    box-sizing: border-box;
+    height: 18vh !important;           /* altura exacta y fija */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    overflow: hidden !important;       /* evita que el contenido fuerce el tamaño */
+  }
+
+  /* Fuerza que los enlaces no hereden tamaños inconsistentes */
+  body.horizontal .enlace-tarjeta {
+    min-height: unset !important;
+    max-height: unset !important;
+  }
+
+  /* Corrección estética: igual margen entre filas */
+  body.horizontal .tarjeta:nth-child(odd),
+  body.horizontal .enlace-tarjeta:nth-child(odd) {
+    margin-right: 2%;
+  }
+}
+
+
 
 
 
