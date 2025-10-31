@@ -124,12 +124,15 @@ body {
 }
 
 
+/* MEDIA QUERIES */
+
 /* --- Móvil vertical --- */
 @media screen and (max-width: 767px) and (orientation: portrait) {
   .fondo-cristal.inicio {
-    width: 92%;
-    height: 85%;
+    width: auto;
+    height: auto;
     padding: 0.8rem;
+    margin: 40px 20px;
   }
 
   .cabecera h1 {
@@ -148,9 +151,50 @@ body {
   }
 
   .menu-inicio {
-    flex-direction: column;
+    display: flex;
+    flex-direction: row; /* ✅ en línea (horizontal) */
+    justify-content: center; /* centra los enlaces horizontalmente */
+    flex-wrap: wrap; /* permite que bajen si no caben */
     gap: 0.7rem;
     font-size: 0.9rem;
+  }
+
+  .menu-inicio a {
+    font-weight: 600;
+  }
+}
+
+/* --- Móvil horizontal --- */
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  .fondo-cristal.inicio {
+    width: auto;
+    height: auto;
+    padding: 1rem;
+    margin: 40px 20px; /* ✅ margen superior/inferior 40px, laterales 20px */
+  }
+
+  .cabecera h1 {
+    font-size: 1.4rem; /* un poco mayor que en vertical */
+    margin-bottom: 0.5rem;
+  }
+
+  .cabecera h2 {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .separador {
+    width: 70%;
+    margin: 1rem auto 1.5rem;
+  }
+
+  .menu-inicio {
+    display: flex;
+    flex-direction: row; /* ✅ horizontal */
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1rem;
   }
 
   .menu-inicio a {
