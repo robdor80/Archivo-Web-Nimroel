@@ -93,6 +93,24 @@ input:focus, textarea:focus {
   box-shadow: 0 0 10px rgba(150, 230, 255, 0.4);
 }
 
+select {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(200, 230, 255, 0.4);
+  border-radius: 6px;
+  color: #0c3642;
+  padding: 0.5rem;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  appearance: none;
+  cursor: pointer;
+}
+select:focus {
+  outline: none;
+  border-color: rgba(150, 230, 255, 0.8);
+  box-shadow: 0 0 10px rgba(150, 230, 255, 0.4);
+}
+
+
 /* Imagen principal derecha */
 .vista-imagen {
   width: 28%;

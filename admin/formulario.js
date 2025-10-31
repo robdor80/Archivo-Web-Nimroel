@@ -47,8 +47,9 @@ onAuthStateChanged(auth, (user) => {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const coleccion = document.getElementById("coleccion").value.trim();
-  const documento = document.getElementById("documento").value.trim();
+  const coleccion = document.getElementById("coleccion").value.trim().toLowerCase();
+  const documento = document.getElementById("documento").value.trim().toLowerCase();
+
   if (!coleccion || !documento) {
     mensaje.textContent = "⚠️ Debes indicar colección y documento.";
     return;
@@ -91,7 +92,7 @@ btnSalir.addEventListener("click", async () => {
 });
 
 // Lluvia de runas
-const RUNAS = ["ᚠ","ᚢ","ᚦ","ᚨ","ᚱ","ᚲ","ᚷ","ᚹ","ᚺ","ᚾ","ᛁ","ᛃ","ᛇ","ᛉ","ᛊ","ᛏ","ᛒ","ᛖ","ᛗ","ᛚ","ᛜ","ᛞ","ᛟ"];
+const RUNAS = ["ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ", "ᚾ", "ᛁ", "ᛃ", "ᛇ", "ᛉ", "ᛊ", "ᛏ", "ᛒ", "ᛖ", "ᛗ", "ᛚ", "ᛜ", "ᛞ", "ᛟ"];
 function generarLluviaRunas() {
   const capa = document.getElementById("runas");
   capa.innerHTML = "";
@@ -110,7 +111,7 @@ function generarLluviaRunas() {
 window.addEventListener("DOMContentLoaded", generarLluviaRunas);
 
 // Vista previa dinámica
-window.actualizarVistaPrevia = function(tipo) {
+window.actualizarVistaPrevia = function (tipo) {
   const url = campos[tipo].value.trim();
   if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
     vistas[tipo].src = url;
