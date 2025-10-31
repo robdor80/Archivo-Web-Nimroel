@@ -914,20 +914,27 @@ body.horizontal .menu a:hover {
 }
 
 /* ==========================================================
-   📏 FIX — Igualar altura de tarjetas en tablet horizontal
+   📏 FIX DEFINITIVO — Igualar altura de tarjetas en tablet horizontal
    ========================================================== */
 @media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
-  .fondo-cristal {
+  body.horizontal .fondo-cristal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     align-content: flex-start;
   }
 
-  .tarjeta {
+  /* Tarjetas normales */
+  body.horizontal .tarjeta,
+  body.horizontal .enlace-tarjeta {
     flex: 0 0 45%;
-    min-height: 22vh;       /* altura consistente */
-    max-height: 22vh;       /* evita que crezcan más */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 20vh !important;        /* ✅ altura fija y consistente */
+    min-height: unset !important;
+    max-height: unset !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
   }
 }
 
