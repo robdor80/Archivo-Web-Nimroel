@@ -125,7 +125,7 @@ body {
 
 
 /* ==========================================================
-   🔮 PORTAL DE RUNAS (disposición 5x3)
+   🔮 PORTAL DE RUNAS
    ========================================================== */
 
 .portal-runas {
@@ -165,40 +165,27 @@ body {
   filter: drop-shadow(0 0 15px rgba(180, 240, 255, 1));
 }
 
-/* ✴️ Animación de error (parpadeo rojo) */
+/* ✴️ Animaciones mágicas */
 @keyframes errorRunas {
-  0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 80, 80, 0.8)); transform: scale(1); }
-  50% { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)); transform: scale(1.1); }
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 80, 80, 0.8)); }
+  50% { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)); }
 }
-
-.runa-error img {
-  animation: errorRunas 0.4s ease-in-out 2;
-}
-
-/* 💠 Animación de acierto (brillo azul mágico) */
 @keyframes aciertoRunas {
-  0% { filter: drop-shadow(0 0 8px rgba(150, 220, 255, 0.7)); transform: scale(1); }
-  50% { filter: drop-shadow(0 0 25px rgba(0, 200, 255, 1)); transform: scale(1.15); }
-  100% { filter: drop-shadow(0 0 10px rgba(150, 220, 255, 0.9)); transform: scale(1); }
+  0% { filter: drop-shadow(0 0 8px rgba(150, 220, 255, 0.7)); }
+  50% { filter: drop-shadow(0 0 25px rgba(0, 200, 255, 1)); }
+  100% { filter: drop-shadow(0 0 10px rgba(150, 220, 255, 0.9)); }
 }
+.runa-error img { animation: errorRunas 0.4s ease-in-out 2; }
+.runa-acierto img { animation: aciertoRunas 1s ease-in-out; }
 
-.runa-acierto img {
-  animation: aciertoRunas 1s ease-in-out;
-}
-
-/* 🌫️ Aparición del acceso */
-.aparecer {
-  animation: aparecerSuave 1s ease forwards;
-}
-
+.aparecer { animation: aparecerSuave 1s ease forwards; }
 @keyframes aparecerSuave {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-
 /* ==========================================================
-   🔐 SECCIÓN DE ACCESO
+   🔐 SECCIÓN DE ACCESO — BOTONES ETÉREOS
    ========================================================== */
 
 .acceso {
@@ -209,36 +196,100 @@ body {
   opacity: 0;
   transition: opacity 0.6s ease;
 }
+.acceso.mostrar { opacity: 1; }
 
-.acceso.mostrar {
-  opacity: 1;
-}
-
+/* 🔹 Apariencia base */
 .acceso button {
-  background: rgba(15, 30, 40, 0.6);
-  border: 1px solid rgba(180, 230, 255, 0.4);
-  border-radius: 8px;
-  padding: 0.6rem 1.4rem;
-  color: #eafaff;
+  background: none;
+  border: none;
+  color: #0c3642;
   font-family: 'Cinzel', serif;
-  font-size: 1rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(6px);
+  position: relative;
+  transition: all 0.4s ease;
+  text-shadow:
+    0 0 8px rgba(180, 240, 255, 0.6),
+    0 0 15px rgba(100, 200, 255, 0.4);
 }
 
 .acceso button:hover {
-  background: rgba(50, 80, 100, 0.7);
-  box-shadow: 0 0 10px rgba(120, 200, 255, 0.4);
+  color: #eafaff;
+  text-shadow:
+    0 0 12px rgba(200, 250, 255, 0.8),
+    0 0 25px rgba(160, 230, 255, 0.7);
   transform: scale(1.05);
 }
 
+/* ✴️ Efecto de halo */
+.acceso button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: radial-gradient(circle at center, rgba(150,230,255,0.1) 0%, transparent 80%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.acceso button:hover::after { opacity: 1; }
 
 /* ==========================================================
-   MEDIA QUERIES
+   🔒 SELLO DE JORVIN — BOTÓN ACCESO BLOQUEADO
    ========================================================== */
+#btnAcceso:disabled {
+  color: rgba(160, 190, 220, 0.4);
+  cursor: not-allowed;
+  text-shadow:
+    0 0 6px rgba(120, 180, 255, 0.2),
+    0 0 12px rgba(80, 130, 200, 0.2);
+  opacity: 0.7;
+}
+#btnAcceso:disabled::before {
+  content: "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾ";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: rgba(180, 220, 255, 0.07);
+  letter-spacing: 0.15rem;
+  animation: runasSelladas 4s linear infinite;
+  pointer-events: none;
+}
+@keyframes runasSelladas {
+  from { transform: rotate(0deg); opacity: 0.25; }
+  to { transform: rotate(360deg); opacity: 0.15; }
+}
 
-/* --- Móvil vertical --- */
+/* 🔓 Estado desbloqueado */
+#btnAcceso:not(:disabled) {
+  color: #eafaff;
+  text-shadow:
+    0 0 12px rgba(150, 230, 255, 0.8),
+    0 0 25px rgba(180, 240, 255, 0.6);
+  opacity: 1;
+  cursor: pointer;
+  animation: desbloqueoJorvin 2s ease-out;
+}
+#btnAcceso:not(:disabled):hover {
+  text-shadow:
+    0 0 20px rgba(200, 250, 255, 0.9),
+    0 0 40px rgba(160, 230, 255, 0.8);
+  transform: scale(1.07);
+}
+@keyframes desbloqueoJorvin {
+  0% { opacity: 0.5; text-shadow: 0 0 4px rgba(150,230,255,0.3); }
+  50% { opacity: 1; text-shadow: 0 0 25px rgba(180,240,255,0.8); }
+  100% { opacity: 1; text-shadow: 0 0 12px rgba(150,230,255,0.8); }
+}
+
+/* ==========================================================
+   MEDIA QUERIES Y OCULTAR
+   ========================================================== */
 @media screen and (max-width: 767px) and (orientation: portrait) {
   .fondo-cristal.inicio {
     width: auto;
@@ -247,8 +298,6 @@ body {
     margin: 40px 20px;
   }
 }
-
-/* --- PC / ESCRITORIO --- */
 @media screen and (min-width: 1024px) {
   .fondo-cristal.inicio {
     width: calc(100% - 4rem);
@@ -261,10 +310,4 @@ body {
     -webkit-backdrop-filter: blur(30px) saturate(140%);
   }
 }
-
-/* ==========================================================
-   🔘 ESTADO OCULTO
-   ========================================================== */
-.oculto {
-  display: none !important;
-}
+.oculto { display: none !important; }

@@ -21,7 +21,7 @@
   <!-- 💠 Pantalla principal -->
   <div class="fondo-cristal inicio">
     <header class="cabecera">
-      <h1>jajaBienvenido al Archivo del Santuario</h1>
+      <h1>Bienvenido al Archivo del Santuario</h1>
       <h2>Recuerde que el Gran Sello de Jorvin monitoriza la sesión.</h2>
 
       <!-- Línea separadora -->
@@ -98,6 +98,7 @@
 
     let secuenciaCorrecta = ["6", "7", "7", "4"];
     let secuenciaActual = [];
+    let bloqueado = false; // ⏳ evita clics demasiado rápidos
 
     // Ocultar todo al inicio
     portalRunas.classList.add('oculto');
@@ -111,16 +112,17 @@
       secuenciaActual = [];
     });
 
-    // Controlar pulsaciones de runas
+    // Controlar pulsaciones de runas con retardo de 300 ms
     runas.forEach(runa => {
       runa.addEventListener('click', (e) => {
         e.preventDefault();
+        if (bloqueado) return; // evita clics demasiado rápidos
+        bloqueado = true;
 
-        // Añadir número pulsado
         const num = runa.dataset.num;
         secuenciaActual.push(num);
 
-        // Comprobar longitud
+        // Si ya hay 4 pulsaciones, comprobar
         if (secuenciaActual.length === 4) {
           if (JSON.stringify(secuenciaActual) === JSON.stringify(secuenciaCorrecta)) {
             // ✅ Secuencia correcta
@@ -131,7 +133,6 @@
               zonaAcceso.classList.remove('oculto');
               zonaAcceso.classList.add('aparecer', 'mostrar');
             }, 500);
-
           } else {
             // ❌ Secuencia incorrecta
             runas.forEach(r => r.classList.add('runa-error'));
@@ -141,6 +142,9 @@
           }
           secuenciaActual = [];
         }
+
+        // Espera 300 ms antes de permitir otro clic
+        setTimeout(() => bloqueado = false, 300);
       });
     });
   </script>
@@ -155,5 +159,68 @@
       window.location.reload(true);
     }
   </script>
+
+  <!-- ==========================================================
+     🔐 LOGIN CON GOOGLE — SOLO PARA ROB.DOR.80@GMAIL.COM
+     ========================================================== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "TU_API_KEY",
+    authDomain: "cronicas-de-nimroel.firebaseapp.com",
+    projectId: "cronicas-de-nimroel",
+    storageBucket: "cronicas-de-nimroel.appspot.com",
+    messagingSenderId: "XXXXXXXXXXXX",
+    appId: "1:XXXXXXXXXXXX:web:XXXXXXXXXXXX"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  const btnGoogle = document.getElementById("btnGoogle");
+  const btnAcceso = document.getElementById("btnAcceso");
+
+  const CORREO_AUTORIZADO = "rob.dor.80@gmail.com";
+
+  btnAcceso.disabled = true;
+  btnAcceso.style.opacity = "0.5";
+  btnAcceso.style.cursor = "not-allowed";
+
+  btnGoogle.addEventListener("click", async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      if (user.email === CORREO_AUTORIZADO) {
+        alert("✨ Bienvenido, Custodio del Santuario.");
+        btnAcceso.disabled = false;
+        btnAcceso.style.opacity = "1";
+        btnAcceso.style.cursor = "pointer";
+      } else {
+        alert("🚫 El Sello de Jorvin no reconoce tu esencia. Acceso denegado.");
+        await signOut(auth);
+        btnAcceso.disabled = true;
+        btnAcceso.style.opacity = "0.5";
+        btnAcceso.style.cursor = "not-allowed";
+      }
+    } catch (error) {
+      console.error("Error de autenticación:", error);
+      alert("⚠️ No se pudo iniciar sesión. Inténtalo de nuevo.");
+    }
+  });
+
+  btnAcceso.addEventListener("click", () => {
+    if (!btnAcceso.disabled) {
+      alert("🔓 Acceso concedido al Archivo del Santuario.");
+      window.location.href = "paginas/admin/acceso.html";
+    } else {
+      alert("🚫 No tienes autorización. Inicia sesión primero.");
+    }
+  });
+</script>
+
 </body>
 </html>
