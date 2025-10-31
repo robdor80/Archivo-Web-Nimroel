@@ -311,3 +311,22 @@ body {
   }
 }
 .oculto { display: none !important; }
+
+
+/* ==========================================================
+   🪶 MENSAJE DEL SANTUARIO (aparece bajo las runas)
+   ========================================================== */
+.mensaje-santuario {
+  margin-top: 1rem;
+  color: #0c3642;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0;
+  text-shadow: 0 0 10px rgba(150, 230, 255, 0.6),
+               0 0 20px rgba(180, 250, 255, 0.4);
+  transition: opacity 1s ease-in-out;
+}
+
+.mensaje-santuario.mostrar-texto {
+  opacity: 1;
+}

@@ -9,7 +9,7 @@
   <base href="/Archivo-Web-Nimroel/">
 
   <!-- Estilos -->
-  <link rel="stylesheet" href="styles.css?v=1.5">
+  <link rel="stylesheet" href="styles.css?v=1.6">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="theme-color" content="#0e111c">
 </head>
@@ -24,7 +24,6 @@
       <h1>Bienvenido al Archivo del Santuario</h1>
       <h2>Recuerde que el Gran Sello de Jorvin monitoriza la sesión.</h2>
 
-      <!-- Línea separadora -->
       <hr class="separador">
 
       <!-- Menú principal -->
@@ -38,21 +37,18 @@
     <!-- 💠 Disposición de Runas -->
     <section class="portal-runas oculto" id="portalRunas">
       <div class="tabla-runas">
-        <!-- Fila 1 -->
         <div></div>
         <a href="#" class="runa-enlace" data-num="1"><img src="medios/img/runas/runa1.webp" alt="Runa 1"></a>
         <div></div>
         <a href="#" class="runa-enlace" data-num="2"><img src="medios/img/runas/runa2.webp" alt="Runa 2"></a>
         <div></div>
 
-        <!-- Fila 2 -->
         <a href="#" class="runa-enlace" data-num="3"><img src="medios/img/runas/runa3.webp" alt="Runa 3"></a>
         <div></div>
         <a href="#" class="runa-enlace" data-num="4"><img src="medios/img/runas/runa4.webp" alt="Runa 4"></a>
         <div></div>
         <a href="#" class="runa-enlace" data-num="5"><img src="medios/img/runas/runa5.webp" alt="Runa 5"></a>
 
-        <!-- Fila 3 -->
         <div></div>
         <a href="#" class="runa-enlace" data-num="6"><img src="medios/img/runas/runa6.webp" alt="Runa 6"></a>
         <div></div>
@@ -64,6 +60,7 @@
       <div class="acceso oculto" id="zonaAcceso">
         <button id="btnGoogle">Iniciar sesión con Google</button>
         <button id="btnAcceso">Acceso</button>
+        <div id="mensajeSantuario" class="mensaje-santuario oculto"></div>
       </div>
     </section>
   </div>
@@ -98,13 +95,11 @@
 
     let secuenciaCorrecta = ["6", "7", "7", "4"];
     let secuenciaActual = [];
-    let bloqueado = false; // ⏳ evita clics demasiado rápidos
+    let bloqueado = false;
 
-    // Ocultar todo al inicio
     portalRunas.classList.add('oculto');
     zonaAcceso.classList.add('oculto');
 
-    // Mostrar / ocultar runas al pulsar Custodio
     btnCustodio.addEventListener('click', (e) => {
       e.preventDefault();
       portalRunas.classList.toggle('oculto');
@@ -112,29 +107,24 @@
       secuenciaActual = [];
     });
 
-    // Controlar pulsaciones de runas con retardo de 300 ms
     runas.forEach(runa => {
       runa.addEventListener('click', (e) => {
         e.preventDefault();
-        if (bloqueado) return; // evita clics demasiado rápidos
+        if (bloqueado) return;
         bloqueado = true;
 
         const num = runa.dataset.num;
         secuenciaActual.push(num);
 
-        // Si ya hay 4 pulsaciones, comprobar
         if (secuenciaActual.length === 4) {
           if (JSON.stringify(secuenciaActual) === JSON.stringify(secuenciaCorrecta)) {
-            // ✅ Secuencia correcta
             runas.forEach(r => r.classList.remove('runa-error'));
             runa.classList.add('runa-acierto');
-
             setTimeout(() => {
               zonaAcceso.classList.remove('oculto');
               zonaAcceso.classList.add('aparecer', 'mostrar');
             }, 500);
           } else {
-            // ❌ Secuencia incorrecta
             runas.forEach(r => r.classList.add('runa-error'));
             setTimeout(() => {
               runas.forEach(r => r.classList.remove('runa-error'));
@@ -142,39 +132,26 @@
           }
           secuenciaActual = [];
         }
-
-        // Espera 300 ms antes de permitir otro clic
         setTimeout(() => bloqueado = false, 300);
       });
     });
   </script>
 
-  <!-- 🔄 Limpieza de caché -->
-  <script>
-    if ('caches' in window) {
-      caches.keys().then(names => names.forEach(n => caches.delete(n)));
-    }
-    if (!sessionStorage.getItem('cacheCleared')) {
-      sessionStorage.setItem('cacheCleared', 'true');
-      window.location.reload(true);
-    }
-  </script>
-
   <!-- ==========================================================
-     🔐 LOGIN CON GOOGLE — SOLO PARA ROB.DOR.80@GMAIL.COM
-     ========================================================== -->
+       🔐 LOGIN CON GOOGLE — SOLO PARA ROB.DOR.80@GMAIL.COM
+       ========================================================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
   const firebaseConfig = {
-  apiKey: "AIzaSyD3NEbGcUwBxwoOGBPO8PukmPHcfl42bE8",
-  authDomain: "cronicas-de-nimroel.firebaseapp.com",
-  projectId: "cronicas-de-nimroel",
-  storageBucket: "cronicas-de-nimroel.appspot.com",
-  messagingSenderId: "689465837057",
-  appId: "1:689465837057:web:aecddb8b4a247bfe0de200"
-};
+    apiKey: "AIzaSyD3NEbGcUwBxwoOGBPO8PukmPHcfl42bE8",
+    authDomain: "cronicas-de-nimroel.firebaseapp.com",
+    projectId: "cronicas-de-nimroel",
+    storageBucket: "cronicas-de-nimroel.firebasestorage.app",
+    messagingSenderId: "689465837057",
+    appId: "1:689465837057:web:aecddb8b4a247bfe0de200"
+  };
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
@@ -182,12 +159,10 @@
 
   const btnGoogle = document.getElementById("btnGoogle");
   const btnAcceso = document.getElementById("btnAcceso");
-
+  const mensaje = document.getElementById("mensajeSantuario");
   const CORREO_AUTORIZADO = "rob.dor.80@gmail.com";
 
   btnAcceso.disabled = true;
-  btnAcceso.style.opacity = "0.5";
-  btnAcceso.style.cursor = "not-allowed";
 
   btnGoogle.addEventListener("click", async () => {
     try {
@@ -195,29 +170,30 @@
       const user = result.user;
 
       if (user.email === CORREO_AUTORIZADO) {
-        alert("✨ Bienvenido, Custodio del Santuario.");
         btnAcceso.disabled = false;
-        btnAcceso.style.opacity = "1";
-        btnAcceso.style.cursor = "pointer";
+        btnGoogle.classList.add("oculto"); // 🔹 oculta el botón de Google
+
+        mensaje.textContent = "Bienvenido, Custodio. Tienes acceso completo al Archivo.";
+        mensaje.classList.remove("oculto");
+        mensaje.classList.add("mostrar-texto");
       } else {
-        alert("🚫 El Sello de Jorvin no reconoce tu esencia. Acceso denegado.");
         await signOut(auth);
+        mensaje.textContent = "El Sello de Jorvin no reconoce tu esencia...";
+        mensaje.classList.remove("oculto");
+        mensaje.classList.add("mostrar-texto");
         btnAcceso.disabled = true;
-        btnAcceso.style.opacity = "0.5";
-        btnAcceso.style.cursor = "not-allowed";
       }
     } catch (error) {
       console.error("Error de autenticación:", error);
-      alert("⚠️ No se pudo iniciar sesión. Inténtalo de nuevo.");
+      mensaje.textContent = "⚠️ No se pudo establecer conexión con el Sello.";
+      mensaje.classList.remove("oculto");
+      mensaje.classList.add("mostrar-texto");
     }
   });
 
   btnAcceso.addEventListener("click", () => {
     if (!btnAcceso.disabled) {
-      alert("🔓 Acceso concedido al Archivo del Santuario.");
       window.location.href = "paginas/admin/acceso.html";
-    } else {
-      alert("🚫 No tienes autorización. Inicia sesión primero.");
     }
   });
 </script>
