@@ -1032,6 +1032,54 @@ body.horizontal .menu a:hover {
   text-shadow: 0 0 4px rgba(180, 240, 255, 0.5);
 }
 
+/* ==========================================================
+   🔙 BOTÓN VOLVER + MENÚ HAMBURGUESA — ALINEADOS
+   ========================================================== */
+.barra-superior {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* Botón izq. / menú der. */
+  align-items: center;
+  padding: 10px 5%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+}
+
+/* Botón de volver */
+.btn-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(30, 40, 60, 0.45);
+  border: 1px solid rgba(200, 220, 255, 0.25);
+  border-radius: 8px;
+  color: #0c3642;
+  text-decoration: none;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+
+.btn-volver:hover {
+  background: rgba(60, 80, 120, 0.6);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(160, 210, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Ajuste para el contenedor del menú */
+.menu-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 20;
+}
+
+
 
 
 
