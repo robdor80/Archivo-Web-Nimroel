@@ -138,8 +138,8 @@ body {
 
 .tabla-runas {
   display: grid;
-  grid-template-columns: repeat(5, 80px); /* 🧱 5 columnas */
-  grid-template-rows: repeat(3, 80px);    /* 🧱 3 filas */
+  grid-template-columns: repeat(5, 80px);
+  grid-template-rows: repeat(3, 80px);
   gap: 15px;
   justify-content: center;
   align-items: center;
@@ -157,12 +157,45 @@ body {
   object-fit: contain;
   filter: drop-shadow(0 0 8px rgba(150, 220, 255, 0.7));
   transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
 }
 
 .runa-enlace img:hover {
   transform: scale(1.1);
   filter: drop-shadow(0 0 15px rgba(180, 240, 255, 1));
 }
+
+/* ✴️ Animación de error (parpadeo rojo) */
+@keyframes errorRunas {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 80, 80, 0.8)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)); transform: scale(1.1); }
+}
+
+.runa-error img {
+  animation: errorRunas 0.4s ease-in-out 2;
+}
+
+/* 💠 Animación de acierto (brillo azul mágico) */
+@keyframes aciertoRunas {
+  0% { filter: drop-shadow(0 0 8px rgba(150, 220, 255, 0.7)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 25px rgba(0, 200, 255, 1)); transform: scale(1.15); }
+  100% { filter: drop-shadow(0 0 10px rgba(150, 220, 255, 0.9)); transform: scale(1); }
+}
+
+.runa-acierto img {
+  animation: aciertoRunas 1s ease-in-out;
+}
+
+/* 🌫️ Aparición del acceso */
+.aparecer {
+  animation: aparecerSuave 1s ease forwards;
+}
+
+@keyframes aparecerSuave {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 
 /* ==========================================================
    🔐 SECCIÓN DE ACCESO
@@ -173,6 +206,12 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.acceso.mostrar {
+  opacity: 1;
 }
 
 .acceso button {
@@ -195,7 +234,9 @@ body {
 }
 
 
-/* MEDIA QUERIES */
+/* ==========================================================
+   MEDIA QUERIES
+   ========================================================== */
 
 /* --- Móvil vertical --- */
 @media screen and (max-width: 767px) and (orientation: portrait) {
@@ -205,182 +246,7 @@ body {
     padding: 0.8rem;
     margin: 40px 20px;
   }
-
-  .cabecera h1 {
-    font-size: 1.2rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .cabecera h2 {
-    font-size: 0.8rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .separador {
-    width: 80%;
-    margin: 1rem auto 1.5rem;
-  }
-
-  .menu-inicio {
-    display: flex;
-    flex-direction: row; /* ✅ en línea (horizontal) */
-    justify-content: center; /* centra los enlaces horizontalmente */
-    flex-wrap: wrap; /* permite que bajen si no caben */
-    gap: 0.7rem;
-    font-size: 0.9rem;
-  }
-
-  .menu-inicio a {
-    font-weight: 600;
-  }
 }
-
-/* --- Móvil horizontal --- */
-@media screen and (max-width: 767px) and (orientation: landscape) {
-  .fondo-cristal.inicio {
-    width: auto;
-    height: auto;
-    padding: 1rem;
-    margin: 15px; /* ✅ margen superior/inferior 40px, laterales 20px */
-  }
-
-  .cabecera h1 {
-    font-size: 1.4rem; /* un poco mayor que en vertical */
-    margin-bottom: 0.5rem;
-  }
-
-  .cabecera h2 {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .separador {
-    width: 70%;
-    margin: 1rem auto 1.5rem;
-  }
-
-  .menu-inicio {
-    display: flex;
-    flex-direction: row; /* ✅ horizontal */
-    justify-content: center;
-    /*align-items: center;*/
-    gap: 1rem;
-    font-size: 1rem;
-  }
-
-  .menu-inicio a {
-    font-weight: 600;
-  }
-}
-
-/* --- TABLET VERTICAL --- */
-@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
-  .fondo-cristal.inicio {
-    width: calc(100% - 4rem);
-    height: calc(100% - 4rem);
-    margin: 2rem;
-    margin-top: 2rem;
-    padding: 20px;
-    border-radius: 10px;
-    background: rgba(150, 190, 210, 0.02);
-    backdrop-filter: blur(25px) saturate(120%);
-    -webkit-backdrop-filter: blur(25px) saturate(120%);
-    border: 1px solid rgba(200, 230, 255, 0.3);
-    box-shadow:
-      0 0 35px rgba(120, 200, 255, 0.4),
-      inset 0 0 70px rgba(180, 230, 255, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;     /* ✅ centrado horizontal */
-    justify-content: flex-start; /* ✅ arriba */
-    overflow-y: auto;
-  }
-
-  .cabecera h1 {
-    font-size: 1.6rem;
-    margin: 0 0 0.6rem 0;
-    text-align: center;
-  }
-
-  .cabecera h2 {
-    font-size: 1rem;
-    margin-bottom: 1.2rem;
-    text-align: center;
-  }
-
-  .separador {
-    width: 70%;
-    margin: 1rem auto 1.5rem;
-  }
-
-  .menu-inicio {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-size: 1rem;
-  }
-
-  .menu-inicio a {
-    font-weight: 600;
-  }
-}
-
-
-/* --- TABLET HORIZONTAL --- */
-@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
-  .fondo-cristal.inicio {
-    width: calc(100% - 4rem);
-    height: calc(100% - 4rem);
-    margin: 2rem;
-    margin-top: 2rem;
-    padding: 20px;
-    border-radius: 10px;
-    background: rgba(150, 190, 210, 0.02);
-    backdrop-filter: blur(25px) saturate(120%);
-    -webkit-backdrop-filter: blur(25px) saturate(120%);
-    border: 1px solid rgba(200, 230, 255, 0.3);
-    box-shadow:
-      0 0 35px rgba(120, 200, 255, 0.4),
-      inset 0 0 70px rgba(180, 230, 255, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;     /* ✅ centrado horizontal */
-    justify-content: flex-start; /* ✅ arriba */
-    overflow-y: auto;
-  }
-
-  .cabecera h1 {
-    font-size: 1.8rem;
-    margin: 0 0 0.6rem 0;
-    text-align: center;
-  }
-
-  .cabecera h2 {
-    font-size: 1.1rem;
-    margin-bottom: 1.4rem;
-    text-align: center;
-  }
-
-  .separador {
-    width: 60%;
-    margin: 1rem auto 1.5rem;
-  }
-
-  .menu-inicio {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1.2rem;
-    font-size: 1.1rem;
-  }
-
-  .menu-inicio a {
-    font-weight: 600;
-  }
-}
-
 
 /* --- PC / ESCRITORIO --- */
 @media screen and (min-width: 1024px) {
@@ -388,56 +254,17 @@ body {
     width: calc(100% - 4rem);
     height: calc(100% - 4rem);
     margin: 2rem;
-    margin-top: 2rem;
     padding: 20px;
     border-radius: 12px;
     background: rgba(150, 190, 210, 0.03);
     backdrop-filter: blur(30px) saturate(140%);
     -webkit-backdrop-filter: blur(30px) saturate(140%);
-    border: 1px solid rgba(200, 230, 255, 0.4);
-    box-shadow:
-      0 0 45px rgba(120, 220, 255, 0.5),
-      inset 0 0 80px rgba(180, 230, 255, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;     /* ✅ centrado horizontal */
-    justify-content: flex-start; /* ✅ arriba */
-    overflow-y: auto;
-  }
-
-  .cabecera h1 {
-    font-size: 2rem;
-    margin: 0 0 0.8rem 0;
-    text-align: center;
-  }
-
-  .cabecera h2 {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-
-  .separador {
-    width: 50%;
-    margin: 1rem auto 2rem;
-  }
-
-  .menu-inicio {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1.5rem;
-    font-size: 1.1rem;
-  }
-
-  .menu-inicio a {
-    font-weight: 600;
   }
 }
 
-
+/* ==========================================================
+   🔘 ESTADO OCULTO
+   ========================================================== */
 .oculto {
   display: none !important;
 }
-
-
