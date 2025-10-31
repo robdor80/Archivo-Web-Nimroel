@@ -98,8 +98,9 @@ window.addEventListener("DOMContentLoaded", () => {
   /* ==========================================================
      🎵 CANTO DEL SANTUARIO — ACTIVO EN TODAS LAS PLATAFORMAS
      ========================================================== */
-  const audio1 = new Audio("Archivo-Web-Nimroel/medios/audio/primer_canto.mp3");
-  const audio2 = new Audio("Archivo-Web-Nimroel/medios/audio/segundo_canto.mp3");
+  const audio1 = new Audio("https://robdor80.github.io/Archivo-Web-Nimroel/medios/audio/primer_canto.mp3");
+const audio2 = new Audio("https://robdor80.github.io/Archivo-Web-Nimroel/medios/audio/segundo_canto.mp3");
+
   let musicaActiva = false;
 
   const enlaceMusica = document.querySelector('#menu a:nth-child(2)');
