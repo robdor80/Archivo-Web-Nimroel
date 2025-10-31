@@ -56,7 +56,7 @@ body {
   100% { box-shadow: 0 0 60px rgba(150, 230, 255, 0.6), inset 0 0 100px rgba(200, 240, 255, 0.35); }
 }
 
-/* Estructura */
+/* === Disposición principal === */
 .contenedor-formulario {
   display: flex;
   justify-content: space-between;
@@ -64,11 +64,13 @@ body {
   gap: 2rem;
 }
 
+/* === Formulario === */
 .formulario-cronicas {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  text-align: left;
 }
 
 /* Campos */
@@ -92,15 +94,10 @@ input:focus, textarea:focus {
   box-shadow: 0 0 10px rgba(150, 230, 255, 0.4);
 }
 
-/* Panel de vistas */
-.panel-vistas {
-  width: 35%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.vista-previa {
+/* === Imagen principal arriba derecha === */
+.vista-imagen {
+  width: 30%;
+  max-width: 280px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(150, 230, 255, 0.4);
   border-radius: 12px;
@@ -109,11 +106,7 @@ input:focus, textarea:focus {
   color: #0c3642;
   box-shadow: inset 0 0 30px rgba(150, 230, 255, 0.2);
 }
-.vista-previa h3 {
-  margin-top: 0;
-  font-size: 1rem;
-}
-.vista-previa img {
+.vista-imagen img {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
@@ -121,7 +114,50 @@ input:focus, textarea:focus {
   border: 1px solid rgba(180, 240, 255, 0.3);
   margin-bottom: 0.5rem;
 }
-.vista-previa button {
+
+/* === Panel inferior: sello y firma === */
+.panel-inferior {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.vista-sello,
+.vista-firma {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(150, 230, 255, 0.4);
+  border-radius: 12px;
+  padding: 0.8rem;
+  text-align: center;
+  color: #0c3642;
+  box-shadow: inset 0 0 30px rgba(150, 230, 255, 0.2);
+}
+
+.vista-sello {
+  width: 140px;
+  aspect-ratio: 1 / 1;
+}
+.vista-firma {
+  width: 220px;
+  aspect-ratio: 3 / 1.2;
+}
+
+.vista-sello img,
+.vista-firma img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(180, 240, 255, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+/* Botones "Abrir imagen" */
+.vista-imagen button,
+.vista-sello button,
+.vista-firma button {
   background: none;
   border: 1px solid rgba(150, 230, 255, 0.6);
   border-radius: 8px;
@@ -135,17 +171,21 @@ input:focus, textarea:focus {
   transition: all 0.3s ease;
   text-shadow: 0 0 8px rgba(180, 240, 255, 0.6);
 }
-.vista-previa button:hover:enabled {
+.vista-imagen button:hover:enabled,
+.vista-sello button:hover:enabled,
+.vista-firma button:hover:enabled {
   color: #eafaff;
   background: rgba(150, 230, 255, 0.1);
   box-shadow: 0 0 10px rgba(180, 240, 255, 0.3);
 }
-.vista-previa button:disabled {
+.vista-imagen button:disabled,
+.vista-sello button:disabled,
+.vista-firma button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-/* Botones */
+/* === Botones generales === */
 .botones {
   display: flex;
   justify-content: center;
@@ -153,14 +193,81 @@ input:focus, textarea:focus {
   margin-top: 1rem;
 }
 
-/* Responsive */
-@media (max-width: 950px) {
+/* === MEDIA QUERIES === */
+
+/* 💻 PC (por defecto arriba) */
+
+/* 📱 Tablet vertical */
+@media (max-width: 1024px) and (orientation: portrait) {
   .contenedor-formulario {
     flex-direction: column;
     align-items: center;
   }
-  .panel-vistas {
-    width: 90%;
-    max-width: 400px;
+  .vista-imagen {
+    order: -1;
+    width: 50%;
+    max-width: 350px;
+  }
+  .panel-inferior {
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+
+/* 📱 Tablet horizontal */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .contenedor-formulario {
+    flex-direction: row;
+  }
+  .vista-imagen {
+    width: 35%;
+    max-width: 250px;
+  }
+  .panel-inferior {
+    flex-direction: row;
+  }
+}
+
+/* 📱 Móvil vertical */
+@media (max-width: 767px) and (orientation: portrait) {
+  .contenedor-formulario {
+    flex-direction: column;
+    align-items: center;
+  }
+  .vista-imagen {
+    order: -1;
+    width: 80%;
+    max-width: 300px;
+  }
+  .panel-inferior {
+    flex-direction: column;
+    align-items: center;
+  }
+  .vista-sello,
+  .vista-firma {
+    width: 70%;
+    max-width: 220px;
+  }
+}
+
+/* 📱 Móvil horizontal */
+@media (max-width: 767px) and (orientation: landscape) {
+  .contenedor-formulario {
+    flex-direction: column;
+    align-items: center;
+  }
+  .vista-imagen {
+    width: 60%;
+    max-width: 250px;
+  }
+  .panel-inferior {
+    flex-direction: row;
+    gap: 0.8rem;
+  }
+  .vista-sello {
+    width: 120px;
+  }
+  .vista-firma {
+    width: 180px;
   }
 }
