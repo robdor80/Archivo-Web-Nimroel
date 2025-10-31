@@ -201,3 +201,163 @@ body {
     font-weight: 600;
   }
 }
+
+/* --- TABLET VERTICAL --- */
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .fondo-cristal.inicio {
+    width: calc(100% - 4rem);
+    height: calc(100% - 4rem);
+    margin: 2rem;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(150, 190, 210, 0.02);
+    backdrop-filter: blur(25px) saturate(120%);
+    -webkit-backdrop-filter: blur(25px) saturate(120%);
+    border: 1px solid rgba(200, 230, 255, 0.3);
+    box-shadow:
+      0 0 35px rgba(120, 200, 255, 0.4),
+      inset 0 0 70px rgba(180, 230, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* ✅ centrado horizontal */
+    justify-content: flex-start; /* ✅ arriba */
+    overflow-y: auto;
+  }
+
+  .cabecera h1 {
+    font-size: 1.6rem;
+    margin: 0 0 0.6rem 0;
+    text-align: center;
+  }
+
+  .cabecera h2 {
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
+  }
+
+  .separador {
+    width: 70%;
+    margin: 1rem auto 1.5rem;
+  }
+
+  .menu-inicio {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 1rem;
+  }
+
+  .menu-inicio a {
+    font-weight: 600;
+  }
+}
+
+
+/* --- TABLET HORIZONTAL --- */
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+  .fondo-cristal.inicio {
+    width: calc(100% - 4rem);
+    height: calc(100% - 4rem);
+    margin: 2rem;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(150, 190, 210, 0.02);
+    backdrop-filter: blur(25px) saturate(120%);
+    -webkit-backdrop-filter: blur(25px) saturate(120%);
+    border: 1px solid rgba(200, 230, 255, 0.3);
+    box-shadow:
+      0 0 35px rgba(120, 200, 255, 0.4),
+      inset 0 0 70px rgba(180, 230, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* ✅ centrado horizontal */
+    justify-content: flex-start; /* ✅ arriba */
+    overflow-y: auto;
+  }
+
+  .cabecera h1 {
+    font-size: 1.8rem;
+    margin: 0 0 0.6rem 0;
+    text-align: center;
+  }
+
+  .cabecera h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1.4rem;
+    text-align: center;
+  }
+
+  .separador {
+    width: 60%;
+    margin: 1rem auto 1.5rem;
+  }
+
+  .menu-inicio {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .menu-inicio a {
+    font-weight: 600;
+  }
+}
+
+
+/* --- PC / ESCRITORIO --- */
+@media screen and (min-width: 1024px) {
+  .fondo-cristal.inicio {
+    width: calc(100% - 4rem);
+    height: calc(100% - 4rem);
+    margin: 2rem;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(150, 190, 210, 0.03);
+    backdrop-filter: blur(30px) saturate(140%);
+    -webkit-backdrop-filter: blur(30px) saturate(140%);
+    border: 1px solid rgba(200, 230, 255, 0.4);
+    box-shadow:
+      0 0 45px rgba(120, 220, 255, 0.5),
+      inset 0 0 80px rgba(180, 230, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* ✅ centrado horizontal */
+    justify-content: flex-start; /* ✅ arriba */
+    overflow-y: auto;
+  }
+
+  .cabecera h1 {
+    font-size: 2rem;
+    margin: 0 0 0.8rem 0;
+    text-align: center;
+  }
+
+  .cabecera h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .separador {
+    width: 50%;
+    margin: 1rem auto 2rem;
+  }
+
+  .menu-inicio {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .menu-inicio a {
+    font-weight: 600;
+  }
+}
+
