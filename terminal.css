@@ -1003,6 +1003,36 @@ body.horizontal .menu a:hover {
   text-align: center;
 }
 
+/* ==========================================================
+   🔗 ESTILO LIMPIO Y UNIFICADO PARA LOS ENLACES INTERNOS
+   ========================================================== */
+
+.texto-enlace,
+.texto-enlace:link,
+.texto-enlace:visited,
+.texto-enlace:hover,
+.texto-enlace:active {
+  color: inherit !important;          /* usa el color del texto del contenedor */
+  text-decoration: none !important;   /* sin subrayado */
+  font-weight: bold;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* 💫 Efecto al pasar el ratón */
+.texto-enlace:hover {
+  text-shadow: 0 0 8px rgba(100, 200, 255, 0.7);
+  transform: scale(1.05);
+}
+
+/* 🌙 Opcional: ligero brillo permanente, coherente con el cristal */
+.texto-enlace {
+  text-shadow: 0 0 4px rgba(180, 240, 255, 0.5);
+}
+
+
 
 
 
