@@ -28,7 +28,17 @@ function abrirModal(data) {
 
   const sello = document.getElementById("modal-sello");
   const firma = document.getElementById("modal-firma");
+  const imagen = document.getElementById("modal-imagen");
 
+  // Imagen principal en modal
+  if (data.imagen) {
+    imagen.src = data.imagen;
+    imagen.style.display = "block";
+  } else {
+    imagen.style.display = "none";
+  }
+
+  // Sello
   if (data.sello) {
     sello.src = data.sello;
     sello.style.display = "inline-block";
@@ -36,6 +46,7 @@ function abrirModal(data) {
     sello.style.display = "none";
   }
 
+  // Firma
   if (data.firma) {
     firma.src = data.firma;
     firma.style.display = "inline-block";
@@ -46,18 +57,25 @@ function abrirModal(data) {
   modal.classList.remove("hidden");
 }
 
-
 // Cargar crónicas filtradas por Era
 async function cargarCronicasAurora() {
   try {
     const q = query(collection(db, "cronicas"), where("era", "==", "Era de la Aurora"));
     const snapshot = await getDocs(q);
 
+    if (snapshot.empty) {
+      contenedor.innerHTML = `<p style="text-align:center;color:#a8bde2;">No hay crónicas registradas para esta era.</p>`;
+      return;
+    }
+
     snapshot.forEach(doc => {
       const data = doc.data();
       const card = document.createElement("div");
       card.className = "cr-card";
       card.innerHTML = `
+        <div class="imagen-cronica">
+          <img src="${data.imagen || 'medios/img/runas/runa1.webp'}" alt="${data.titulo || 'Crónica sin título'}">
+        </div>
         <h3>${data.titulo || "Sin título"}</h3>
         <p><strong>Custodio:</strong> ${data.custodio || "—"}</p>
         <p>${data.resumen || ""}</p>
@@ -65,10 +83,6 @@ async function cargarCronicasAurora() {
       card.addEventListener("click", () => abrirModal(data));
       contenedor.appendChild(card);
     });
-
-    if (snapshot.empty) {
-      contenedor.innerHTML = `<p style="text-align:center;color:#a8bde2;">No hay crónicas registradas para esta era.</p>`;
-    }
 
   } catch (error) {
     console.error("❌ Error al cargar las crónicas:", error);

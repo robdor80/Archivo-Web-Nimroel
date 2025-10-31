@@ -65,7 +65,9 @@ main.cronicas-container {
   margin: 0 auto;
 }
 
-/* TARJETAS */
+/* ==========================================================
+   TARJETAS
+   ========================================================== */
 .cr-card {
   background: rgba(180, 210, 255, 0.05);
   border: 1px solid rgba(180, 210, 255, 0.18);
@@ -74,6 +76,7 @@ main.cronicas-container {
   backdrop-filter: blur(14px);
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .cr-card:hover {
@@ -93,7 +96,33 @@ main.cronicas-container {
   font-size: 0.95rem;
 }
 
-/* MODAL */
+/* === NUEVO: Imagen dentro de la tarjeta === */
+.cr-card .imagen-cronica {
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(150, 230, 255, 0.15);
+  box-shadow: inset 0 0 20px rgba(120, 200, 255, 0.1);
+}
+
+.cr-card .imagen-cronica img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.cr-card:hover .imagen-cronica img {
+  transform: scale(1.05);
+}
+
+/* ==========================================================
+   MODAL
+   ========================================================== */
 .modal {
   position: fixed;
   inset: 0;
@@ -116,6 +145,17 @@ main.cronicas-container {
   color: #dfe8ff;
   text-align: center;
   position: relative;
+}
+
+/* === NUEVO: Imagen principal dentro del modal === */
+#modal-imagen {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 10px;
+  display: none;
+  margin: 0 auto 1rem;
+  box-shadow: 0 0 25px rgba(150, 230, 255, 0.25);
 }
 
 .modal-imagenes {
