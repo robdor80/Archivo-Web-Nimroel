@@ -9,7 +9,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyD3NEbGcUwBxwoOGBPO8PukmPHcfl42bE8",
   authDomain: "cronicas-de-nimroel.firebaseapp.com",
   projectId: "cronicas-de-nimroel",
-  storageBucket: "cronicas-de-nimroel.appspot.com", // ✅ corregido (.app → .appspot.com)
+  storageBucket: "cronicas-de-nimroel.appspot.com",
   messagingSenderId: "689465837057",
   appId: "1:689465837057:web:aecddb8b4a247bfe0de200"
 };
@@ -48,16 +48,20 @@ const botonesAbrir = {
 // 🔐 VERIFICAR SESIÓN
 // ===============================
 onAuthStateChanged(auth, (user) => {
-  if (!user || user.email !== "rob.dor.80@gmail.com") {
-    console.warn("⚠️ Usuario no autorizado o sesión no iniciada.");
-    window.location.href = "../../index.html";
+  if (user && user.email === "rob.dor.80@gmail.com") {
+    console.log("✅ Sesión activa:", user.email);
+    mensaje.textContent = `🔓 Sesión activa como ${user.email}`;
   } else {
-    console.log("✅ Usuario autenticado:", user.email);
+    console.warn("🚫 No hay sesión activa. Redirigiendo...");
+    mensaje.textContent = "🚫 No hay sesión activa. Inicia sesión en el Santuario.";
+    setTimeout(() => {
+      window.location.href = "../../index.html";
+    }, 2000);
   }
 });
 
 // ===============================
-// 💾 GUARDAR CRÓNICA / DOCUMENTO
+// 💾 GUARDAR DOCUMENTO
 // ===============================
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -90,13 +94,15 @@ form.addEventListener("submit", async (e) => {
     mensaje.textContent = `✅ Documento '${documento}' guardado correctamente en '${coleccion}'.`;
     console.log("✅ Guardado correctamente en Firestore.");
 
+    // Prueba directa de conexión
+    console.log("🌐 Conexión activa con Firestore confirmada.");
     form.reset();
     actualizarVistaPrevia("imagen");
     actualizarVistaPrevia("sello");
     actualizarVistaPrevia("firma");
   } catch (error) {
     console.error("❌ Error al guardar:", error);
-    mensaje.textContent = "❌ Error al guardar la crónica.";
+    mensaje.textContent = "❌ Error al guardar la crónica. Revisa consola.";
   }
 });
 
@@ -106,6 +112,7 @@ form.addEventListener("submit", async (e) => {
 btnSalir.addEventListener("click", async () => {
   try {
     await signOut(auth);
+    console.log("🔒 Sesión cerrada correctamente.");
     window.location.href = "../../index.html";
   } catch (error) {
     console.error("Error al cerrar sesión:", error);
@@ -118,6 +125,7 @@ btnSalir.addEventListener("click", async () => {
 const RUNAS = ["ᚠ","ᚢ","ᚦ","ᚨ","ᚱ","ᚲ","ᚷ","ᚹ","ᚺ","ᚾ","ᛁ","ᛃ","ᛇ","ᛉ","ᛊ","ᛏ","ᛒ","ᛖ","ᛗ","ᛚ","ᛜ","ᛞ","ᛟ"];
 function generarLluviaRunas() {
   const capa = document.getElementById("runas");
+  if (!capa) return;
   capa.innerHTML = "";
   const cantidad = window.innerWidth < 768 ? 40 : 80;
   for (let i = 0; i < cantidad; i++) {
@@ -145,5 +153,18 @@ window.actualizarVistaPrevia = function (tipo) {
   } else {
     vistas[tipo].src = "../../medios/img/runas/runa1.webp";
     botonesAbrir[tipo].disabled = true;
+  }
+};
+
+// ===============================
+// 🧪 TEST MANUAL DE CONEXIÓN
+// ===============================
+window.testFirestore = async () => {
+  try {
+    const testDoc = doc(db, "prueba_conexion", "test");
+    await setDoc(testDoc, { estado: "ok", fecha: new Date().toISOString() });
+    console.log("✅ Firestore está respondiendo correctamente.");
+  } catch (err) {
+    console.error("❌ Error de conexión con Firestore:", err);
   }
 };
