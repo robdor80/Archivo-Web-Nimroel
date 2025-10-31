@@ -1,0 +1,124 @@
+/* ==========================================================
+   🌌 INICIO — ARCHIVO DEL SANTUARIO
+   ========================================================== */
+
+body {
+  margin: 0;
+  height: 100dvh;
+  background: #BFC9C9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  overflow: hidden;
+}
+
+/* Fondo translúcido con efecto cristal */
+.fondo-cristal.inicio {
+  width: 90%;
+  max-width: 1000px;
+  height: 80%;
+  border-radius: 10px;
+  position: relative;
+  background: rgba(150, 190, 210, 0.02);
+  backdrop-filter: blur(25px) saturate(140%);
+  -webkit-backdrop-filter: blur(25px) saturate(140%);
+  border: 1px solid rgba(200, 230, 255, 0.3);
+  box-shadow:
+    0 0 40px rgba(120, 200, 255, 0.4),
+    inset 0 0 80px rgba(180, 230, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  animation: brilloCristal 4s ease-in-out infinite alternate;
+}
+
+@keyframes brilloCristal {
+  0% {
+    box-shadow:
+      0 0 25px rgba(120, 200, 255, 0.3),
+      inset 0 0 60px rgba(180, 230, 255, 0.2);
+  }
+  100% {
+    box-shadow:
+      0 0 60px rgba(150, 230, 255, 0.6),
+      inset 0 0 100px rgba(200, 240, 255, 0.35);
+  }
+}
+
+/* CABECERA */
+.cabecera h1 {
+  color: #0c3642;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  margin-bottom: 0.8rem;
+  text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+               0 0 20px rgba(100, 200, 255, 0.5);
+}
+
+.cabecera h2 {
+  color: #1b3b49;
+  font-weight: normal;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  margin-top: 0;
+  margin-bottom: 1.8rem;
+  opacity: 0.8;
+}
+
+/* Separador */
+.separador {
+  width: 85%;
+  border: none;
+  border-top: 1px solid rgba(100, 180, 255, 0.4);
+  margin: 1.5rem auto 2.5rem;
+}
+
+/* Menú de inicio */
+.menu-inicio {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.menu-inicio a {
+  color: #0c3642;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.menu-inicio a:hover {
+  text-shadow: 0 0 10px rgba(100, 200, 255, 0.8);
+  transform: scale(1.05);
+}
+
+/* Fondo con runas flotantes */
+#runas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.runa {
+  position: absolute;
+  color: #0c3642;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+               0 0 20px rgba(100, 200, 255, 0.5);
+  opacity: 0.9;
+  animation: caer linear infinite;
+}
+
+@keyframes caer {
+  0% { transform: translateY(-10vh); opacity: 0.2; }
+  10% { opacity: 1; }
+  100% { transform: translateY(110vh); opacity: 0.1; }
+}

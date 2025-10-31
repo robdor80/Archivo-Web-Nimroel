@@ -2,13 +2,59 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Archivo de Nimroel — Acceso</title>
-  <link rel="stylesheet" href="index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archivo del Santuario</title>
+
+  <!-- BASE PARA GITHUB -->
+  <base href="/Archivo-Web-Nimroel/">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#0e111c">
 </head>
+
 <body>
-  <h1>Bienvenido al Archivo de Nimroel</h1>
-  <p><a href="terminal.html">Entrar en la Terminal de Cristal</a></p>
-  <script src="index.js"></script>
+  <!-- 🌌 Fondo de runas flotantes -->
+  <div id="runas"></div>
+
+  <!-- 💠 Pantalla principal -->
+  <div class="fondo-cristal inicio">
+    <header class="cabecera">
+      <h1>Bienvenido al Archivo del Santuario</h1>
+      <h2>Recuerde que el Gran Sello de Jorvin monitoriza la sesión.</h2>
+
+      <!-- Línea separadora -->
+      <hr class="separador">
+
+      <!-- Menú principal -->
+      <nav class="menu-inicio">
+        <a href="#">Custodio</a>
+        <a href="#">Configuración</a>
+        <a href="terminal.html">Terminal</a>
+      </nav>
+    </header>
+  </div>
+
+  <!-- SCRIPT DE RUNAS -->
+  <script>
+    const RUNAS = ["ᚠ","ᚢ","ᚦ","ᚨ","ᚱ","ᚲ","ᚷ","ᚹ","ᚺ","ᚾ","ᛁ","ᛃ","ᛇ","ᛉ","ᛊ","ᛏ","ᛒ","ᛖ","ᛗ","ᛚ","ᛜ","ᛞ","ᛟ"];
+    function generarLluviaRunas() {
+      const capa = document.getElementById("runas");
+      capa.innerHTML = "";
+      const cantidad = window.innerWidth < 768 ? 40 : 80;
+      for (let i = 0; i < cantidad; i++) {
+        const rune = document.createElement("div");
+        rune.className = "runa";
+        rune.textContent = RUNAS[Math.floor(Math.random() * RUNAS.length)];
+        rune.style.left = Math.random() * 100 + "vw";
+        rune.style.top = "-" + (Math.random() * 20 + 5) + "vh";
+        rune.style.animationDuration = 4 + Math.random() * 6 + "s";
+        rune.style.animationDelay = "-" + Math.random() * 10 + "s";
+        capa.appendChild(rune);
+      }
+    }
+    window.addEventListener("DOMContentLoaded", generarLluviaRunas);
+  </script>
 </body>
 </html>
