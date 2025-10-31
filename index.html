@@ -34,42 +34,41 @@
         <a href="terminal.html">Terminal</a>
       </nav>
     </header>
+
+    <!-- 💠 Disposición de Runas (dentro del cristal) -->
+    <section class="portal-runas">
+      <div class="tabla-runas">
+
+        <!-- Fila 1 -->
+        <div></div>
+        <a href="#" class="runa-enlace"><img src="medios/img/runas/runa1.webp" alt="Runa 1"></a>
+        <div></div>
+        <a href="#" class="runa-enlace"><img src="medios/img/runas/runa2.webp" alt="Runa 2"></a>
+        <div></div>
+
+        <!-- Fila 2 -->
+        <a href="#" class="runa-enlace"><img src="medios/img/runas/runa3.webp" alt="Runa 3"></a>
+        <div></div>
+        <a href="#" class="runa-enlace"><img src="medios/img/runas/runa4.webp" alt="Runa 4"></a>
+        <div></div>
+        <a href="#" class="runa-enlace"><img src="medios/img/runas/runa5.webp" alt="Runa 5"></a>
+
+        <!-- Fila 3 -->
+        <div></div>
+        <a href="#" class="runa-enlace"><img src="medios/img/runas/runa6.webp" alt="Runa 6"></a>
+        <div></div>
+        <a href="#" class="runa-enlace"><img src="medios/img/runas/runa7.webp" alt="Runa 7"></a>
+        <div></div>
+
+      </div>
+
+      <!-- 🔐 Sección de acceso -->
+      <div class="acceso">
+        <button id="btnGoogle">Iniciar sesión con Google</button>
+        <button id="btnAcceso">Acceso</button>
+      </div>
+    </section>
   </div>
-
-  <!-- 💠 Disposición de Runas -->
-<section class="portal-runas">
-  <div class="tabla-runas">
-
-    <!-- Fila 1 -->
-    <div></div>
-    <a href="#" class="runa-enlace"><img src="medios/img/runas/runa1.webp" alt="Runa 1"></a>
-    <div></div>
-    <a href="#" class="runa-enlace"><img src="medios/img/runas/runa2.webp" alt="Runa 2"></a>
-    <div></div>
-
-    <!-- Fila 2 -->
-    <a href="#" class="runa-enlace"><img src="medios/img/runas/runa3.webp" alt="Runa 3"></a>
-    <div></div>
-    <a href="#" class="runa-enlace"><img src="medios/img/runas/runa4.webp" alt="Runa 4"></a>
-    <div></div>
-    <a href="#" class="runa-enlace"><img src="medios/img/runas/runa5.webp" alt="Runa 5"></a>
-
-    <!-- Fila 3 -->
-    <div></div>
-    <a href="#" class="runa-enlace"><img src="medios/img/runas/runa6.webp" alt="Runa 6"></a>
-    <div></div>
-    <a href="#" class="runa-enlace"><img src="medios/img/runas/runa7.webp" alt="Runa 7"></a>
-    <div></div>
-
-  </div>
-
-  <!-- 🔐 Sección de acceso -->
-  <div class="acceso">
-    <button id="btnGoogle">Iniciar sesión con Google</button>
-    <button id="btnAcceso">Acceso</button>
-  </div>
-</section>
-
 
   <!-- SCRIPT DE RUNAS -->
   <script>
@@ -93,21 +92,21 @@
   </script>
 
   <script>
-  // 🔄 Borra el caché de esta página al cargarla
-  if ('caches' in window) {
-    caches.keys().then(function(names) {
-      for (let name of names) caches.delete(name);
-    });
-  }
+    // 🔄 Borra el caché de esta página al cargarla
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (let name of names) caches.delete(name);
+      });
+    }
 
-  // 🔁 Fuerza la recarga completa una vez (solo la primera vez)
-  if (!sessionStorage.getItem('cacheCleared')) {
-    sessionStorage.setItem('cacheCleared', 'true');
-    window.location.reload(true);
-  }
-</script>
+    // 🔁 Fuerza la recarga completa una vez (solo la primera vez)
+    if (!sessionStorage.getItem('cacheCleared')) {
+      sessionStorage.setItem('cacheCleared', 'true');
+      window.location.reload(true);
+    }
+  </script>
 
-<script src="terminal.js?v=1.4"></script>
-
+  <!-- SCRIPT PRINCIPAL -->
+  <script src="terminal.js?v=1.4"></script>
 </body>
 </html>
