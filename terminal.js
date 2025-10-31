@@ -1,5 +1,5 @@
 /* ==========================================================
-   💧 SANTUARIO DE NIMROEL — SCRIPT PRINCIPAL COMPLETO (versión final)
+   💧 SANTUARIO DE NIMROEL — SCRIPT PRINCIPAL COMPLETO (versión GitHub)
    ========================================================== */
 
 /* ----------------------------------------------------------
@@ -98,8 +98,9 @@ window.addEventListener("DOMContentLoaded", () => {
   /* ==========================================================
      🎵 CANTO DEL SANTUARIO — ACTIVO EN TODAS LAS PLATAFORMAS
      ========================================================== */
-  const audio1 = new Audio("../medios/audio/primer_canto.mp3");
-const audio2 = new Audio("../medios/audio/segundo_canto.mp3");
+  const audio1 = new Audio("https://robdor80.github.io/Archivo-Web-Nimroel/medios/audio/primer_canto.mp3");
+const audio2 = new Audio("https://robdor80.github.io/Archivo-Web-Nimroel/medios/audio/segundo_canto.mp3");
+
   let musicaActiva = false;
 
   const enlaceMusica = document.querySelector('#menu a:nth-child(2)');
@@ -143,17 +144,15 @@ const audio2 = new Audio("../medios/audio/segundo_canto.mp3");
     });
   }
 
-  // 💻 Menú PC (tres puntos) — versión sincronizada
+  // 💻 Menú PC (tres puntos)
   if (enlaceMusicaPc) {
     enlaceMusicaPc.textContent = "Activar canto";
     enlaceMusicaPc.addEventListener("click", (e) => {
       e.preventDefault();
-
       if (!musicaActiva) {
         activarCanto(enlaceMusicaPc);
       } else {
         desactivarCanto(enlaceMusicaPc);
-        // 🔁 restablece el texto a “Activar canto” tras detenerse
         setTimeout(() => {
           enlaceMusicaPc.textContent = "Activar canto";
         }, 300);
