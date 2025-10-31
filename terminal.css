@@ -856,6 +856,17 @@ body.horizontal .menu a:hover {
   color: inherit !important;
 }
 
+/* ==========================================================
+   🔧 CORRECCIÓN — Centrado vertical del texto en enlaces-tarjeta
+   ========================================================== */
+.enlace-tarjeta {
+  display: flex !important;      /* fuerza el uso de flexbox */
+  align-items: center;           /* centra verticalmente */
+  justify-content: center;       /* centra horizontalmente */
+  text-align: center;            /* centra el texto */
+  height: 100%;                  /* ocupa toda la altura de la tarjeta */
+}
+
 
 
 
