@@ -34,6 +34,12 @@ html {
     font-family: 'Cinzel', serif;
   }
 
+    /* 🔠 Ajuste de tamaño del texto en las tarjetas (más equilibrado con el h1) */
+  .era-panel h2 {
+    font-size: 0.9rem; /* ~14.4px en lugar de 16px */
+  }
+
+
   /* --- Cristal principal --- */
   .fondo-cristal {
     width: 90%;
