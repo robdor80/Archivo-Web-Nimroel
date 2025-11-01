@@ -75,18 +75,20 @@ form.addEventListener("submit", async (e) => {
   }
 
   const datos = {
-    titulo: document.getElementById("titulo").value.trim(),
-    era: document.getElementById("era").value.trim(),
-    año: document.getElementById("anio").value.trim(),
-    fecha: document.getElementById("fecha").value.trim(),
-    custodio: document.getElementById("custodio").value.trim(),
-    traduccion: document.getElementById("traduccion").value.trim(),
-    item: document.getElementById("item").value.trim(),
-    imagen: campos.imagen.value.trim(),
-    resumen: document.getElementById("resumen").value.trim(),
-    sello: campos.sello.value.trim(),
-    firma: campos.firma.value.trim()
-  };
+  titulo: document.getElementById("titulo").value.trim(),
+  era: document.getElementById("era").value.trim(),
+  año: document.getElementById("anio").value.trim(),
+  fecha: document.getElementById("fecha").value.trim(),
+  custodio: document.getElementById("custodio").value.trim(),
+  traduccion: document.getElementById("traduccion").value.trim(),
+  item: document.getElementById("item").value.trim(),
+  item2: document.getElementById("item2").value.trim(),   // ✅ añadido
+  imagen: campos.imagen.value.trim(),
+  resumen: document.getElementById("resumen").value.trim(),
+  sello: campos.sello.value.trim(),
+  firma: campos.firma.value.trim()
+};
+
 
   console.log(`📦 Intentando guardar en: ${coleccion}/${documento}`, datos);
 
