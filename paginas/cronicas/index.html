@@ -12,55 +12,72 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="paginas/cronicas/cronicas.css" />
 
-  <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="theme-color" content="#0e111c">
 </head>
 
 <body>
-  <header class="crumbs">
-    <a class="back" href="index.html">
-      <svg viewBox="0 0 24 24" width="18" height="18">
-        <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Inicio</span>
-    </a>
-    <h1>Crónicas del Santuario</h1>
-    <p class="subtitle">Consulta los registros históricos ordenados por Era</p>
-  </header>
+  <!-- 🌌 Fondo de runas flotantes -->
+  <div id="runas"></div>
 
-  <!-- CONTENEDOR DE TODAS LAS ERAS -->
-  <main class="eras-container">
+  <!-- 💠 Cristal principal -->
+  <div class="fondo-cristal">
+    <header class="crumbs">
+      <a class="back" href="index.html">
+        <svg viewBox="0 0 24 24" width="18" height="18">
+          <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Inicio</span>
+      </a>
+      <h1>Crónicas del Santuario</h1>
+      <p class="subtitle">Consulta los registros históricos ordenados por Era</p>
+    </header>
 
-    <a href="paginas/cronicas/era_aurora/index.html" class="era-panel-link">
-      <section class="era-panel">
-        <h2>Era de la Aurora</h2>
-      </section>
-    </a>
+    <!-- 🕰️ Tarjetas de las Eras -->
+    <main class="eras-container">
+      <a href="paginas/cronicas/era_aurora/index.html" class="era-panel-link">
+        <section class="era-panel"><h2>Era de la Aurora</h2></section>
+      </a>
 
-    <a href="paginas/cronicas/era_despertar/index.html" class="era-panel-link">
-      <section class="era-panel">
-        <h2>Era del Despertar</h2>
-      </section>
-    </a>
+      <a href="paginas/cronicas/era_despertar/index.html" class="era-panel-link">
+        <section class="era-panel"><h2>Era del Despertar</h2></section>
+      </a>
 
-    <a href="paginas/cronicas/era_conocimiento/index.html" class="era-panel-link">
-      <section class="era-panel">
-        <h2>Era del Conocimiento</h2>
-      </section>
-    </a>
+      <a href="paginas/cronicas/era_conocimiento/index.html" class="era-panel-link">
+        <section class="era-panel"><h2>Era del Conocimiento</h2></section>
+      </a>
 
-    <a href="paginas/cronicas/era_poder/index.html" class="era-panel-link">
-      <section class="era-panel">
-        <h2>Era del Poder</h2>
-      </section>
-    </a>
+      <a href="paginas/cronicas/era_poder/index.html" class="era-panel-link">
+        <section class="era-panel"><h2>Era del Poder</h2></section>
+      </a>
+    </main>
 
-  </main>
+    <!-- 🔍 Enlace a la consulta -->
+    <div class="enlace-consulta">
+      <a href="paginas/cronicas/consulta/index.html">Búsqueda y consulta avanzada</a>
+    </div>
+  </div>
 
-  <!-- Scripts -->
-  <script type="module" src="paginas/cronicas/firebase-config.js"></script>
-  <script src="paginas/cronicas/cronicas.js" type="module"></script>
+  <!-- 🌠 Script de lluvia de runas -->
+  <script>
+    const RUNAS = ["ᚠ","ᚢ","ᚦ","ᚨ","ᚱ","ᚲ","ᚷ","ᚹ","ᚺ","ᚾ","ᛁ","ᛃ","ᛇ","ᛉ","ᛊ","ᛏ","ᛒ","ᛖ","ᛗ","ᛚ","ᛜ","ᛞ","ᛟ"];
+    function generarLluviaRunas() {
+      const capa = document.getElementById("runas");
+      capa.innerHTML = "";
+      const cantidad = window.innerWidth < 768 ? 40 : 80;
+      for (let i = 0; i < cantidad; i++) {
+        const rune = document.createElement("div");
+        rune.className = "runa";
+        rune.textContent = RUNAS[Math.floor(Math.random() * RUNAS.length)];
+        rune.style.left = Math.random() * 100 + "vw";
+        rune.style.top = "-" + (Math.random() * 20 + 5) + "vh";
+        rune.style.animationDuration = 4 + Math.random() * 6 + "s";
+        rune.style.animationDelay = "-" + Math.random() * 10 + "s";
+        capa.appendChild(rune);
+      }
+    }
+    window.addEventListener("DOMContentLoaded", generarLluviaRunas);
+  </script>
 </body>
 </html>

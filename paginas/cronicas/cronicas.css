@@ -1,189 +1,164 @@
-/* ==========================================================
-   CRÓNICAS DEL SANTUARIO — ESTILO FINAL CON TARJETAS ENLACE Y FONDO EN PC/TABLET
-   ========================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
 
-html, body {
+body {
   margin: 0;
-  padding: 0;
-  background: radial-gradient(900px 520px at 70% -10%, #171a2a 0%, #0e111c 55%, #0a0b12 100%);
-  overflow-x: hidden;
-  color: #eaf2ff;
-  font-family: "Cinzel", serif;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
+  height: 100dvh;
+  background: #bfc9c9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Cinzel', serif;
+  overflow: hidden;
 }
 
-/* ==========================================================
-   FONDO DE IMAGEN (solo visible en PC y tablet)
-   ========================================================== */
-@media (min-width: 700px) {
-  body {
-    background-image: 
-      linear-gradient(
-        rgba(10, 12, 20, 0.6),
-        rgba(10, 12, 20, 0.8)
-      ),
-      url("../../medios/img/fondos/fondo_cronicas.webp");
-  }
+/* 🌌 Fondo de runas */
+#runas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.runa {
+  position: absolute;
+  color: #0c3642;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+               0 0 20px rgba(100, 200, 255, 0.5);
+  opacity: 0.9;
+  animation: caer linear infinite;
+}
+@keyframes caer {
+  0% { transform: translateY(-10vh); opacity: 0.2; }
+  10% { opacity: 1; }
+  100% { transform: translateY(110vh); opacity: 0.1; }
 }
 
-/* ==========================================================
-   CABECERA LIMPIA
-   ========================================================== */
+/* 💠 Cristal principal */
+.fondo-cristal {
+  width: 95%;
+  max-width: 1200px;
+  padding: 2rem;
+  border-radius: 15px;
+  background: rgba(150, 190, 210, 0.05);
+  backdrop-filter: blur(25px) saturate(140%);
+  border: 1px solid rgba(200, 230, 255, 0.3);
+  box-shadow: 0 0 40px rgba(120, 200, 255, 0.4),
+              inset 0 0 80px rgba(180, 230, 255, 0.2);
+  animation: brilloCristal 4s ease-in-out infinite alternate;
+  z-index: 1;
+  overflow-y: auto;
+  text-align: center;
+}
+@keyframes brilloCristal {
+  0% { box-shadow: 0 0 25px rgba(120, 200, 255, 0.3),
+       inset 0 0 60px rgba(180, 230, 255, 0.2); }
+  100% { box-shadow: 0 0 60px rgba(150, 230, 255, 0.6),
+         inset 0 0 100px rgba(200, 240, 255, 0.35); }
+}
+
+/* 🕰️ Cabecera */
 header.crumbs {
   position: relative;
   text-align: center;
-  padding: 4rem 1rem 2.5rem;
-  background: none;
-  box-shadow: none;
-  border: none;
-  z-index: 2;
+  padding-bottom: 1rem;
 }
-
 header.crumbs .back {
   position: absolute;
-  top: 1.2rem;
-  left: 1.5rem;
+  top: 0.5rem;
+  left: 1rem;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  color: #d8e7ff;
+  color: #0c3642;
   text-decoration: none;
-  font-family: "Cinzel", serif;
   font-size: 0.9rem;
-  background: rgba(30, 40, 60, 0.45);
+  background: rgba(30, 40, 60, 0.25);
   border: 1px solid rgba(200, 220, 255, 0.25);
   padding: 0.4rem 0.9rem;
   border-radius: 8px;
   transition: all 0.3s ease;
 }
-
 header.crumbs .back:hover {
-  background: rgba(60, 80, 120, 0.6);
+  background: rgba(60, 80, 120, 0.4);
   color: #fff;
   box-shadow: 0 0 14px rgba(160, 210, 255, 0.3);
 }
-
 header.crumbs h1 {
-  font-size: clamp(2.8rem, 6vw, 3.6rem);
-  font-weight: 700;
-  color: #d7e9ff;
-  text-shadow: 0 0 25px rgba(180, 220, 255, 0.5);
-  letter-spacing: 0.05em;
-  margin-bottom: 0.8rem;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  color: #0c3642;
+  text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+               0 0 20px rgba(100, 200, 255, 0.5);
+  margin: 1rem 0 0.3rem 0;
 }
-
 header.crumbs .subtitle {
-  font-size: 1.1rem;
-  color: #a5b6d9;
-  opacity: 0.9;
-}
-
-/* ==========================================================
-   CONTENEDOR PRINCIPAL
-   ========================================================== */
-main.eras-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 2.5rem;
-  padding: 2rem 3rem 4rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* ==========================================================
-   ENLACES DE ERA (clickables)
-   ========================================================== */
-.era-panel-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
-.era-panel-link:hover {
-  transform: translateY(-4px);
-  cursor: pointer;
-}
-
-/* ==========================================================
-   PANEL DE ERA
-   ========================================================== */
-.era-panel {
-  background: rgba(180, 210, 255, 0.03);
-  border: 1px solid rgba(180, 210, 255, 0.18);
-  border-radius: 18px;
-  padding: 2.2rem;
-  backdrop-filter: blur(18px) brightness(1.1);
-  -webkit-backdrop-filter: blur(18px) brightness(1.1);
-  box-shadow: 0 0 25px rgba(150, 200, 255, 0.08);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-}
-
-.era-panel:hover {
-  border-color: rgba(220, 230, 255, 0.35);
-  box-shadow: 0 0 45px rgba(180, 230, 255, 0.25);
-}
-
-.era-panel h2 {
-  color: #eaf2ff;
-  text-align: center;
-  font-size: clamp(1.6rem, 2.6vw, 2rem);
-  font-weight: 700;
-  margin-bottom: 0.8rem;
-  letter-spacing: 0.04em;
-  text-shadow: 0 0 12px rgba(180, 220, 255, 0.25);
-}
-
-.era-panel p {
-  color: #a8bde2;
-  text-align: center;
+  color: #0c3642;
+  opacity: 0.7;
   font-size: 1rem;
-  margin-top: 0.6rem;
-  line-height: 1.4;
 }
 
-/* ==========================================================
-   MEDIA QUERIES
-   ========================================================== */
-@media (max-width: 1024px) {
-  main.eras-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    padding: 1.5rem;
-  }
+/* 🧭 Tarjetas de las Eras */
+.eras-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
 }
-
-@media (max-width: 700px) {
-  main.eras-container {
-    grid-template-columns: 1fr;
-    padding: 1.5rem;
-  }
-
-  header.crumbs h1 {
-    font-size: clamp(2rem, 7vw, 2.8rem);
-  }
-
-  .era-panel p {
-    font-size: 0.95rem;
-  }
-
-  /* En móvil, fondo liso sin imagen */
-  body {
-    background: radial-gradient(900px 520px at 70% -10%, #171a2a 0%, #0e111c 55%, #0a0b12 100%);
-    background-image: none;
-  }
-}
-
-/* Tarjetas de Era como enlaces */
-.era-panel-link {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
 .era-panel {
-  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(150, 230, 255, 0.3);
+  border-radius: 14px;
+  padding: 2rem;
+  color: #0c3642;
+  box-shadow: inset 0 0 20px rgba(180, 230, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.era-panel:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px rgba(150, 230, 255, 0.4);
+}
+
+/* 🔍 Enlace a consulta */
+.enlace-consulta {
+  margin-top: 2rem;
+}
+.enlace-consulta a {
+  display: inline-block;
+  color: #0c3642;
+  background: rgba(180, 240, 255, 0.2);
+  border: 1px solid rgba(150, 230, 255, 0.4);
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(120, 200, 255, 0.3);
+}
+.enlace-consulta a:hover {
+  background: rgba(150, 230, 255, 0.4);
+  color: #fff;
+  box-shadow: 0 0 25px rgba(150, 230, 255, 0.6);
+  transform: scale(1.05);
+}
+
+/* 📱 Responsividad */
+@media (max-width: 767px) and (orientation: portrait) {
+  .fondo-cristal { width: 90%; padding: 1.5rem; }
+  .era-panel { padding: 1.2rem; font-size: 0.95rem; }
+  header.crumbs h1 { font-size: 1.8rem; }
+}
+@media (max-width: 767px) and (orientation: landscape) {
+  .eras-container { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+}
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .fondo-cristal { width: 85%; }
+}
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .fondo-cristal { width: 90%; }
+}
+@media (min-width: 1366px) {
+  .fondo-cristal { width: 80%; max-width: 1400px; }
 }
