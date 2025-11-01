@@ -161,7 +161,7 @@ btnSalir.addEventListener("click", async () => {
 
     // Espera 1.5 segundos antes de volver al inicio
     setTimeout(() => {
-      window.location.href = "../index.html"; // ✅ vuelve a la raíz del sitio
+      window.location.href = "https://robdor80.github.io/Archivo-Web-Nimroel/index.html"; // ✅ vuelve a la raíz del sitio
     }, 1500);
   } catch (error) {
     console.error("❌ Error al cerrar sesión:", error);
