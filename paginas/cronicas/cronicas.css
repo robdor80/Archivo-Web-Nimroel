@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+/* 🔧 Fijar tamaño base de referencia para toda la web */
+html {
+  font-size: 16px; /* Asegura que 1rem = 16px en todos los navegadores */
+}
+
 
 /* ==========================================================
    💠 ESTILOS GENERALES (BASE)
