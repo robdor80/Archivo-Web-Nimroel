@@ -143,7 +143,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 1rem;
+  font-size: 0.7rem;
   color: #0c3642;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
