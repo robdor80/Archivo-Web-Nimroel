@@ -1,17 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
 
+/* ==========================================================
+   💠 ESTILOS GENERALES (BASE)
+   ========================================================== */
 body {
   margin: 0;
   height: 100dvh;
-  background: #bfc9c9;
+  background: #BFC9C9;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-family: 'Cinzel', serif;
+  justify-content: center;
   overflow: hidden;
+  font-family: 'Cinzel', serif;
 }
 
-/* 🌌 Fondo de runas */
+/* ==========================================================
+   🌌 LLUVIA DE RUNAS
+   ========================================================== */
 #runas {
   position: fixed;
   top: 0;
@@ -21,13 +26,14 @@ body {
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
+  background: transparent;
 }
 .runa {
   position: absolute;
   color: #0c3642;
   font-size: clamp(1rem, 2vw, 1.4rem);
-  text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
-               0 0 20px rgba(100, 200, 255, 0.5);
+  text-shadow: 0 0 10px rgba(180,240,255,0.8),
+               0 0 20px rgba(100,200,255,0.5);
   opacity: 0.9;
   animation: caer linear infinite;
 }
@@ -37,128 +43,284 @@ body {
   100% { transform: translateY(110vh); opacity: 0.1; }
 }
 
-/* 💠 Cristal principal */
-.fondo-cristal {
-  width: 95%;
-  max-width: 1200px;
-  padding: 2rem;
-  border-radius: 15px;
-  background: rgba(150, 190, 210, 0.05);
-  backdrop-filter: blur(25px) saturate(140%);
-  border: 1px solid rgba(200, 230, 255, 0.3);
-  box-shadow: 0 0 40px rgba(120, 200, 255, 0.4),
-              inset 0 0 80px rgba(180, 230, 255, 0.2);
-  animation: brilloCristal 4s ease-in-out infinite alternate;
-  z-index: 1;
-  overflow-y: auto;
-  text-align: center;
-}
-@keyframes brilloCristal {
-  0% { box-shadow: 0 0 25px rgba(120, 200, 255, 0.3),
-       inset 0 0 60px rgba(180, 230, 255, 0.2); }
-  100% { box-shadow: 0 0 60px rgba(150, 230, 255, 0.6),
-         inset 0 0 100px rgba(200, 240, 255, 0.35); }
+/* ==========================================================
+   📱 MÓVIL VERTICAL
+   ========================================================== */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  body {
+    height: 100dvh;
+    background: #BFC9C9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .fondo-cristal {
+    width: 90%;
+    height: calc(90% - 10px);
+    border-radius: 10px;
+    background: rgba(150,190,210,0.01);
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border: 1px solid rgba(200,230,255,0.3);
+    box-shadow:
+      0 0 25px rgba(120,200,255,0.3),
+      inset 0 0 60px rgba(180,230,255,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding: 3% 0;
+    animation: brilloCristal 4s ease-in-out infinite alternate;
+  }
+
+  .fondo-cristal::-webkit-scrollbar { width: 0; height: 0; }
+  .fondo-cristal { -ms-overflow-style: none; scrollbar-width: none; }
+
+  @keyframes brilloCristal {
+    0% {
+      box-shadow:
+        0 0 25px rgba(120,200,255,0.3),
+        inset 0 0 60px rgba(180,230,255,0.2);
+    }
+    100% {
+      box-shadow:
+        0 0 60px rgba(150,230,255,0.6),
+        inset 0 0 100px rgba(200,240,255,0.35);
+    }
+  }
+
+  header.crumbs h1 {
+    font-size: clamp(1.5rem, 4vw, 2.3rem);
+    font-weight: bold;
+    color: #0c3642;
+    text-shadow: 0 0 10px rgba(180,240,255,0.8),
+                 0 0 20px rgba(100,200,255,0.5);
+    text-align: center;
+  }
+
+  .eras-container {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .era-panel {
+    width: 80%;
+    min-height: 15%;
+    margin: 2% 0;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(0,128,255,0.1);
+    border: 1px solid rgba(100,180,255,0.4);
+    box-shadow: 0 0 25px rgba(0,128,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+    color: #0c3642;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .era-panel:hover { transform: scale(1.03); }
+
+  .enlace-consulta {
+    margin: 2rem 0;
+    text-align: center;
+  }
+  .enlace-consulta a {
+    display: inline-block;
+    color: #0c3642;
+    background: rgba(180,240,255,0.2);
+    border: 1px solid rgba(150,230,255,0.4);
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(120,200,255,0.3);
+  }
+  .enlace-consulta a:hover {
+    background: rgba(150,230,255,0.4);
+    color: #fff;
+    transform: scale(1.05);
+  }
 }
 
-/* 🕰️ Cabecera */
-header.crumbs {
-  position: relative;
-  text-align: center;
-  padding-bottom: 1rem;
-}
-header.crumbs .back {
-  position: absolute;
-  top: 0.5rem;
-  left: 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: #0c3642;
-  text-decoration: none;
-  font-size: 0.9rem;
-  background: rgba(30, 40, 60, 0.25);
-  border: 1px solid rgba(200, 220, 255, 0.25);
-  padding: 0.4rem 0.9rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-header.crumbs .back:hover {
-  background: rgba(60, 80, 120, 0.4);
-  color: #fff;
-  box-shadow: 0 0 14px rgba(160, 210, 255, 0.3);
-}
-header.crumbs h1 {
-  font-size: clamp(2rem, 5vw, 2.8rem);
-  color: #0c3642;
-  text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
-               0 0 20px rgba(100, 200, 255, 0.5);
-  margin: 1rem 0 0.3rem 0;
-}
-header.crumbs .subtitle {
-  color: #0c3642;
-  opacity: 0.7;
-  font-size: 1rem;
+/* ==========================================================
+   📱 MÓVIL HORIZONTAL
+   ========================================================== */
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  body.horizontal {
+    background: #BFC9C9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+  }
+
+  body.horizontal .fondo-cristal {
+    width: 90%;
+    height: 90%;
+    border-radius: 10px;
+    background: rgba(150,190,210,0.01);
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border: 1px solid rgba(200,230,255,0.3);
+    box-shadow:
+      0 0 25px rgba(120,200,255,0.3),
+      inset 0 0 60px rgba(180,230,255,0.2);
+    overflow-y: auto;
+    padding: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    animation: brilloCristal 4s ease-in-out infinite alternate;
+  }
+
+  body.horizontal .era-panel {
+    flex: 0 0 45%;
+    margin: 2%;
+    min-height: 22vh;
+    text-align: center;
+    color: #0c3642;
+    background: rgba(0,128,255,0.1);
+    border: 1px solid rgba(100,180,255,0.4);
+    box-shadow: 0 0 25px rgba(0,128,255,0.4);
+    border-radius: 20px;
+  }
+
+  body.horizontal .enlace-consulta {
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+  }
 }
 
-/* 🧭 Tarjetas de las Eras */
-.eras-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  padding: 2rem 0;
-}
-.era-panel {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(150, 230, 255, 0.3);
-  border-radius: 14px;
-  padding: 2rem;
-  color: #0c3642;
-  box-shadow: inset 0 0 20px rgba(180, 230, 255, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.era-panel:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 30px rgba(150, 230, 255, 0.4);
+/* ==========================================================
+   💻 TABLET VERTICAL
+   ========================================================== */
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  html, body {
+    background: #BFC9C9;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fondo-cristal {
+    width: min(90vw, 900px);
+    height: 90%;
+    border-radius: 10px;
+    background: rgba(150,190,210,0.02);
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border: 1px solid rgba(200,230,255,0.3);
+    box-shadow:
+      0 0 40px rgba(120,200,255,0.4),
+      inset 0 0 80px rgba(180,230,255,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding: 3% 0;
+    animation: brilloCristal 4s ease-in-out infinite alternate;
+  }
+
+  .eras-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    width: 90%;
+  }
+
+  .era-panel {
+    padding: 2rem;
+  }
 }
 
-/* 🔍 Enlace a consulta */
-.enlace-consulta {
-  margin-top: 2rem;
-}
-.enlace-consulta a {
-  display: inline-block;
-  color: #0c3642;
-  background: rgba(180, 240, 255, 0.2);
-  border: 1px solid rgba(150, 230, 255, 0.4);
-  border-radius: 10px;
-  padding: 0.6rem 1.2rem;
-  font-weight: bold;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(120, 200, 255, 0.3);
-}
-.enlace-consulta a:hover {
-  background: rgba(150, 230, 255, 0.4);
-  color: #fff;
-  box-shadow: 0 0 25px rgba(150, 230, 255, 0.6);
-  transform: scale(1.05);
+/* ==========================================================
+   💻 TABLET HORIZONTAL
+   ========================================================== */
+@media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+  body.horizontal .fondo-cristal {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+  }
+
+  body.horizontal .era-panel {
+    flex: 0 0 45%;
+    height: 20vh !important;
+  }
 }
 
-/* 📱 Responsividad */
-@media (max-width: 767px) and (orientation: portrait) {
-  .fondo-cristal { width: 90%; padding: 1.5rem; }
-  .era-panel { padding: 1.2rem; font-size: 0.95rem; }
-  header.crumbs h1 { font-size: 1.8rem; }
-}
-@media (max-width: 767px) and (orientation: landscape) {
-  .eras-container { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-}
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
-  .fondo-cristal { width: 85%; }
-}
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-  .fondo-cristal { width: 90%; }
-}
-@media (min-width: 1366px) {
-  .fondo-cristal { width: 80%; max-width: 1400px; }
+/* ==========================================================
+   🖥️ PC DE ESCRITORIO
+   ========================================================== */
+@media only screen and (min-width: 1366px) {
+  body {
+    background: #BFC9C9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .fondo-cristal {
+    width: 80%;
+    height: 85%;
+    border-radius: 10px;
+    background: rgba(150,190,210,0.02);
+    backdrop-filter: blur(25px) saturate(140%);
+    border: 1px solid rgba(200,230,255,0.3);
+    box-shadow:
+      0 0 40px rgba(120,200,255,0.4),
+      inset 0 0 80px rgba(180,230,255,0.2);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 2rem;
+    align-items: center;
+    justify-items: center;
+    padding: 2%;
+    animation: brilloCristal 5s ease-in-out infinite alternate;
+  }
+
+  .era-panel {
+    width: 90%;
+    height: 85%;
+    border-radius: 20px;
+    background: rgba(0,128,255,0.08);
+    border: 1px solid rgba(100,180,255,0.4);
+    box-shadow: 0 0 25px rgba(0,128,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .era-panel:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 30px rgba(100,200,255,0.5);
+  }
+
+  .enlace-consulta {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
 }
