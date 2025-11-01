@@ -44,7 +44,7 @@ body {
 }
 
 /* ==========================================================
-   📱 MÓVIL VERTICAL — Tarjetas iguales, centradas y ordenadas
+   📱 MÓVIL VERTICAL — Texto centrado y tarjetas iguales
    ========================================================== */
 @media screen and (max-width: 767px) and (orientation: portrait) {
 
@@ -100,26 +100,36 @@ body {
     color: #0c3642;
     text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
                  0 0 20px rgba(100, 200, 255, 0.5);
-    margin: 0.5rem 0 1rem 0;
+    margin: 0.5rem 0 0.3rem 0;
     letter-spacing: 1px;
     text-align: center;
   }
 
+  /* --- Subtítulo centrado --- */
+  .subtitle {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #0c3642;
+    margin: 0 10px 1rem 10px;
+    line-height: 1.4;
+  }
+
   /* --- Contenedor de tarjetas --- */
   .eras-container {
-    width: 85%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 1.2rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
 
-  /* --- Tarjetas iguales y centradas --- */
+  /* --- Tarjetas iguales, centradas y con margen lateral --- */
   .era-panel {
-    width: 100%;
-    height: 70px;
+    width: calc(100% - 20px); /* 🔹 deja margen lateral total de 20px */
+    height: 75px;             /* 🔹 altura uniforme */
+    margin: 0 auto;           /* 🔹 centrado horizontal */
     border-radius: 18px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -165,6 +175,7 @@ body {
     transform: scale(1.05);
   }
 }
+
 
 
 /* ==========================================================
