@@ -47,26 +47,31 @@ body {
    📱 MÓVIL VERTICAL
    ========================================================== */
 @media screen and (max-width: 767px) and (orientation: portrait) {
+
   body {
+    margin: 0;
     height: 100dvh;
     background: #BFC9C9;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    font-family: 'Cinzel', serif;
   }
 
+  /* --- Contenedor principal tipo “cristal” --- */
   .fondo-cristal {
     width: 90%;
     height: 90%;
     border-radius: 10px;
-    background: rgba(150,190,210,0.01);
-    backdrop-filter: blur(25px) saturate(140%);
+    position: relative;
+    background: rgba(150, 190, 210, 0.01);
+    backdrop-filter: blur(25px) saturate(5%);
     -webkit-backdrop-filter: blur(25px) saturate(140%);
-    border: 1px solid rgba(200,230,255,0.3);
+    border: 1px solid rgba(200, 230, 255, 0.3);
     box-shadow:
-      0 0 25px rgba(120,200,255,0.3),
-      inset 0 0 60px rgba(180,230,255,0.2);
+      0 0 25px rgba(120, 200, 255, 0.3),
+      inset 0 0 60px rgba(180, 230, 255, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,36 +79,48 @@ body {
     overflow-y: auto;
     overscroll-behavior: contain;
     scroll-behavior: smooth;
-    padding: 3% 0;
+    padding: 4% 0;
     animation: brilloCristal 4s ease-in-out infinite alternate;
   }
 
-  .fondo-cristal::-webkit-scrollbar { width: 0; height: 0; }
-  .fondo-cristal { -ms-overflow-style: none; scrollbar-width: none; }
+  /* Ocultar la barra de scroll */
+  .fondo-cristal::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  .fondo-cristal {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 
+  /* --- Título centrado --- */
   header.crumbs h1 {
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: bold;
     color: #0c3642;
-    text-shadow: 0 0 10px rgba(180,240,255,0.8),
-                 0 0 20px rgba(100,200,255,0.5);
-    text-align: center;
+    text-shadow: 0 0 10px rgba(180, 240, 255, 0.8),
+                 0 0 20px rgba(100, 200, 255, 0.5);
     margin: 0;
+    letter-spacing: 1px;
+    text-align: center;
   }
 
+  /* --- Contenedor de tarjetas (centradas y ordenadas) --- */
   .eras-container {
-    width: 90%;
+    width: 85%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
     margin-top: 1rem;
   }
 
+  /* --- Tarjetas --- */
   .era-panel {
     width: 80%;
     min-height: 15%;
-    margin: 2% 0;
+    margin: 0.5rem 0;
     border-radius: 20px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -118,8 +135,10 @@ body {
     color: #0c3642;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
+
   .era-panel:hover { transform: scale(1.03); }
 
+  /* --- Enlace inferior --- */
   .enlace-consulta {
     margin: 2rem 0;
     text-align: center;
@@ -144,9 +163,10 @@ body {
 }
 
 /* ==========================================================
-   📱 MÓVIL HORIZONTAL (scroll interno)
+   📱 MÓVIL HORIZONTAL — Ordenado y con scroll interno
    ========================================================== */
 @media screen and (max-width: 767px) and (orientation: landscape) {
+
   body.horizontal {
     background: #BFC9C9;
     display: flex;
@@ -161,7 +181,7 @@ body {
     height: 90%;
     border-radius: 10px;
     background: rgba(150,190,210,0.01);
-    backdrop-filter: blur(25px) saturate(140%);
+    backdrop-filter: blur(25px) saturate(5%);
     -webkit-backdrop-filter: blur(25px) saturate(140%);
     border: 1px solid rgba(200,230,255,0.3);
     box-shadow:
@@ -171,32 +191,37 @@ body {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     scroll-behavior: smooth;
-    padding: 2%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
+    padding: 2% 0;
     animation: brilloCristal 4s ease-in-out infinite alternate;
   }
 
+  /* --- Tarjetas en 2 columnas ordenadas --- */
   body.horizontal .era-panel {
     flex: 0 0 45%;
     margin: 2%;
     min-height: 22vh;
+    border-radius: 20px;
     text-align: center;
     color: #0c3642;
     background: rgba(0,128,255,0.1);
     border: 1px solid rgba(100,180,255,0.4);
     box-shadow: 0 0 25px rgba(0,128,255,0.4);
-    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   body.horizontal .enlace-consulta {
     width: 100%;
     text-align: center;
-    margin-top: 2rem;
+    margin: 1.5rem 0;
   }
 }
+
 
 /* ==========================================================
    💻 TABLET VERTICAL
