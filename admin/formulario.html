@@ -6,20 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel del Custodio</title>
 
-  <!-- BASE para GitHub Pages -->
   <base href="/Archivo-Web-Nimroel/">
-
-  <!-- Estilos -->
   <link rel="stylesheet" href="admin/formulario.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="theme-color" content="#0e111c">
 </head>
 
 <body>
-  <!-- 🌌 Fondo de runas flotantes -->
   <div id="runas"></div>
 
-  <!-- 💠 Contenedor principal -->
   <div class="fondo-cristal inicio">
     <header>
       <h1>Panel del Custodio</h1>
@@ -28,36 +23,21 @@
     </header>
 
     <div class="contenedor-formulario">
-      <!-- 🧙‍♂️ FORMULARIO -->
       <form id="formCronica" class="formulario-cronicas">
-
-        <!-- 🗂️ Selector de colección -->
-        <div class="grupo">
-          <label for="coleccion">Colección</label>
-          <select id="coleccion">
-            <option value="cronicas">Crónicas</option>
-            <option value="personajes">Personajes</option>
-            <option value="razas">Razas</option>
-            <option value="bestiario">Bestiario</option>
-            <option value="artefactos">Artefactos</option>
-            <option value="religiones">Religiones</option>
-            <option value="lugares">Lugares</option>
-          </select>
-        </div>
 
         <div class="grupo">
           <label for="documento">Documento</label>
-          <input type="text" id="documento" placeholder="Ejemplo: aurora_005">
+          <input type="text" id="documento" placeholder="Ejemplo: aurora_005" required>
         </div>
 
         <div class="grupo">
           <label for="titulo">Título</label>
-          <input type="text" id="titulo">
+          <input type="text" id="titulo" required>
         </div>
 
         <div class="grupo">
           <label for="era">Era</label>
-          <select id="era">
+          <select id="era" required>
             <option value="Era de la Aurora">Era de la Aurora</option>
             <option value="Era del Despertar">Era del Despertar</option>
             <option value="Era del Conocimiento">Era del Conocimiento</option>
@@ -114,7 +94,6 @@
         <p id="mensaje" class="mensaje"></p>
       </form>
 
-      <!-- 🖼️ Panel de vistas -->
       <div class="vista-imagen">
         <h3>Imagen principal</h3>
         <img id="preview-imagen" src="medios/img/runas/runa1.webp" alt="Vista previa">
@@ -137,8 +116,6 @@
     </div>
   </div>
 
-  <!-- 📜 Script principal -->
   <script type="module" src="admin/formulario.js"></script>
 </body>
-
 </html>

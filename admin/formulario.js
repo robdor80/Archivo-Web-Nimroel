@@ -61,16 +61,16 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // ===============================
-// 💾 GUARDAR DOCUMENTO
+// 💾 GUARDAR DOCUMENTO (solo CRÓNICAS)
 // ===============================
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const coleccion = document.getElementById("coleccion")?.value.trim().toLowerCase() || "cronicas";
+  const coleccion = "cronicas"; // 🔒 Colección fija
   const documento = document.getElementById("documento").value.trim().toLowerCase();
 
-  if (!coleccion || !documento) {
-    mensaje.textContent = "⚠️ Debes indicar colección y documento.";
+  if (!documento) {
+    mensaje.textContent = "⚠️ Debes indicar un nombre de documento (por ejemplo: aurora_005).";
     return;
   }
 
@@ -91,10 +91,8 @@ form.addEventListener("submit", async (e) => {
 
   try {
     await setDoc(doc(db, coleccion, documento), datos);
-    mensaje.textContent = `✅ Documento '${documento}' guardado correctamente en '${coleccion}'.`;
+    mensaje.textContent = `✅ Crónica '${documento}' guardada correctamente en '${coleccion}'.`;
     console.log("✅ Guardado correctamente en Firestore.");
-    console.log("🌐 Conexión activa con Firestore confirmada.");
-
     form.reset();
     actualizarVistaPrevia("imagen");
     actualizarVistaPrevia("sello");
@@ -148,7 +146,6 @@ window.actualizarVistaPrevia = function (tipo) {
   const vista = vistas[tipo];
   const boton = botonesAbrir[tipo];
 
-  // Quitar cualquier estilo previo
   vista.classList.remove("sin-vista-previa");
   vista.textContent = "";
 
