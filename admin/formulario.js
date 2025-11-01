@@ -81,6 +81,7 @@ form.addEventListener("submit", async (e) => {
     fecha: document.getElementById("fecha").value.trim(),
     custodio: document.getElementById("custodio").value.trim(),
     traduccion: document.getElementById("traduccion").value.trim(),
+    item: document.getElementById("item").value.trim(),
     imagen: campos.imagen.value.trim(),
     resumen: document.getElementById("resumen").value.trim(),
     sello: campos.sello.value.trim(),
