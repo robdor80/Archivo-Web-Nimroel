@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
 
+/* === BASE === */
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   background: #bfc9c9;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Cinzel', serif;
-  overflow: hidden;
+  overflow-y: auto; /* ✅ Scroll si no cabe */
+  overflow-x: hidden;
 }
 
 /* Fondo de runas */
@@ -37,11 +39,11 @@ body {
   100% { transform: translateY(110vh); opacity: 0.1; }
 }
 
-/* === Cristal principal === */
+/* === CONTENEDOR CRISTAL === */
 .fondo-cristal.inicio {
   width: 90%;
   max-width: 1200px;
-  height: 90%;
+  min-height: 85vh;
   padding: 1.5rem 2rem;
   border-radius: 15px;
   background: rgba(150, 190, 210, 0.05);
@@ -54,13 +56,14 @@ body {
   flex-direction: column;
   justify-content: space-between;
   z-index: 1;
+  margin: 2rem 0;
 }
 @keyframes brilloCristal {
   0% { box-shadow: 0 0 25px rgba(120, 200, 255, 0.3), inset 0 0 60px rgba(180, 230, 255, 0.2); }
   100% { box-shadow: 0 0 60px rgba(150, 230, 255, 0.6), inset 0 0 100px rgba(200, 240, 255, 0.35); }
 }
 
-/* === Contenido general === */
+/* === ENCABEZADOS === */
 header {
   text-align: center;
 }
@@ -82,7 +85,7 @@ h2 {
   background: rgba(180, 230, 255, 0.3);
 }
 
-/* === Disposición principal === */
+/* === DISTRIBUCIÓN === */
 .contenedor-formulario {
   display: flex;
   justify-content: space-between;
@@ -91,7 +94,7 @@ h2 {
   gap: 2rem;
 }
 
-/* === Formulario === */
+/* === FORMULARIO === */
 .formulario-cronicas {
   flex: 1;
   display: flex;
@@ -118,7 +121,7 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 10px rgba(150, 230, 255, 0.4);
 }
 
-/* === Imagen principal === */
+/* === IMAGEN PRINCIPAL === */
 .vista-imagen {
   width: 25%;
   max-width: 220px;
@@ -145,13 +148,14 @@ input:focus, textarea:focus, select:focus {
   background-position: center;
 }
 
-/* === Panel inferior (sello y firma) === */
+/* === PANEL INFERIOR === */
 .panel-inferior {
   display: flex;
   justify-content: center;
   align-items: flex-end;
   gap: 3rem;
   margin-top: 0.5rem;
+  flex-wrap: wrap;
 }
 .vista-sello, .vista-firma {
   background: rgba(255, 255, 255, 0.08);
@@ -163,7 +167,7 @@ input:focus, textarea:focus, select:focus {
   box-shadow: inset 0 0 25px rgba(150, 230, 255, 0.2);
 }
 
-/* Sello cuadrado */
+/* === SELLO Y FIRMA === */
 #preview-sello {
   width: 150px;
   height: 150px;
@@ -177,8 +181,6 @@ input:focus, textarea:focus, select:focus {
   background-size: cover;
   background-position: center;
 }
-
-/* Firma rectangular horizontal */
 #preview-firma {
   width: 300px;
   height: 150px;
@@ -193,7 +195,7 @@ input:focus, textarea:focus, select:focus {
   background-position: center;
 }
 
-/* === Botones === */
+/* === BOTONES === */
 .botones {
   display: flex;
   justify-content: center;
@@ -221,7 +223,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* === Estado "sin vista previa" === */
+/* === SIN VISTA PREVIA === */
 .sin-vista-previa {
   background: rgba(180, 220, 255, 0.1);
   border: 1px dashed rgba(100, 160, 200, 0.4);
@@ -237,12 +239,9 @@ button:disabled {
 }
 
 /* === MEDIA QUERIES === */
-
-/* Tablet vertical y horizontal */
 @media (max-width: 1024px) {
-  .fondo-cristal.inicio {
-    height: auto;
-    overflow-y: auto;
+  body {
+    align-items: flex-start; /* Scroll natural en pantallas más pequeñas */
   }
   .contenedor-formulario {
     flex-direction: column;
@@ -253,19 +252,19 @@ button:disabled {
   }
   .panel-inferior {
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 1.5rem;
   }
 }
 
-/* Móvil */
 @media (max-width: 767px) {
+  body {
+    align-items: flex-start;
+  }
   .fondo-cristal.inicio {
     width: 95%;
-    height: auto;
-    overflow-y: auto;
     padding: 1rem;
+    margin: 1rem 0;
   }
   .contenedor-formulario {
     flex-direction: column;
