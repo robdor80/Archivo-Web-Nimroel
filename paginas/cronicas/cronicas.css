@@ -288,6 +288,7 @@ body {
   }
 
   .era-panel {
+    margin: 40px;
     width: 90%;
     height: 85%;
     border-radius: 20px;
