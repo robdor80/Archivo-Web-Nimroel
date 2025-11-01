@@ -102,11 +102,19 @@ body {
 }
 
 /* ==========================================================
-   🖥️ PC Y TABLET HORIZONTAL
+   🖥️ PC Y TABLET HORIZONTAL — IGUAL QUE CRÓNICAS
    ========================================================== */
 @media only screen and (min-width: 1024px) and (orientation: landscape) {
+  body {
+    background: #BFC9C9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
   .fondo-cristal {
-    width: 80%;
+    width: 80%;                  /* 👈 deja espacio exterior visible */
     height: 85%;
     border-radius: 10px;
     background: rgba(150,190,210,0.02);
@@ -116,14 +124,14 @@ body {
       0 0 40px rgba(120,200,255,0.4),
       inset 0 0 80px rgba(180,230,255,0.2);
     display: grid;
-    grid-template-columns: 1.1fr 1.4fr; /* Izquierda: título / Derecha: tarjetas */
+    grid-template-columns: 1.1fr 1.3fr; /* Izquierda: texto / Derecha: tarjetas */
     align-items: center;
     justify-items: center;
-    padding: 4%;
+    padding: 3%;
     animation: brilloCristal 5s ease-in-out infinite alternate;
   }
 
-  /* Columna izquierda */
+  /* === Columna izquierda (texto + botón) === */
   header.crumbs {
     justify-self: start;
     text-align: left;
@@ -135,14 +143,23 @@ body {
     font-size: clamp(2rem, 2.6vw, 3rem);
     font-weight: bold;
     color: #0c3642;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 0.2rem 0;
     text-shadow: 0 0 10px rgba(180,240,255,0.8),
                  0 0 20px rgba(100,200,255,0.5);
     white-space: nowrap;
   }
 
-  /* Botón Inicio */
-  .btn-volver {
+  .subtitle {
+    font-size: 0.95rem;
+    color: #0c3642;
+    opacity: 0.8;
+    margin-top: 0.3rem;
+    text-align: left;
+    padding-left: 0.2rem;
+  }
+
+  /* === Botón Inicio === */
+  .back {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
@@ -159,14 +176,14 @@ body {
     backdrop-filter: blur(6px);
   }
 
-  .btn-volver:hover {
+  .back:hover {
     background: rgba(60, 80, 120, 0.6);
     color: #fff;
     box-shadow: 0 0 14px rgba(160, 210, 255, 0.3);
     transform: scale(1.05);
   }
 
-  /* Columna derecha */
+  /* === Columna derecha: tarjetas === */
   .tarjetas-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -197,13 +214,4 @@ body {
     transform: scale(1.03);
     box-shadow: 0 0 30px rgba(100,200,255,0.5);
   }
-}
-
-/* ==========================================================
-   🔗 ENLACES
-   ========================================================== */
-a, a:link, a:visited, a:hover, a:active, a:focus {
-  text-decoration: none !important;
-  color: inherit !important;
-  outline: none !important;
 }
