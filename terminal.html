@@ -7,7 +7,7 @@
   <title>Santuario de Nimroel — Terminal de Cristal</title>
 
   <!-- ⚙️ PARA GITHUB (descomentar antes de subir):
-  <base href="/Archivo-Web-Nimroel/"> -->
+  <base href="/Cronicas-de-Nimroel/"> -->
 
   <link rel="stylesheet" href="terminal.css" />
   <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -20,25 +20,37 @@
   <div id="runas"></div>
 
   <!-- 💠 Cristal principal -->
-  <div class="fondo-cristal">
-    <!-- 🔙 Botón para volver al inicio -->
-    <a href="index.html" class="btn-volver">
-      <svg viewBox="0 0 24 24" width="18" height="18">
-        <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-      <span>Inicio</span>
-    </a>
+  
 
+  <div class="fondo-cristal">
     <h1>Terminal del Archivo</h1>
+    <!-- 🔙 Botón para volver al inicio -->
+  <a href="index.html" class="btn-volver">
+    <svg viewBox="0 0 24 24" width="18" height="18">
+      <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <span>Inicio</span>
+  </a>
+    
+
+
+    
 
     <!-- 🔷 Tarjetas -->
-    <a href="paginas/cronicas/index.html" class="enlace-tarjeta">Crónicas de Nimroel</a>
-    <a href="#" class="enlace-tarjeta">Magia</a>
-    <a href="#" class="enlace-tarjeta">Mapas</a>
-    <a href="#" class="enlace-tarjeta">Personajes</a>
-    <a href="#" class="enlace-tarjeta">Razas</a>
-    <a href="#" class="enlace-tarjeta">Línea temporal</a>
+    <div class="tarjeta azul">
+      <a href="paginas/cronicas/index.html" class="texto-enlace">
+        Crónicas de Nimroel
+      </a>
+    </div>
+
+
+    <div class="tarjeta azul">Magia</div>
+    <div class="tarjeta azul">Mapas</div>
+    <div class="tarjeta azul">Personajes</div>
+    <div class="tarjeta azul">Razas</div>
+    <div class="tarjeta azul">Línea temporal</div>
+
   </div>
 
   <!-- SCRIPT PRINCIPAL -->
