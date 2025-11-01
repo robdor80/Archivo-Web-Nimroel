@@ -215,3 +215,56 @@ body {
     box-shadow: 0 0 30px rgba(100,200,255,0.5);
   }
 }
+
+/* ==========================================================
+   🔙 BOTÓN INICIO — IGUAL QUE EN CRÓNICAS
+   ========================================================== */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(30, 40, 60, 0.45);
+  border: 1px solid rgba(200, 220, 255, 0.25);
+  border-radius: 8px;
+  color: #0c3642 !important;
+  text-decoration: none !important;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  text-shadow: none;
+}
+
+.back:hover {
+  background: rgba(60, 80, 120, 0.6);
+  color: #fff !important;
+  box-shadow: 0 0 14px rgba(160, 210, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* ==========================================================
+   🔗 ENLACES INTERNOS — SIN SUBRAYADO NI COLOR VISITADO
+   ========================================================== */
+a, a:link, a:visited, a:hover, a:active, a:focus {
+  text-decoration: none !important;
+  color: inherit !important;
+  outline: none !important;
+}
+
+/* 🔹 Asegura que enlaces dentro de tarjetas nunca cambien de color */
+.texto-enlace {
+  color: #0c3642 !important;
+  font-weight: bold;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+}
+
+.texto-enlace:hover {
+  color: #0c3642 !important;
+  text-shadow: 0 0 8px rgba(100, 200, 255, 0.7);
+  transform: scale(1.05);
+  text-decoration: none !important;
+}
+
