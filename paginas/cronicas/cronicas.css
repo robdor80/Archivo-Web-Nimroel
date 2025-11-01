@@ -312,7 +312,7 @@ body {
     text-align: center;
     font-size: 1.1rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 20px;
+    margin: 40px;
   }
 
   .era-panel:hover {
@@ -326,3 +326,10 @@ body {
     margin-top: 1.5rem;
   }
 }
+
+a, a:link, a:visited, a:hover, a:active, a:focus {
+  text-decoration: none !important;   /* 🔹 elimina subrayado siempre */
+  color: inherit !important;          /* 🔹 usa el color del texto del contenedor */
+  outline: none !important;           /* 🔹 evita borde al enfocar (por teclado o clic) */
+}
+
