@@ -1057,41 +1057,41 @@ a, a:link, a:visited, a:hover, a:active, a:focus {
 }
 
 /* ==========================================================
-   🖥️ PC Y TABLET HORIZONTAL — TÍTULO A LA IZQUIERDA / TARJETAS A LA DERECHA
+   🖥️ PC Y TABLET HORIZONTAL — TARJETAS RECTANGULARES A LA DERECHA
    ========================================================== */
 @media only screen and (min-width: 1024px) and (orientation: landscape) {
 
   .fondo-cristal {
     display: grid;
-    grid-template-columns: 1fr 2fr; /* Izquierda (título) / Derecha (tarjetas) */
+    grid-template-columns: 1fr 2fr; /* Izquierda: título / Derecha: tarjetas */
     align-items: center;
     justify-content: center;
-    padding: 2%;
+    padding: 2% 5%;
     gap: 2rem;
   }
 
-  /* --- Columna izquierda: título + botón --- */
+  /* === Columna izquierda: título y botón === */
   .columna-izquierda {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 1.5rem;
-    text-align: center;
+    text-align: left;
+    padding-left: 2rem;
   }
 
   .columna-izquierda h1 {
-    font-size: clamp(2rem, 2.5vw, 3rem);
+    font-size: clamp(2.3rem, 2.8vw, 3.2rem);
     color: #0c3642;
     text-shadow: 0 0 10px rgba(180,240,255,0.8),
                  0 0 20px rgba(100,200,255,0.5);
-    margin: 0;
+    white-space: nowrap; /* ✅ Fuerza una sola línea */
+    margin: 0.5rem 0 0 0;
   }
 
   .btn-volver {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
+    align-self: flex-start;
+    margin-bottom: 1rem;
     padding: 0.5rem 1rem;
     background: rgba(30, 40, 60, 0.45);
     border: 1px solid rgba(200, 220, 255, 0.25);
@@ -1113,21 +1113,22 @@ a, a:link, a:visited, a:hover, a:active, a:focus {
     transform: scale(1.05);
   }
 
-  /* --- Columna derecha: tarjetas (2 columnas × 3 filas) --- */
+  /* === Columna derecha: tarjetas === */
   .columna-derecha {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(3, 1fr);
-    gap: 1.2rem;
-    width: 100%;
-    justify-items: center;
+    gap: 1.5rem;
+    justify-content: end; /* ✅ Alinea todo a la derecha */
     align-items: center;
+    width: 100%;
+    padding-right: 3rem; /* ✅ Añade margen derecho */
   }
 
   .tarjeta {
-    width: 100%;
-    height: 100%;
-    border-radius: 18px;
+    width: 90%;
+    height: 8rem; /* ✅ Más rectangular */
+    border-radius: 16px;
     background: rgba(0,128,255,0.08);
     border: 1px solid rgba(100,180,255,0.4);
     box-shadow: 0 0 20px rgba(0,128,255,0.25);
@@ -1147,6 +1148,7 @@ a, a:link, a:visited, a:hover, a:active, a:focus {
     box-shadow: 0 0 30px rgba(100,200,255,0.5);
   }
 }
+
 
 
 
