@@ -6,56 +6,50 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Santuario de Nimroel — Terminal de Cristal</title>
 
-  <!-- ⚙️ PARA GITHUB (descomentar antes de subir):
-  <base href="/Cronicas-de-Nimroel/"> -->
+  <!-- ✅ BASE CORRECTA PARA GITHUB PAGES -->
+  <base href="/Archivo-Web-Nimroel/">
 
+  <!-- 🎨 Estilos -->
   <link rel="stylesheet" href="terminal.css" />
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <meta name="theme-color" content="#0e111c">
+
+  <!-- 🕯️ Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <meta name="theme-color" content="#0e111c" />
 </head>
 
 <body>
-  <!-- 🌌 Capa de runas flotantes -->
+  <!-- 🌌 Fondo de runas flotantes -->
   <div id="runas"></div>
 
   <!-- 💠 Cristal principal -->
-
-  <!-- 🔙 Botón para volver al inicio -->
-  <a href="index.html" class="btn-volver">
-    <svg viewBox="0 0 24 24" width="18" height="18">
-      <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-        stroke-linejoin="round" />
-    </svg>
-    <span>Inicio</span>
-  </a>
-  
-
   <div class="fondo-cristal">
+    <!-- 🔙 Botón de regreso al inicio -->
+    <a href="index.html" class="btn-volver">
+      <svg viewBox="0 0 24 24" width="18" height="18">
+        <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span>Inicio</span>
+    </a>
+
     <h1>Terminal del Archivo</h1>
-    
-    
 
-
-    
-
-    <!-- 🔷 Tarjetas -->
+    <!-- 🔷 Tarjetas principales -->
     <div class="tarjeta azul">
       <a href="paginas/cronicas/index.html" class="texto-enlace">
         Crónicas de Nimroel
       </a>
     </div>
 
-
     <div class="tarjeta azul">Magia</div>
     <div class="tarjeta azul">Mapas</div>
     <div class="tarjeta azul">Personajes</div>
     <div class="tarjeta azul">Razas</div>
     <div class="tarjeta azul">Línea temporal</div>
-
   </div>
 
-  <!-- SCRIPT PRINCIPAL -->
+  <!-- ⚙️ Script principal -->
   <script src="terminal.js"></script>
 </body>
 
