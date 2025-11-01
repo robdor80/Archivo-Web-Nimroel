@@ -300,77 +300,117 @@ select#coleccion {
 }
 
 /* ==========================================================
-   🧩 Ajustes visuales para las vistas de sello y firma (alineadas)
+   🪶 ESTILOS DE LAS VISTAS PREVIAS (Imagen, Sello, Firma)
    ========================================================== */
 
-.panel-inferior {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;  /* evita que se estire el sello */
-  gap: 4rem;                /* separación uniforme */
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
-
-/* 💠 Vista del sello del custodio — cuadrada */
-.vista-sello {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.vista-sello .sin-vista-previa,
-.vista-sello img {
-  width: 20vh;
-  height: 20vh;
-  border-radius: 12px;
-  background: rgba(180, 220, 255, 0.1);
-  border: 1px dashed rgba(100, 160, 200, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Cinzel', serif;
-  font-size: 3rem;
-  color: rgba(12, 54, 66, 0.6);
-  text-shadow: 0 0 8px rgba(150, 220, 255, 0.4);
-  object-fit: cover;
-}
-
-/* 💠 Vista de la firma del custodio — rectangular horizontal */
+/* --- Contenedor general --- */
+.vista-imagen,
+.vista-sello,
 .vista-firma {
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(180, 220, 240, 0.05);
+  border: 1px solid rgba(160, 210, 255, 0.3);
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 0 25px rgba(120, 200, 255, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-}
-
-.vista-firma .sin-vista-previa,
-.vista-firma img {
-  width: 60vh;
-  height: 20vh;
-  border-radius: 12px;
-  background: rgba(180, 220, 255, 0.1);
-  border: 1px dashed rgba(100, 160, 200, 0.4);
-  display: flex;
-  align-items: center;
   justify-content: center;
-  font-family: 'Cinzel', serif;
-  font-size: 3rem;
-  color: rgba(12, 54, 66, 0.6);
-  text-shadow: 0 0 8px rgba(150, 220, 255, 0.4);
-  object-fit: cover;
 }
 
-/* Títulos y botones centrados */
+/* --- Títulos encima de cada vista --- */
+.vista-imagen h3,
 .vista-sello h3,
 .vista-firma h3 {
-  text-align: center;
-  margin-bottom: 0.6rem;
+  font-family: 'Cinzel', serif;
+  color: #0c3642;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 6px rgba(180, 240, 255, 0.6);
 }
 
-.vista-sello .abrir,
-.vista-firma .abrir {
-  display: block;
-  margin: 0.6rem auto 0;
+/* --- Botón inferior --- */
+.abrir {
+  margin-top: 0.5rem;
+  padding: 0.3rem 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(150, 200, 255, 0.3);
+  background: rgba(200, 230, 255, 0.2);
+  color: #0c3642;
+  font-family: 'Cinzel', serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.abrir:hover {
+  background: rgba(200, 240, 255, 0.4);
+  box-shadow: 0 0 8px rgba(150, 220, 255, 0.5);
+}
+.abrir:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ==========================================================
+   🖼️ CUADROS DE VISTA PREVIA
+   ========================================================== */
+
+/* Imagen principal — rectangular vertical */
+#preview-imagen {
+  width: 180px;
+  height: 240px;
+  border: 1px dashed rgba(120, 200, 255, 0.5);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: rgba(20, 50, 70, 0.6);
+  text-shadow: 0 0 6px rgba(180,240,255,0.4);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Sello — cuadrado */
+#preview-sello {
+  width: 200px;    /* 20×20 “unidades relativas” adaptadas a píxeles */
+  height: 200px;
+  border: 1px dashed rgba(120, 200, 255, 0.5);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: rgba(20, 50, 70, 0.6);
+  text-shadow: 0 0 6px rgba(180,240,255,0.4);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Firma — rectangular horizontal */
+#preview-firma {
+  width: 600px;   /* 60×20 proporción */
+  height: 200px;
+  border: 1px dashed rgba(120, 200, 255, 0.5);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: rgba(20, 50, 70, 0.6);
+  text-shadow: 0 0 6px rgba(180,240,255,0.4);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Asegura que las imágenes mantengan proporciones */
+#preview-imagen img,
+#preview-sello img,
+#preview-firma img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
 }
