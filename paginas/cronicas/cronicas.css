@@ -127,7 +127,7 @@ body {
 
   /* --- Tarjetas iguales, centradas y con margen lateral --- */
   .era-panel {
-    /* width: calc(100% - 20px); /* 🔹 deja margen lateral total de 20px */
+    width: calc(100% - 10px); /* 🔹 deja margen lateral total de 20px */
     height: 75px;             /* 🔹 altura uniforme */
     margin-left: 20px;
     margin-right: 20px;
