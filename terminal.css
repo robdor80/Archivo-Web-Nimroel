@@ -2,6 +2,12 @@
    💠 ESTILOS GENERALES (BASE)
    ================================ */
 
+   @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+   body {
+  font-family: 'Cinzel', serif;
+}
+
+
 /* Aquí dejaremos cosas comunes más adelante si hiciera falta,
    pero por ahora el diseño se activa solo con las media queries
    de móvil y tablet vertical. */
