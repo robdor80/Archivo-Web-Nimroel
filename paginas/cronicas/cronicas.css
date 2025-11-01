@@ -79,7 +79,7 @@ body {
     overflow-y: auto;
     overscroll-behavior: contain;
     scroll-behavior: smooth;
-    padding: 5% 0;
+    padding: 3% 0;
     animation: brilloCristal 4s ease-in-out infinite alternate;
   }
 
