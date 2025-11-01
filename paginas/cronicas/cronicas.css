@@ -175,6 +175,25 @@ body {
   }
 }
 
+/* === FIX ANCHOS IGUALES PARA TARJETAS DE ERAS === */
+*, *::before, *::after { box-sizing: border-box; }
+
+.eras-container {
+  align-items: stretch !important;
+}
+
+.era-panel-link {
+  display: block;
+  width: 100%;
+}
+
+.era-panel {
+  width: 85% !important;
+  margin: 2% 0 !important;
+  min-height: 15vh !important;
+}
+
+
 
 
 /* ==========================================================
