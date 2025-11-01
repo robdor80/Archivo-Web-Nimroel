@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 // ===============================
@@ -61,6 +61,49 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // ===============================
+// 🔢 GENERAR SIGUIENTE ID AUTOMÁTICO
+// ===============================
+async function generarSiguienteID(eraSeleccionada) {
+  const coleccion = "cronicas";
+  const eraKey = eraSeleccionada.toLowerCase().replace("era de la ", "").trim(); // Ej: "aurora"
+  const prefijo = `${eraKey}_`;
+
+  try {
+    const snap = await getDocs(collection(db, coleccion));
+    let maxNumero = 0;
+
+    snap.forEach((docSnap) => {
+      const id = docSnap.id;
+      if (id.startsWith(prefijo)) {
+        const partes = id.split("_");
+        const numero = parseInt(partes[1], 10);
+        if (!isNaN(numero) && numero > maxNumero) {
+          maxNumero = numero;
+        }
+      }
+    });
+
+    const siguiente = (maxNumero + 1).toString().padStart(3, "0");
+    const nuevoID = `${prefijo}${siguiente}`;
+    document.getElementById("documento").value = nuevoID;
+
+  } catch (error) {
+    console.error("❌ Error al generar siguiente ID:", error);
+  }
+}
+
+// Escucha cambios en la Era y genera automáticamente el ID
+document.getElementById("era").addEventListener("change", (e) => {
+  generarSiguienteID(e.target.value);
+});
+
+// Genera automáticamente el primer ID al cargar la página
+window.addEventListener("DOMContentLoaded", () => {
+  const eraInicial = document.getElementById("era").value;
+  generarSiguienteID(eraInicial);
+});
+
+// ===============================
 // 💾 GUARDAR DOCUMENTO (solo CRÓNICAS)
 // ===============================
 form.addEventListener("submit", async (e) => {
@@ -75,20 +118,19 @@ form.addEventListener("submit", async (e) => {
   }
 
   const datos = {
-  titulo: document.getElementById("titulo").value.trim(),
-  era: document.getElementById("era").value.trim(),
-  año: document.getElementById("anio").value.trim(),
-  fecha: document.getElementById("fecha").value.trim(),
-  custodio: document.getElementById("custodio").value.trim(),
-  traduccion: document.getElementById("traduccion").value.trim(),
-  item: document.getElementById("item").value.trim(),
-  item2: document.getElementById("item2").value.trim(),   // ✅ añadido
-  imagen: campos.imagen.value.trim(),
-  resumen: document.getElementById("resumen").value.trim(),
-  sello: campos.sello.value.trim(),
-  firma: campos.firma.value.trim()
-};
-
+    titulo: document.getElementById("titulo").value.trim(),
+    era: document.getElementById("era").value.trim(),
+    año: document.getElementById("anio").value.trim(),
+    fecha: document.getElementById("fecha").value.trim(),
+    custodio: document.getElementById("custodio").value.trim(),
+    traduccion: document.getElementById("traduccion").value.trim(),
+    item: document.getElementById("item").value.trim(),
+    item2: document.getElementById("item2").value.trim(),
+    imagen: campos.imagen.value.trim(),
+    resumen: document.getElementById("resumen").value.trim(),
+    sello: campos.sello.value.trim(),
+    firma: campos.firma.value.trim()
+  };
 
   console.log(`📦 Intentando guardar en: ${coleccion}/${documento}`, datos);
 
@@ -100,6 +142,10 @@ form.addEventListener("submit", async (e) => {
     actualizarVistaPrevia("imagen");
     actualizarVistaPrevia("sello");
     actualizarVistaPrevia("firma");
+
+    // 🔄 Regenerar el siguiente ID automáticamente después de guardar
+    generarSiguienteID(document.getElementById("era").value);
+
   } catch (error) {
     console.error("❌ Error al guardar:", error);
     mensaje.textContent = "❌ Error al guardar la crónica. Revisa consola.";
@@ -173,4 +219,3 @@ window.actualizarVistaPrevia = function (tipo) {
     boton.disabled = true;
   }
 };
-
