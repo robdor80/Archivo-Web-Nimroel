@@ -148,17 +148,28 @@ form.addEventListener("submit", async (e) => {
 });
 
 // ===============================
-// 🚪 SALIR
+// 🚪 SALIR (Cerrar sesión y volver al inicio)
 // ===============================
 btnSalir.addEventListener("click", async () => {
   try {
     await signOut(auth);
     console.log("🔒 Sesión cerrada correctamente.");
-    window.location.href = "../../index.html";
+
+    // Mostrar mensaje de confirmación antes de salir
+    mensaje.textContent = "🔒 Sesión cerrada. Redirigiendo al Santuario...";
+    mensaje.style.color = "#0c3642";
+
+    // Espera 1.5 segundos antes de volver al inicio
+    setTimeout(() => {
+      window.location.href = "../index.html"; // ✅ vuelve a la raíz del sitio
+    }, 1500);
   } catch (error) {
-    console.error("Error al cerrar sesión:", error);
+    console.error("❌ Error al cerrar sesión:", error);
+    mensaje.textContent = "⚠️ Error al cerrar sesión. Revisa la consola.";
+    mensaje.style.color = "red";
   }
 });
+
 
 // ===============================
 // 🌧️ LLUVIA DE RUNAS
