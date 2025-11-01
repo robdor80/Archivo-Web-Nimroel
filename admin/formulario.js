@@ -92,12 +92,10 @@ async function generarSiguienteID(eraSeleccionada) {
   }
 }
 
-// Escucha cambios en la Era
 document.getElementById("era").addEventListener("change", (e) => {
   generarSiguienteID(e.target.value);
 });
 
-// Genera el primer ID al cargar
 window.addEventListener("DOMContentLoaded", () => {
   const eraInicial = document.getElementById("era").value;
   generarSiguienteID(eraInicial);
@@ -215,7 +213,7 @@ window.actualizarVistaPrevia = function (tipo) {
 };
 
 // ===============================
-// 🔎 BUSCADOR DE CRÓNICAS (SIN DUPLICADOS)
+// 🔎 BUSCADOR DE CRÓNICAS (TODOS LOS CAMPOS)
 // ===============================
 function normalizarTexto(texto) {
   return texto
@@ -224,12 +222,11 @@ function normalizarTexto(texto) {
 }
 
 async function buscarCronicas() {
-  const texto = normalizarTexto(document.getElementById("buscar").value.trim());
+  const input = document.getElementById("buscar");
   const contenedor = document.getElementById("resultados-busqueda");
+  const texto = normalizarTexto(input.value.trim());
 
-  // ✅ Limpia todo antes de pintar resultados
-  while (contenedor.firstChild) contenedor.removeChild(contenedor.firstChild);
-
+  contenedor.innerHTML = "";
   if (texto.length < 2) return;
 
   try {
@@ -237,35 +234,43 @@ async function buscarCronicas() {
     const resultados = [];
 
     snap.forEach((docSnap) => {
-      const data = docSnap.data();
-      const campos = [
-        normalizarTexto(data.titulo),
-        normalizarTexto(data.item),
-        normalizarTexto(data.item2),
-        normalizarTexto(data.resumen)
+      const id = docSnap.id || "";
+      const data = docSnap.data() || {};
+
+      const camposIndexados = [
+        id,
+        data.titulo,
+        data.era,
+        data.año,
+        data.fecha,
+        data.custodio,
+        data.traduccion,
+        data.item,
+        data.item2,
+        data.resumen
       ];
 
-      const coincide = campos.some(c => c && c.includes(texto));
+      const coincide = camposIndexados.some(c =>
+        normalizarTexto(String(c || "")).includes(texto)
+      );
 
       if (coincide) {
         resultados.push({
-          id: docSnap.id,
+          id,
           titulo: data.titulo || "(Sin título)",
-          era: data.era || "",
+          era: data.era || ""
         });
       }
     });
 
-    // ✅ Elimina duplicados por ID
     const unicos = new Map();
     resultados.forEach(r => unicos.set(r.id, r));
 
     if (unicos.size === 0) {
-      contenedor.innerHTML = `<p style="color:#0c3642;">Sin resultados.</p>`;
+      contenedor.innerHTML = `<p style="color:#0c3642; text-align:center;">Sin resultados.</p>`;
       return;
     }
 
-    contenedor.innerHTML = "";
     unicos.forEach(r => {
       const div = document.createElement("div");
       div.className = "resultado-item";
@@ -275,13 +280,14 @@ async function buscarCronicas() {
         document.getElementById("documento").value = r.id;
         cargarCronica(r.id);
         contenedor.innerHTML = "";
-        document.getElementById("buscar").value = "";
+        input.value = "";
       };
       contenedor.appendChild(div);
     });
 
   } catch (error) {
     console.error("❌ Error al buscar crónicas:", error);
+    contenedor.innerHTML = `<p style="color:#0c3642; text-align:center;">Error al buscar.</p>`;
   }
 }
 
