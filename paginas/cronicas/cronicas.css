@@ -233,22 +233,24 @@ body {
 
 
 
-/* ==========================================================
-   📱 MÓVIL HORIZONTAL — Ordenado y con scroll interno
-   ========================================================== */
+/* ================================
+   📱 MÓVIL HORIZONTAL (LANDSCAPE) — FIX SCROLL + 2 COLUMNAS
+   ================================ */
 @media screen and (max-width: 767px) and (orientation: landscape) {
 
-  body.horizontal {
-    background: #BFC9C9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
+  /* El scroll debe vivir dentro del cristal; el body no bloquea gestos */
+  html, body {
     height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 👈 impedimos doble scroll; el interno va en .fondo-cristal */
+    font-family: 'Cinzel', serif;
+    background: #BFC9C9;
   }
 
-  body.horizontal .fondo-cristal {
-    width: 90%;
+  /* Contenedor principal con scroll interno suave */
+  .fondo-cristal {
+    width: 95%;
     height: 90%;
     border-radius: 10px;
     background: rgba(150,190,210,0.01);
@@ -258,40 +260,108 @@ body {
     box-shadow:
       0 0 25px rgba(120,200,255,0.3),
       inset 0 0 60px rgba(180,230,255,0.2);
-    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    overflow-y: auto;                 /* 👈 scroll interno */
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     scroll-behavior: smooth;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: flex-start;
     padding: 2% 0;
     animation: brilloCristal 4s ease-in-out infinite alternate;
   }
 
-  /* --- Tarjetas en 2 columnas ordenadas --- */
-  body.horizontal .era-panel {
-    flex: 0 0 45%;
-    margin: 2%;
-    min-height: 22vh;
-    border-radius: 20px;
+  /* Oculta la barra de scroll sin desactivar el scroll */
+  .fondo-cristal::-webkit-scrollbar { width: 0; height: 0; }
+  .fondo-cristal { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Título arriba, a ancho completo */
+  header.crumbs h1 {
+    width: 100%;
     text-align: center;
+    font-size: clamp(1.4rem, 3vw, 2.3rem);
+    margin: 8px 0 10px 0;
     color: #0c3642;
+    text-shadow: 0 0 10px rgba(180,240,255,0.8),
+                 0 0 20px rgba(100,200,255,0.5);
+  }
+
+  /* Contenedor de tarjetas: 2 columnas fluidas y centradas */
+  .eras-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;      /* centra el grid */
+    align-items: stretch;
+    gap: 1rem;
+    padding: 0 16px;              /* “aire” lateral */
+    margin-top: 0.5rem;
+    box-sizing: border-box;
+  }
+
+  /* El enlace ocupa su celda completa */
+  .era-panel-link {
+    display: block;
+    flex: 0 0 calc(50% - 16px);   /* 2 columnas con gap */
+    max-width: calc(50% - 16px);
+  }
+
+  /* Tarjeta llena la celda, sin márgenes que rompan alineado */
+  .era-panel {
+    width: 100%;
+    min-height: 20vh;
+    margin: 0;
+    border-radius: 20px;
     background: rgba(0,128,255,0.1);
     border: 1px solid rgba(100,180,255,0.4);
     box-shadow: 0 0 25px rgba(0,128,255,0.4);
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    font-size: 1rem;              /* mantiene tamaño base (ajusta si quieres) */
+    color: #0c3642;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  body.horizontal .enlace-consulta {
+  .era-panel:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(100,200,255,0.5);
+  }
+
+  /* Enlace inferior a ancho completo, separado del grid */
+  .enlace-consulta {
     width: 100%;
     text-align: center;
-    margin: 1.5rem 0;
+    margin: 1rem 0 1.5rem 0;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .enlace-consulta a {
+    display: inline-block;
+    color: #0c3642;
+    background: rgba(180,240,255,0.2);
+    border: 1px solid rgba(150,230,255,0.4);
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(120,200,255,0.3);
+  }
+
+  .enlace-consulta a:hover {
+    background: rgba(150,230,255,0.4);
+    color: #fff;
+    transform: scale(1.05);
   }
 }
+
 
 
 /* ==========================================================
