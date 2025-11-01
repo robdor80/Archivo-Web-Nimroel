@@ -234,21 +234,20 @@ body {
 
 
 /* ================================
-   📱 MÓVIL HORIZONTAL (LANDSCAPE) — FIX SCROLL + 2 COLUMNAS
+   📱 MÓVIL HORIZONTAL (LANDSCAPE) — FIX FINAL SCROLL + CENTRADO + ALTURAS IGUALES
    ================================ */
 @media screen and (max-width: 767px) and (orientation: landscape) {
 
-  /* El scroll debe vivir dentro del cristal; el body no bloquea gestos */
   html, body {
     height: 100dvh;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* 👈 impedimos doble scroll; el interno va en .fondo-cristal */
+    overflow: hidden;
     font-family: 'Cinzel', serif;
     background: #BFC9C9;
   }
 
-  /* Contenedor principal con scroll interno suave */
+  /* Contenedor principal con scroll interno */
   .fondo-cristal {
     width: 95%;
     height: 90%;
@@ -266,7 +265,7 @@ body {
     align-items: stretch;
     justify-content: flex-start;
 
-    overflow-y: auto;                 /* 👈 scroll interno */
+    overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
@@ -275,46 +274,54 @@ body {
     animation: brilloCristal 4s ease-in-out infinite alternate;
   }
 
-  /* Oculta la barra de scroll sin desactivar el scroll */
   .fondo-cristal::-webkit-scrollbar { width: 0; height: 0; }
   .fondo-cristal { -ms-overflow-style: none; scrollbar-width: none; }
 
-  /* Título arriba, a ancho completo */
+  /* --- CABECERA --- */
   header.crumbs h1 {
     width: 100%;
     text-align: center;
     font-size: clamp(1.4rem, 3vw, 2.3rem);
-    margin: 8px 0 10px 0;
+    margin: 8px 0 0 0;
     color: #0c3642;
     text-shadow: 0 0 10px rgba(180,240,255,0.8),
                  0 0 20px rgba(100,200,255,0.5);
   }
 
-  /* Contenedor de tarjetas: 2 columnas fluidas y centradas */
+  /* 🔧 Subtítulo centrado perfectamente */
+  header.crumbs .subtitle {
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #0c3642;
+    margin: 0.3rem auto 1rem auto;
+    line-height: 1.4;
+  }
+
+  /* --- TARJETAS --- */
   .eras-container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;      /* centra el grid */
+    justify-content: center;
     align-items: stretch;
     gap: 1rem;
-    padding: 0 16px;              /* “aire” lateral */
+    padding: 0 16px;
     margin-top: 0.5rem;
     box-sizing: border-box;
   }
 
-  /* El enlace ocupa su celda completa */
   .era-panel-link {
     display: block;
-    flex: 0 0 calc(50% - 16px);   /* 2 columnas con gap */
+    flex: 0 0 calc(50% - 16px);
     max-width: calc(50% - 16px);
   }
 
-  /* Tarjeta llena la celda, sin márgenes que rompan alineado */
+  /* 🔹 Todas las tarjetas iguales en altura */
   .era-panel {
     width: 100%;
-    min-height: 20vh;
-    margin: 0;
+    height: 22vh;                /* 👈 altura fija */
+    min-height: 22vh;            /* 👈 se asegura que ninguna sea más pequeña */
     border-radius: 20px;
     background: rgba(0,128,255,0.1);
     border: 1px solid rgba(100,180,255,0.4);
@@ -323,9 +330,10 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 1rem;              /* mantiene tamaño base (ajusta si quieres) */
+    font-size: 1rem;
     color: #0c3642;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
   }
 
   .era-panel:hover {
@@ -333,7 +341,7 @@ body {
     box-shadow: 0 0 25px rgba(100,200,255,0.5);
   }
 
-  /* Enlace inferior a ancho completo, separado del grid */
+  /* --- ENLACE FINAL --- */
   .enlace-consulta {
     width: 100%;
     text-align: center;
@@ -361,6 +369,7 @@ body {
     transform: scale(1.05);
   }
 }
+
 
 
 
