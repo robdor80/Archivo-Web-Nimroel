@@ -58,7 +58,7 @@ body {
 
   .fondo-cristal {
     width: 90%;
-    height: calc(90% - 10px);
+    height: 90%;
     border-radius: 10px;
     background: rgba(150,190,210,0.01);
     backdrop-filter: blur(25px) saturate(140%);
@@ -72,6 +72,8 @@ body {
     align-items: center;
     justify-content: flex-start;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
     padding: 3% 0;
     animation: brilloCristal 4s ease-in-out infinite alternate;
   }
@@ -79,26 +81,14 @@ body {
   .fondo-cristal::-webkit-scrollbar { width: 0; height: 0; }
   .fondo-cristal { -ms-overflow-style: none; scrollbar-width: none; }
 
-  @keyframes brilloCristal {
-    0% {
-      box-shadow:
-        0 0 25px rgba(120,200,255,0.3),
-        inset 0 0 60px rgba(180,230,255,0.2);
-    }
-    100% {
-      box-shadow:
-        0 0 60px rgba(150,230,255,0.6),
-        inset 0 0 100px rgba(200,240,255,0.35);
-    }
-  }
-
   header.crumbs h1 {
-    font-size: clamp(1.5rem, 4vw, 2.3rem);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: bold;
     color: #0c3642;
     text-shadow: 0 0 10px rgba(180,240,255,0.8),
                  0 0 20px rgba(100,200,255,0.5);
     text-align: center;
+    margin: 0;
   }
 
   .eras-container {
@@ -128,7 +118,6 @@ body {
     color: #0c3642;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-
   .era-panel:hover { transform: scale(1.03); }
 
   .enlace-consulta {
@@ -155,7 +144,7 @@ body {
 }
 
 /* ==========================================================
-   📱 MÓVIL HORIZONTAL
+   📱 MÓVIL HORIZONTAL (scroll interno)
    ========================================================== */
 @media screen and (max-width: 767px) and (orientation: landscape) {
   body.horizontal {
@@ -163,6 +152,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: visible;
     height: 100dvh;
   }
 
@@ -178,6 +168,9 @@ body {
       0 0 25px rgba(120,200,255,0.3),
       inset 0 0 60px rgba(180,230,255,0.2);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
     padding: 2%;
     display: flex;
     flex-wrap: wrap;
@@ -223,7 +216,6 @@ body {
     border-radius: 10px;
     background: rgba(150,190,210,0.02);
     backdrop-filter: blur(25px) saturate(140%);
-    -webkit-backdrop-filter: blur(25px) saturate(140%);
     border: 1px solid rgba(200,230,255,0.3);
     box-shadow:
       0 0 40px rgba(120,200,255,0.4),
@@ -241,10 +233,6 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     width: 90%;
-  }
-
-  .era-panel {
-    padding: 2rem;
   }
 }
 
@@ -268,7 +256,7 @@ body {
 }
 
 /* ==========================================================
-   🖥️ PC DE ESCRITORIO — ✅ CORREGIDO CON SEPARACIÓN ENTRE TARJETAS
+   🖥️ PC DE ESCRITORIO
    ========================================================== */
 @media only screen and (min-width: 1366px) {
   body {
@@ -292,7 +280,7 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 1fr;
-    gap: 2.5rem; /* 🔹 Añadido espacio extra entre tarjetas */
+    gap: 2.5rem;
     align-items: center;
     justify-items: center;
     padding: 3%;
@@ -312,9 +300,7 @@ body {
     text-align: center;
     font-size: 1.1rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 40px;
   }
-
   .era-panel:hover {
     transform: scale(1.03);
     box-shadow: 0 0 30px rgba(100,200,255,0.5);
@@ -328,8 +314,7 @@ body {
 }
 
 a, a:link, a:visited, a:hover, a:active, a:focus {
-  text-decoration: none !important;   /* 🔹 elimina subrayado siempre */
-  color: inherit !important;          /* 🔹 usa el color del texto del contenedor */
-  outline: none !important;           /* 🔹 evita borde al enfocar (por teclado o clic) */
+  text-decoration: none !important;
+  color: inherit !important;
+  outline: none !important;
 }
-
