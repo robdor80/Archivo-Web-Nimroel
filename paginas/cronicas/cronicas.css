@@ -107,6 +107,7 @@ body {
 
   /* --- Contenedor de tarjetas (centradas y ordenadas) --- */
   .eras-container {
+    flex-direction: column;
     width: 80%;
     min-height: 15%;
     margin: 2% 0;
