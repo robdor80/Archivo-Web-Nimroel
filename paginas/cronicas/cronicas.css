@@ -129,7 +129,8 @@ body {
   .era-panel {
     width: calc(100% - 20px); /* 🔹 deja margen lateral total de 20px */
     height: 75px;             /* 🔹 altura uniforme */
-    margin: 0 auto;           /* 🔹 centrado horizontal */
+    margin-left: 20px;
+    margin-right: 20px;
     border-radius: 18px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
