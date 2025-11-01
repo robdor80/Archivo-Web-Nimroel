@@ -219,3 +219,116 @@ window.actualizarVistaPrevia = function (tipo) {
     boton.disabled = true;
   }
 };
+
+// ===============================
+// 🔎 BUSCADOR AVANZADO DE CRÓNICAS
+// ===============================
+import { getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+/**
+ * Normaliza un texto (minúsculas + sin acentos)
+ */
+function normalizarTexto(texto) {
+  return texto
+    ? texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    : "";
+}
+
+/**
+ * Busca crónicas por título, ítem o palabra clave
+ */
+async function buscarCronicas() {
+  const texto = normalizarTexto(document.getElementById("buscar").value.trim());
+  const contenedor = document.getElementById("resultados-busqueda");
+  contenedor.innerHTML = "";
+
+  if (texto.length < 2) return; // evitar búsquedas con una letra
+
+  try {
+    const snap = await getDocs(collection(db, "cronicas"));
+    const resultados = [];
+
+    snap.forEach((docSnap) => {
+      const data = docSnap.data();
+      const campos = [
+        normalizarTexto(data.titulo),
+        normalizarTexto(data.item),
+        normalizarTexto(data.item2),
+        normalizarTexto(data.resumen)
+      ];
+
+      // ✅ busca coincidencias parciales
+      const coincide = campos.some(c => c && c.includes(texto));
+
+      if (coincide) {
+        resultados.push({
+          id: docSnap.id,
+          titulo: data.titulo || "(Sin título)",
+          era: data.era || "",
+        });
+      }
+    });
+
+    if (resultados.length === 0) {
+      contenedor.innerHTML = `<p style="color:#0c3642;">Sin resultados.</p>`;
+      return;
+    }
+
+    resultados.forEach(r => {
+      const div = document.createElement("div");
+      div.className = "resultado-item";
+      div.textContent = `${r.id} — ${r.titulo}`;
+      div.title = r.era;
+      div.onclick = () => {
+        document.getElementById("documento").value = r.id;
+        cargarCronica(r.id);
+        contenedor.innerHTML = "";
+        document.getElementById("buscar").value = "";
+      };
+      contenedor.appendChild(div);
+    });
+  } catch (error) {
+    console.error("❌ Error al buscar crónicas:", error);
+  }
+}
+
+// Detectar escritura
+document.getElementById("buscar").addEventListener("input", buscarCronicas);
+
+/**
+ * Carga una crónica existente al hacer clic en los resultados
+ */
+async function cargarCronica(id) {
+  try {
+    const ref = doc(db, "cronicas", id);
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      const data = snap.data();
+
+      document.getElementById("documento").value = id;
+      document.getElementById("titulo").value = data.titulo || "";
+      document.getElementById("era").value = data.era || "";
+      document.getElementById("anio").value = data.año || "";
+      document.getElementById("fecha").value = data.fecha || "";
+      document.getElementById("custodio").value = data.custodio || "";
+      document.getElementById("traduccion").value = data.traduccion || "";
+      document.getElementById("item").value = data.item || "";
+      document.getElementById("item2").value = data.item2 || "";
+      document.getElementById("imagen").value = data.imagen || "";
+      document.getElementById("resumen").value = data.resumen || "";
+      document.getElementById("sello").value = data.sello || "";
+      document.getElementById("firma").value = data.firma || "";
+
+      actualizarVistaPrevia("imagen");
+      actualizarVistaPrevia("sello");
+      actualizarVistaPrevia("firma");
+
+      mensaje.textContent = `✅ Crónica '${id}' cargada correctamente.`;
+    } else {
+      mensaje.textContent = "⚠️ No se encontró la crónica.";
+    }
+  } catch (error) {
+    console.error("❌ Error al cargar crónica:", error);
+  }
+}
+
