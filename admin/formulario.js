@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, doc, setDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDocs, getDoc, collection } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 // ===============================
@@ -65,7 +65,7 @@ onAuthStateChanged(auth, (user) => {
 // ===============================
 async function generarSiguienteID(eraSeleccionada) {
   const coleccion = "cronicas";
-  const eraKey = eraSeleccionada.toLowerCase().replace("era de la ", "").trim(); // Ej: "aurora"
+  const eraKey = eraSeleccionada.toLowerCase().replace("era de la ", "").trim();
   const prefijo = `${eraKey}_`;
 
   try {
@@ -92,24 +92,24 @@ async function generarSiguienteID(eraSeleccionada) {
   }
 }
 
-// Escucha cambios en la Era y genera automáticamente el ID
+// Escucha cambios en la Era
 document.getElementById("era").addEventListener("change", (e) => {
   generarSiguienteID(e.target.value);
 });
 
-// Genera automáticamente el primer ID al cargar la página
+// Genera el primer ID al cargar
 window.addEventListener("DOMContentLoaded", () => {
   const eraInicial = document.getElementById("era").value;
   generarSiguienteID(eraInicial);
 });
 
 // ===============================
-// 💾 GUARDAR DOCUMENTO (solo CRÓNICAS)
+// 💾 GUARDAR DOCUMENTO
 // ===============================
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const coleccion = "cronicas"; // 🔒 Colección fija
+  const coleccion = "cronicas";
   const documento = document.getElementById("documento").value.trim().toLowerCase();
 
   if (!documento) {
@@ -142,10 +142,7 @@ form.addEventListener("submit", async (e) => {
     actualizarVistaPrevia("imagen");
     actualizarVistaPrevia("sello");
     actualizarVistaPrevia("firma");
-
-    // 🔄 Regenerar el siguiente ID automáticamente después de guardar
     generarSiguienteID(document.getElementById("era").value);
-
   } catch (error) {
     console.error("❌ Error al guardar:", error);
     mensaje.textContent = "❌ Error al guardar la crónica. Revisa consola.";
@@ -153,7 +150,7 @@ form.addEventListener("submit", async (e) => {
 });
 
 // ===============================
-// 🚪 SALIR (Cerrar sesión)
+// 🚪 SALIR
 // ===============================
 btnSalir.addEventListener("click", async () => {
   try {
@@ -188,20 +185,18 @@ function generarLluviaRunas() {
 window.addEventListener("DOMContentLoaded", generarLluviaRunas);
 
 // ===============================
-// 🖼️ VISTA PREVIA CON "?" CUANDO NO HAY IMAGEN
+// 🖼️ VISTA PREVIA CON "?"
 // ===============================
 window.actualizarVistaPrevia = function (tipo) {
   const url = campos[tipo].value.trim();
   const vista = vistas[tipo];
   const boton = botonesAbrir[tipo];
 
-  // Limpia el contenido
   vista.classList.remove("sin-vista-previa");
   vista.innerHTML = "";
   vista.removeAttribute("src");
 
   if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
-    // ✅ Mostrar imagen real
     const img = document.createElement("img");
     img.src = url;
     img.alt = tipo;
@@ -213,7 +208,6 @@ window.actualizarVistaPrevia = function (tipo) {
     boton.disabled = false;
     boton.onclick = () => window.open(url, "_blank");
   } else {
-    // ❌ Mostrar el símbolo “?”
     vista.classList.add("sin-vista-previa");
     vista.textContent = "?";
     boton.disabled = true;
@@ -221,28 +215,22 @@ window.actualizarVistaPrevia = function (tipo) {
 };
 
 // ===============================
-// 🔎 BUSCADOR AVANZADO DE CRÓNICAS
+// 🔎 BUSCADOR DE CRÓNICAS (SIN DUPLICADOS)
 // ===============================
-import { getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-/**
- * Normaliza un texto (minúsculas + sin acentos)
- */
 function normalizarTexto(texto) {
   return texto
     ? texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     : "";
 }
 
-/**
- * Busca crónicas por título, ítem o palabra clave
- */
 async function buscarCronicas() {
   const texto = normalizarTexto(document.getElementById("buscar").value.trim());
   const contenedor = document.getElementById("resultados-busqueda");
-  contenedor.innerHTML = "";
 
-  if (texto.length < 2) return; // evitar búsquedas con una letra
+  // ✅ Limpia todo antes de pintar resultados
+  while (contenedor.firstChild) contenedor.removeChild(contenedor.firstChild);
+
+  if (texto.length < 2) return;
 
   try {
     const snap = await getDocs(collection(db, "cronicas"));
@@ -257,7 +245,6 @@ async function buscarCronicas() {
         normalizarTexto(data.resumen)
       ];
 
-      // ✅ busca coincidencias parciales
       const coincide = campos.some(c => c && c.includes(texto));
 
       if (coincide) {
@@ -269,12 +256,17 @@ async function buscarCronicas() {
       }
     });
 
-    if (resultados.length === 0) {
+    // ✅ Elimina duplicados por ID
+    const unicos = new Map();
+    resultados.forEach(r => unicos.set(r.id, r));
+
+    if (unicos.size === 0) {
       contenedor.innerHTML = `<p style="color:#0c3642;">Sin resultados.</p>`;
       return;
     }
 
-    resultados.forEach(r => {
+    contenedor.innerHTML = "";
+    unicos.forEach(r => {
       const div = document.createElement("div");
       div.className = "resultado-item";
       div.textContent = `${r.id} — ${r.titulo}`;
@@ -287,17 +279,17 @@ async function buscarCronicas() {
       };
       contenedor.appendChild(div);
     });
+
   } catch (error) {
     console.error("❌ Error al buscar crónicas:", error);
   }
 }
 
-// Detectar escritura
 document.getElementById("buscar").addEventListener("input", buscarCronicas);
 
-/**
- * Carga una crónica existente al hacer clic en los resultados
- */
+// ===============================
+// 📜 CARGAR CRÓNICA EXISTENTE
+// ===============================
 async function cargarCronica(id) {
   try {
     const ref = doc(db, "cronicas", id);
@@ -331,4 +323,3 @@ async function cargarCronica(id) {
     console.error("❌ Error al cargar crónica:", error);
   }
 }
-
