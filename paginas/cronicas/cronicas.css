@@ -312,6 +312,7 @@ body {
     text-align: center;
     font-size: 1.1rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 20px;
   }
 
   .era-panel:hover {
