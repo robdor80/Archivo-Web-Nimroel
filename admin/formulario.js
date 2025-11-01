@@ -146,27 +146,28 @@ window.actualizarVistaPrevia = function (tipo) {
   const vista = vistas[tipo];
   const boton = botonesAbrir[tipo];
 
-  // Quitar estilos previos
+  // Limpia el contenido
   vista.classList.remove("sin-vista-previa");
+  vista.innerHTML = "";
   vista.removeAttribute("src");
-  vista.textContent = "";
 
   if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
-    // ✅ URL válida: mostrar imagen real
-    vista.src = url;
+    // ✅ Mostrar imagen real
+    const img = document.createElement("img");
+    img.src = url;
+    img.alt = tipo;
+    img.style.width = "100%";
+    img.style.height = "100%";
+    img.style.objectFit = "cover";
+    img.style.borderRadius = "8px";
+    vista.appendChild(img);
     boton.disabled = false;
     boton.onclick = () => window.open(url, "_blank");
   } else {
-    // ❌ No hay imagen válida: mostrar un “?”
+    // ❌ Mostrar el símbolo “?”
     vista.classList.add("sin-vista-previa");
     vista.textContent = "?";
-    vista.style.display = "flex";
-    vista.style.alignItems = "center";
-    vista.style.justifyContent = "center";
-    vista.style.fontSize = "3rem";
-    vista.style.color = "rgba(12, 54, 66, 0.6)";
-    vista.style.fontWeight = "bold";
-    vista.style.textShadow = "0 0 6px rgba(100, 200, 255, 0.3)";
     boton.disabled = true;
   }
 };
+
