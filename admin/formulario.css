@@ -223,6 +223,36 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* === BOTONES "ABRIR IMAGEN" — ESTILO ENLACE === */
+.vista-imagen button,
+.vista-sello button,
+.vista-firma button {
+  background: none;
+  border: none;
+  color: rgba(12, 54, 66, 0.85);
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 0.5rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+.vista-imagen button:hover:enabled,
+.vista-sello button:hover:enabled,
+.vista-firma button:hover:enabled {
+  color: #eafaff;
+  text-shadow: 0 0 6px rgba(150, 230, 255, 0.6);
+}
+.vista-imagen button:disabled,
+.vista-sello button:disabled,
+.vista-firma button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
 /* === SIN VISTA PREVIA === */
 .sin-vista-previa {
   background: rgba(180, 220, 255, 0.1);
