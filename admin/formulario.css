@@ -285,3 +285,20 @@ select#coleccion {
   text-transform: capitalize;
 }
 
+.sin-vista-previa {
+  background: rgba(180, 220, 255, 0.1);
+  border: 1px dashed rgba(100, 160, 200, 0.4);
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 3rem;
+  color: rgba(12, 54, 66, 0.6);
+  text-shadow: 0 0 8px rgba(150, 220, 255, 0.4);
+}
+
+

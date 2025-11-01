@@ -139,24 +139,34 @@ function generarLluviaRunas() {
 window.addEventListener("DOMContentLoaded", generarLluviaRunas);
 
 // ===============================
-// 🖼️ VISTA PREVIA CON "SIN VISTA PREVIA"
+// 🖼️ VISTA PREVIA CON "?" CUANDO NO HAY IMAGEN
 // ===============================
 window.actualizarVistaPrevia = function (tipo) {
   const url = campos[tipo].value.trim();
   const vista = vistas[tipo];
   const boton = botonesAbrir[tipo];
 
+  // Quitar estilos previos
   vista.classList.remove("sin-vista-previa");
+  vista.removeAttribute("src");
   vista.textContent = "";
 
   if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
+    // ✅ URL válida: mostrar imagen real
     vista.src = url;
     boton.disabled = false;
     boton.onclick = () => window.open(url, "_blank");
   } else {
-    vista.removeAttribute("src");
+    // ❌ No hay imagen válida: mostrar un “?”
     vista.classList.add("sin-vista-previa");
-    vista.textContent = "Sin vista previa";
+    vista.textContent = "?";
+    vista.style.display = "flex";
+    vista.style.alignItems = "center";
+    vista.style.justifyContent = "center";
+    vista.style.fontSize = "3rem";
+    vista.style.color = "rgba(12, 54, 66, 0.6)";
+    vista.style.fontWeight = "bold";
+    vista.style.textShadow = "0 0 6px rgba(100, 200, 255, 0.3)";
     boton.disabled = true;
   }
 };
