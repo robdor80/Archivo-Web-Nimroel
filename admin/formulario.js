@@ -64,12 +64,12 @@ onAuthStateChanged(auth, (user) => {
 // 🔢 GENERAR SIGUIENTE ID AUTOMÁTICO
 // ===============================
 async function generarSiguienteID(eraSeleccionada) {
-  const coleccion = "cronicas";
+  const coleccion = collection(db, "Nimroel", "estructura", "cronicas"); // ✅ RUTA CORREGIDA
   const eraKey = eraSeleccionada.toLowerCase().replace("era de la ", "").trim();
   const prefijo = `${eraKey}_`;
 
   try {
-    const snap = await getDocs(collection(db, coleccion));
+    const snap = await getDocs(coleccion);
     let maxNumero = 0;
 
     snap.forEach((docSnap) => {
@@ -107,7 +107,6 @@ window.addEventListener("DOMContentLoaded", () => {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const coleccion = "cronicas";
   const documento = document.getElementById("documento").value.trim().toLowerCase();
 
   if (!documento) {
@@ -130,12 +129,11 @@ form.addEventListener("submit", async (e) => {
     firma: campos.firma.value.trim()
   };
 
-  console.log(`📦 Intentando guardar en: ${coleccion}/${documento}`, datos);
+  console.log(`📦 Intentando guardar en: Nimroel/estructura/cronicas/${documento}`, datos);
 
   try {
-    await setDoc(doc(db, coleccion, documento), datos);
-    mensaje.textContent = `✅ Crónica '${documento}' guardada correctamente en '${coleccion}'.`;
-    console.log("✅ Guardado correctamente en Firestore.");
+    await setDoc(doc(db, "Nimroel", "estructura", "cronicas", documento), datos); // ✅ RUTA CORREGIDA
+    mensaje.textContent = `✅ Crónica '${documento}' guardada correctamente.`;
     form.reset();
     actualizarVistaPrevia("imagen");
     actualizarVistaPrevia("sello");
@@ -148,85 +146,44 @@ form.addEventListener("submit", async (e) => {
 });
 
 // ===============================
-// 🚪 SALIR (Cerrar sesión y volver al inicio)
+// 📜 CARGAR CRÓNICA EXISTENTE
 // ===============================
-btnSalir.addEventListener("click", async () => {
+async function cargarCronica(id) {
   try {
-    await signOut(auth);
-    console.log("🔒 Sesión cerrada correctamente.");
+    const ref = doc(db, "Nimroel", "estructura", "cronicas", id); // ✅ RUTA CORREGIDA
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      const data = snap.data();
 
-    // Mostrar mensaje de confirmación antes de salir
-    mensaje.textContent = "🔒 Sesión cerrada. Redirigiendo al Santuario...";
-    mensaje.style.color = "#0c3642";
+      document.getElementById("documento").value = id;
+      document.getElementById("titulo").value = data.titulo || "";
+      document.getElementById("era").value = data.era || "";
+      document.getElementById("anio").value = data.año || "";
+      document.getElementById("fecha").value = data.fecha || "";
+      document.getElementById("custodio").value = data.custodio || "";
+      document.getElementById("traduccion").value = data.traduccion || "";
+      document.getElementById("item").value = data.item || "";
+      document.getElementById("item2").value = data.item2 || "";
+      document.getElementById("imagen").value = data.imagen || "";
+      document.getElementById("resumen").value = data.resumen || "";
+      document.getElementById("sello").value = data.sello || "";
+      document.getElementById("firma").value = data.firma || "";
 
-    // Espera 1.5 segundos antes de volver al inicio
-    setTimeout(() => {
-      const base = window.location.origin; // Detecta entorno
-      window.location.href = `${base}/Archivo-Web-Nimroel/index.html`; // ✅ siempre redirige bien
-    }, 1500);
+      actualizarVistaPrevia("imagen");
+      actualizarVistaPrevia("sello");
+      actualizarVistaPrevia("firma");
+
+      mensaje.textContent = `✅ Crónica '${id}' cargada correctamente.`;
+    } else {
+      mensaje.textContent = "⚠️ No se encontró la crónica.";
+    }
   } catch (error) {
-    console.error("❌ Error al cerrar sesión:", error);
-    mensaje.textContent = "⚠️ Error al cerrar sesión. Revisa la consola.";
-    mensaje.style.color = "red";
-  }
-});
-
-
-
-// ===============================
-// 🌧️ LLUVIA DE RUNAS
-// ===============================
-const RUNAS = ["ᚠ","ᚢ","ᚦ","ᚨ","ᚱ","ᚲ","ᚷ","ᚹ","ᚺ","ᚾ","ᛁ","ᛃ","ᛇ","ᛉ","ᛊ","ᛏ","ᛒ","ᛖ","ᛗ","ᛚ","ᛜ","ᛞ","ᛟ"];
-function generarLluviaRunas() {
-  const capa = document.getElementById("runas");
-  if (!capa) return;
-  capa.innerHTML = "";
-  const cantidad = window.innerWidth < 768 ? 40 : 80;
-  for (let i = 0; i < cantidad; i++) {
-    const rune = document.createElement("div");
-    rune.className = "runa";
-    rune.textContent = RUNAS[Math.floor(Math.random() * RUNAS.length)];
-    rune.style.left = Math.random() * 100 + "vw";
-    rune.style.top = "-" + (Math.random() * 20 + 5) + "vh";
-    rune.style.animationDuration = 4 + Math.random() * 6 + "s";
-    rune.style.animationDelay = "-" + Math.random() * 10 + "s";
-    capa.appendChild(rune);
+    console.error("❌ Error al cargar crónica:", error);
   }
 }
-window.addEventListener("DOMContentLoaded", generarLluviaRunas);
 
 // ===============================
-// 🖼️ VISTA PREVIA CON "?"
-// ===============================
-window.actualizarVistaPrevia = function (tipo) {
-  const url = campos[tipo].value.trim();
-  const vista = vistas[tipo];
-  const boton = botonesAbrir[tipo];
-
-  vista.classList.remove("sin-vista-previa");
-  vista.innerHTML = "";
-  vista.removeAttribute("src");
-
-  if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
-    const img = document.createElement("img");
-    img.src = url;
-    img.alt = tipo;
-    img.style.width = "100%";
-    img.style.height = "100%";
-    img.style.objectFit = "cover";
-    img.style.borderRadius = "8px";
-    vista.appendChild(img);
-    boton.disabled = false;
-    boton.onclick = () => window.open(url, "_blank");
-  } else {
-    vista.classList.add("sin-vista-previa");
-    vista.textContent = "?";
-    boton.disabled = true;
-  }
-};
-
-// ===============================
-// 🔎 BUSCADOR DE CRÓNICAS (TODOS LOS CAMPOS)
+// 🔎 BUSCADOR DE CRÓNICAS
 // ===============================
 function normalizarTexto(texto) {
   return texto
@@ -243,7 +200,7 @@ async function buscarCronicas() {
   if (texto.length < 2) return;
 
   try {
-    const snap = await getDocs(collection(db, "cronicas"));
+    const snap = await getDocs(collection(db, "Nimroel", "estructura", "cronicas")); // ✅ RUTA CORREGIDA
     const resultados = [];
 
     snap.forEach((docSnap) => {
@@ -305,40 +262,3 @@ async function buscarCronicas() {
 }
 
 document.getElementById("buscar").addEventListener("input", buscarCronicas);
-
-// ===============================
-// 📜 CARGAR CRÓNICA EXISTENTE
-// ===============================
-async function cargarCronica(id) {
-  try {
-    const ref = doc(db, "cronicas", id);
-    const snap = await getDoc(ref);
-    if (snap.exists()) {
-      const data = snap.data();
-
-      document.getElementById("documento").value = id;
-      document.getElementById("titulo").value = data.titulo || "";
-      document.getElementById("era").value = data.era || "";
-      document.getElementById("anio").value = data.año || "";
-      document.getElementById("fecha").value = data.fecha || "";
-      document.getElementById("custodio").value = data.custodio || "";
-      document.getElementById("traduccion").value = data.traduccion || "";
-      document.getElementById("item").value = data.item || "";
-      document.getElementById("item2").value = data.item2 || "";
-      document.getElementById("imagen").value = data.imagen || "";
-      document.getElementById("resumen").value = data.resumen || "";
-      document.getElementById("sello").value = data.sello || "";
-      document.getElementById("firma").value = data.firma || "";
-
-      actualizarVistaPrevia("imagen");
-      actualizarVistaPrevia("sello");
-      actualizarVistaPrevia("firma");
-
-      mensaje.textContent = `✅ Crónica '${id}' cargada correctamente.`;
-    } else {
-      mensaje.textContent = "⚠️ No se encontró la crónica.";
-    }
-  } catch (error) {
-    console.error("❌ Error al cargar crónica:", error);
-  }
-}
