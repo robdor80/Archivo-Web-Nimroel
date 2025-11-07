@@ -1,6 +1,6 @@
 // ==========================================================
 // CRÓNICAS — ERA DE LA AURORA
-// Carga dinámica de registros desde Firestore (versión final optimizada)
+// Carga dinámica de registros desde Firestore (versión definitiva)
 // ==========================================================
 
 // 🔥 Importar base de datos desde la raíz del repositorio
@@ -57,19 +57,26 @@ function abrirModal(data) {
     sello.style.display = "none";
   }
 
-  // === Firma del custodio ===
+  // === Firma del custodio (animada o estática) ===
   if (data.firma) {
     if (data.firma.endsWith(".html")) {
-      // ✅ Firma HTML (animada o dibujada)
+      // ✅ Inserta la firma como iframe sin scroll y con ajuste automático
       firma.outerHTML = `
         <iframe id="modal-firma" src="${data.firma}"
-                style="width:240px;height:140px;border:none;border-radius:10px;overflow:hidden;"
+                style="
+                  width:260px;
+                  height:130px;
+                  border:none;
+                  border-radius:10px;
+                  overflow:hidden;
+                  scrollbar-width:none;
+                  -ms-overflow-style:none;
+                "
                 sandbox="allow-scripts allow-same-origin"></iframe>`;
     } else {
-      // ✅ Firma como imagen estática
       firma.src = data.firma;
       firma.style.display = "inline-block";
-      firma.style.maxWidth = "240px";
+      firma.style.maxWidth = "260px";
       firma.style.borderRadius = "10px";
       firma.style.boxShadow = "0 0 10px rgba(255,255,255,0.2)";
     }
