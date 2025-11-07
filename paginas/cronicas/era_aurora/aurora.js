@@ -3,7 +3,7 @@
 // Carga dinámica de registros desde Firestore
 // ==========================================================
 
-import { db } from "../firebase-config.js";
+import { db } from "../../firebase-config.js";
 import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // Elementos del DOM
@@ -11,7 +11,9 @@ const contenedor = document.getElementById("contenedor-aurora");
 const modal = document.getElementById("modal-cronica");
 const cerrarModal = document.getElementById("cerrarModal");
 
-// Cerrar modal
+// ==========================================================
+// 🔒 CERRAR MODAL
+// ==========================================================
 if (cerrarModal && modal) {
   cerrarModal.addEventListener("click", () => modal.classList.add("hidden"));
   modal.addEventListener("click", e => {
@@ -19,7 +21,9 @@ if (cerrarModal && modal) {
   });
 }
 
-// Mostrar datos en modal
+// ==========================================================
+// 🔍 MOSTRAR DATOS EN MODAL
+// ==========================================================
 function abrirModal(data) {
   document.getElementById("modal-titulo").textContent = data.titulo || "Sin título";
   document.getElementById("modal-era").textContent = data.era || "Desconocida";
@@ -30,14 +34,13 @@ function abrirModal(data) {
   const sello = document.getElementById("modal-sello");
   const firma = document.getElementById("modal-firma");
 
-  // Imagen principal en modal
+  // Imagen principal
   if (data.imagen) {
     modalImagen.src = data.imagen;
-    modalImagen.style.display = "block";
   } else {
     modalImagen.src = "medios/img/placeholders/sin_imagen.webp";
-    modalImagen.style.display = "block";
   }
+  modalImagen.style.display = "block";
 
   // Sello
   if (data.sello) {
@@ -58,11 +61,17 @@ function abrirModal(data) {
   modal.classList.remove("hidden");
 }
 
-// Cargar crónicas filtradas por Era
+// ==========================================================
+// 📜 CARGAR CRÓNICAS FILTRADAS POR ERA (RUTA ACTUALIZADA)
+// ==========================================================
 async function cargarCronicasAurora() {
   try {
-    const q = query(collection(db, "cronicas"), where("era", "==", "Era de la Aurora"));
+    // ✅ Nueva ruta de colección según estructura: Nimroel / estructura / cronicas
+    const cronicasRef = collection(db, "Nimroel", "estructura", "cronicas");
+    const q = query(cronicasRef, where("era", "==", "Era de la Aurora"));
     const snapshot = await getDocs(q);
+
+    contenedor.innerHTML = ""; // Limpia antes de renderizar
 
     if (snapshot.empty) {
       contenedor.innerHTML = `<p style="text-align:center;color:#a8bde2;">No hay crónicas registradas para esta era.</p>`;
@@ -71,6 +80,7 @@ async function cargarCronicasAurora() {
 
     snapshot.forEach(docSnap => {
       const data = docSnap.data();
+
       const card = document.createElement("div");
       card.className = "cr-card";
 
@@ -92,10 +102,15 @@ async function cargarCronicasAurora() {
       contenedor.appendChild(card);
     });
 
+    console.log(`✅ Cargadas ${snapshot.size} crónicas de la Era de la Aurora.`);
+
   } catch (error) {
     console.error("❌ Error al cargar las crónicas:", error);
+    contenedor.innerHTML = `<p style="text-align:center;color:#f99;">Error al cargar las crónicas.</p>`;
   }
 }
 
-// Ejecutar carga
-cargarCronicasAurora();
+// ==========================================================
+// 🚀 EJECUTAR CARGA
+// ==========================================================
+window.addEventListener("DOMContentLoaded", cargarCronicasAurora);
