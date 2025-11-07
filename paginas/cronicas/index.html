@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Crónicas del Santuario — Archivos</title>
 
-  <!-- BASE PARA GITHUB -->
+  <!-- ✅ BASE CORRECTA PARA GITHUB PAGES -->
   <base href="/Archivo-Web-Nimroel/">
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="style.css?v=1.8" />
+  <!-- 🎨 Estilos globales -->
+  <link rel="stylesheet" href="styles.css?v=1.8" />
   <link rel="stylesheet" href="paginas/cronicas/cronicas.css?v=1.5" />
 
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <meta name="theme-color" content="#0e111c">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta name="theme-color" content="#0e111c" />
 </head>
 
 <body>
@@ -22,40 +22,48 @@
 
   <!-- 💠 Cristal principal -->
   <div class="fondo-cristal">
+    <!-- 🔙 Botón de regreso -->
     <header class="crumbs">
-      <a class="back" href="terminal.html">
+      <a class="back" href="/Archivo-Web-Nimroel/terminal.html">
         <svg viewBox="0 0 24 24" width="18" height="18">
-          <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15 5l-7 7 7 7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
         </svg>
         <span>Inicio</span>
       </a>
+
       <h1>Crónicas del Santuario</h1>
       <p class="subtitle">Consulta los registros históricos ordenados por Era</p>
     </header>
 
-    <!-- 🕰️ Tarjetas de las Eras -->
+    <!-- 🕰️ Contenedores por Era -->
     <main class="eras-container">
-      <a href="paginas/cronicas/era_aurora/index.html" class="era-panel-link">
-        <section class="era-panel"><h2>Era de la Aurora</h2></section>
-      </a>
+      <section id="era-aurora" class="era-panel">
+        <h2>Era de la Aurora</h2>
+      </section>
 
-      <a href="paginas/cronicas/era_despertar/index.html" class="era-panel-link">
-        <section class="era-panel"><h2>Era del Despertar</h2></section>
-      </a>
+      <section id="era-despertar" class="era-panel">
+        <h2>Era del Despertar</h2>
+      </section>
 
-      <a href="paginas/cronicas/era_conocimiento/index.html" class="era-panel-link">
-        <section class="era-panel"><h2>Era del Conocimiento</h2></section>
-      </a>
+      <section id="era-conocimiento" class="era-panel">
+        <h2>Era del Conocimiento</h2>
+      </section>
 
-      <a href="paginas/cronicas/era_poder/index.html" class="era-panel-link">
-        <section class="era-panel"><h2>Era del Poder</h2></section>
-      </a>
+      <section id="era-poder" class="era-panel">
+        <h2>Era del Poder</h2>
+      </section>
     </main>
 
-    <!-- 🔍 Enlace a la consulta -->
+    <!-- 🔍 Enlace a la consulta avanzada -->
     <div class="enlace-consulta">
-      <a href="paginas/cronicas/consulta/index.html">Búsqueda y consulta avanzada</a>
+      <a href="/Archivo-Web-Nimroel/paginas/cronicas/consulta/index.html">
+        Búsqueda y consulta avanzada
+      </a>
     </div>
   </div>
 
@@ -79,5 +87,8 @@
     }
     window.addEventListener("DOMContentLoaded", generarLluviaRunas);
   </script>
+
+  <!-- 📜 Carga dinámica de crónicas -->
+  <script type="module" src="/Archivo-Web-Nimroel/paginas/cronicas/cronicas.js"></script>
 </body>
 </html>
