@@ -1,51 +1,52 @@
-// ==========================================================
-// 🔥 IMPORTAR FIREBASE DESDE LA RAÍZ (solo GitHub Pages)
-// ==========================================================
-import {
-  db,
-  auth,
-  provider,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged
-} from "/Archivo-Web-Nimroel/firebase-config.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getFirestore, doc, setDoc, getDocs, getDoc, collection } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-import {
-  doc,
-  setDoc,
-  getDoc,
-  getDocs,
-  collection
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+// ===============================
+// 🔥 CONFIGURACIÓN DE FIREBASE
+// ===============================
+const firebaseConfig = {
+  apiKey: "AIzaSyD3NEbGcUwBxwoOGBPO8PukmPHcfl42bE8",
+  authDomain: "cronicas-de-nimroel.firebaseapp.com",
+  projectId: "cronicas-de-nimroel",
+  storageBucket: "cronicas-de-nimroel.appspot.com",
+  messagingSenderId: "689465837057",
+  appId: "1:689465837057:web:aecddb8b4a247bfe0de200"
+};
 
-// ==========================================================
-// ⚙️ REFERENCIAS DEL DOM
-// ==========================================================
+// ===============================
+// ⚙️ INICIALIZACIÓN
+// ===============================
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
 const form = document.getElementById("formCronica");
 const mensaje = document.getElementById("mensaje");
 const btnSalir = document.getElementById("btnSalir");
 
+// ===============================
+// 🖼️ REFERENCIAS
+// ===============================
 const campos = {
   imagen: document.getElementById("imagen"),
   sello: document.getElementById("sello"),
   firma: document.getElementById("firma")
 };
-
 const vistas = {
   imagen: document.getElementById("preview-imagen"),
   sello: document.getElementById("preview-sello"),
   firma: document.getElementById("preview-firma")
 };
-
 const botonesAbrir = {
   imagen: document.getElementById("abrir-imagen"),
   sello: document.getElementById("abrir-sello"),
   firma: document.getElementById("abrir-firma")
 };
 
-// ==========================================================
+// ===============================
 // 🔐 VERIFICAR SESIÓN
-// ==========================================================
+// ===============================
 onAuthStateChanged(auth, (user) => {
   if (user && user.email === "rob.dor.80@gmail.com") {
     console.log("✅ Sesión activa:", user.email);
@@ -54,16 +55,16 @@ onAuthStateChanged(auth, (user) => {
     console.warn("🚫 No hay sesión activa. Redirigiendo...");
     mensaje.textContent = "🚫 No hay sesión activa. Inicia sesión en el Santuario.";
     setTimeout(() => {
-      window.location.href = "/Archivo-Web-Nimroel/index.html";
+      window.location.href = "../../index.html";
     }, 2000);
   }
 });
 
-// ==========================================================
+// ===============================
 // 🔢 GENERAR SIGUIENTE ID AUTOMÁTICO
-// ==========================================================
+// ===============================
 async function generarSiguienteID(eraSeleccionada) {
-  const coleccion = collection(db, "Nimroel", "estructura", "cronicas");
+  const coleccion = collection(db, "Nimroel", "estructura", "cronicas"); // ✅ RUTA CORREGIDA
   const eraKey = eraSeleccionada.toLowerCase().replace("era de la ", "").trim();
   const prefijo = `${eraKey}_`;
 
@@ -85,6 +86,7 @@ async function generarSiguienteID(eraSeleccionada) {
     const siguiente = (maxNumero + 1).toString().padStart(3, "0");
     const nuevoID = `${prefijo}${siguiente}`;
     document.getElementById("documento").value = nuevoID;
+
   } catch (error) {
     console.error("❌ Error al generar siguiente ID:", error);
   }
@@ -99,9 +101,9 @@ window.addEventListener("DOMContentLoaded", () => {
   generarSiguienteID(eraInicial);
 });
 
-// ==========================================================
+// ===============================
 // 💾 GUARDAR DOCUMENTO
-// ==========================================================
+// ===============================
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -130,7 +132,7 @@ form.addEventListener("submit", async (e) => {
   console.log(`📦 Intentando guardar en: Nimroel/estructura/cronicas/${documento}`, datos);
 
   try {
-    await setDoc(doc(db, "Nimroel", "estructura", "cronicas", documento), datos);
+    await setDoc(doc(db, "Nimroel", "estructura", "cronicas", documento), datos); // ✅ RUTA CORREGIDA
     mensaje.textContent = `✅ Crónica '${documento}' guardada correctamente.`;
     form.reset();
     actualizarVistaPrevia("imagen");
@@ -143,12 +145,12 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-// ==========================================================
+// ===============================
 // 📜 CARGAR CRÓNICA EXISTENTE
-// ==========================================================
+// ===============================
 async function cargarCronica(id) {
   try {
-    const ref = doc(db, "Nimroel", "estructura", "cronicas", id);
+    const ref = doc(db, "Nimroel", "estructura", "cronicas", id); // ✅ RUTA CORREGIDA
     const snap = await getDoc(ref);
     if (snap.exists()) {
       const data = snap.data();
@@ -180,9 +182,9 @@ async function cargarCronica(id) {
   }
 }
 
-// ==========================================================
+// ===============================
 // 🔎 BUSCADOR DE CRÓNICAS
-// ==========================================================
+// ===============================
 function normalizarTexto(texto) {
   return texto
     ? texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -198,7 +200,7 @@ async function buscarCronicas() {
   if (texto.length < 2) return;
 
   try {
-    const snap = await getDocs(collection(db, "Nimroel", "estructura", "cronicas"));
+    const snap = await getDocs(collection(db, "Nimroel", "estructura", "cronicas")); // ✅ RUTA CORREGIDA
     const resultados = [];
 
     snap.forEach((docSnap) => {
@@ -252,6 +254,7 @@ async function buscarCronicas() {
       };
       contenedor.appendChild(div);
     });
+
   } catch (error) {
     console.error("❌ Error al buscar crónicas:", error);
     contenedor.innerHTML = `<p style="color:#0c3642; text-align:center;">Error al buscar.</p>`;
@@ -259,23 +262,3 @@ async function buscarCronicas() {
 }
 
 document.getElementById("buscar").addEventListener("input", buscarCronicas);
-
-// ==========================================================
-// 🖼️ ACTUALIZAR VISTA PREVIA DE IMÁGENES
-// ==========================================================
-function actualizarVistaPrevia(tipo) {
-  const campo = campos[tipo];
-  const vista = vistas[tipo];
-  const boton = botonesAbrir[tipo];
-  const url = campo.value.trim();
-
-  if (url) {
-    vista.innerHTML = `<img src="${url}" alt="${tipo}" style="max-width:100%;max-height:100%;border-radius:8px;">`;
-    boton.disabled = false;
-    boton.onclick = () => window.open(url, "_blank");
-  } else {
-    vista.innerHTML = "?";
-    boton.disabled = true;
-    boton.onclick = null;
-  }
-}

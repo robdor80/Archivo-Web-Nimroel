@@ -1,58 +1,51 @@
 /* ==========================================================
-   📜 CRÓNICAS DEL SANTUARIO — CARGA DESDE FIRESTORE
+   CRÓNICAS DEL SANTUARIO — CARGA DE CRÓNICAS DESDE FIRESTORE
    ========================================================== */
 
-// 🧩 Importar conexión global a Firebase desde la raíz
-import { db } from "/Archivo-Web-Nimroel/firebase-config.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// Importar solo las funciones necesarias de Firestore
-import {
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+/* ---------- CONFIGURACIÓN FIREBASE ---------- */
+const firebaseConfig = {
+  apiKey: "AIzaSyD3NEbGcUwBxwoOGBP0P8PukmPHcf142bE8",
+  authDomain: "cronicas-de-nimroel.firebaseapp.com",
+  projectId: "cronicas-de-nimroel",
+  storageBucket: "cronicas-de-nimroel.appspot.com",
+  messagingSenderId: "689465837057",
+  appId: "1:689465837057:web:aecddb8b4a247bfe0de200"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 /* ==========================================================
-   ⚙️ FUNCIÓN PRINCIPAL: CARGAR CRÓNICAS DESDE FIRESTORE
+   CARGA DE CRÓNICAS DESDE FIRESTORE
    ========================================================== */
 async function cargarCronicas() {
-  try {
-    // 🔹 Nueva ruta unificada: colección "Nimroel/estructura/cronicas"
-    const querySnapshot = await getDocs(collection(db, "Nimroel", "estructura", "cronicas"));
+  const querySnapshot = await getDocs(collection(db, "cronicas"));
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const era = (data.era || "Desconocida").toLowerCase();
+    let contenedor;
 
-    querySnapshot.forEach((docSnap) => {
-      const data = docSnap.data();
-      const era = (data.era || "Desconocida").toLowerCase();
-      let contenedor;
+    if (era.includes("aurora")) contenedor = document.getElementById("era-aurora");
+    else if (era.includes("despertar")) contenedor = document.getElementById("era-despertar");
+    else if (era.includes("conocimiento")) contenedor = document.getElementById("era-conocimiento");
+    else if (era.includes("poder")) contenedor = document.getElementById("era-poder");
+    else return;
 
-      // 🔍 Determina el contenedor según la era
-      if (era.includes("aurora")) contenedor = document.getElementById("era-aurora");
-      else if (era.includes("despertar")) contenedor = document.getElementById("era-despertar");
-      else if (era.includes("conocimiento")) contenedor = document.getElementById("era-conocimiento");
-      else if (era.includes("poder")) contenedor = document.getElementById("era-poder");
-      else return; // si no encaja con ninguna era conocida, no mostrar
-
-      // 🧱 Crear tarjeta visual de la crónica
-      const card = document.createElement("div");
-      card.className = "cr-card";
-      card.innerHTML = `
-        <h3>${data.titulo || "Sin título"}</h3>
-        <p><strong>Custodio:</strong> ${data.custodio || "—"}</p>
-        <p>${data.resumen || ""}</p>
-      `;
-
-      contenedor.appendChild(card);
-    });
-
-  } catch (error) {
-    console.error("❌ Error al cargar crónicas:", error);
-    const mensajeError = document.createElement("p");
-    mensajeError.textContent = "⚠️ Error al cargar las crónicas.";
-    mensajeError.style.color = "#0c3642";
-    document.body.appendChild(mensajeError);
-  }
+    const card = document.createElement("div");
+    card.className = "cr-card";
+    card.innerHTML = `
+      <h3>${data.titulo || "Sin título"}</h3>
+      <p><strong>Custodio:</strong> ${data.custodio || "—"}</p>
+      <p>${data.resumen || ""}</p>
+    `;
+    contenedor.appendChild(card);
+  });
 }
 
 /* ==========================================================
-   🚀 INICIALIZACIÓN GENERAL
+   INICIALIZACIÓN GENERAL
    ========================================================== */
 window.addEventListener("DOMContentLoaded", cargarCronicas);

@@ -3,7 +3,7 @@
 // Incluye Firestore + Autenticación con Google
 // ==========================================================
 
-// 🧩 Importar módulos principales de Firebase
+// Importar módulos principales de Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import {
@@ -15,43 +15,30 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 // ==========================================================
-// ⚙️ CONFIGURACIÓN DE TU PROYECTO FIREBASE
+// ⚙️ Configuración de tu proyecto (mantén tus claves actuales)
 // ==========================================================
-// (⚠️ Ya contiene tus claves válidas y operativas)
 const firebaseConfig = {
-  apiKey: "AIzaSyD3NEbGcUwBxwoOGBPO8PukmPHcfl42bE8",
+  apiKey: "AIzaSy...", // tus claves reales
   authDomain: "cronicas-de-nimroel.firebaseapp.com",
   projectId: "cronicas-de-nimroel",
   storageBucket: "cronicas-de-nimroel.appspot.com",
-  messagingSenderId: "689465837057",
-  appId: "1:689465837057:web:aecddb8b4a247bfe0de200"
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcd1234"
 };
 
 // ==========================================================
-// 🚀 INICIALIZAR FIREBASE
+// 🚀 Inicializar Firebase
 // ==========================================================
 const app = initializeApp(firebaseConfig);
 
-// Base de datos principal (Firestore)
+// Base de datos (por si la usas después)
 const db = getFirestore(app);
 
 // ==========================================================
-// 🔐 AUTENTICACIÓN CON GOOGLE
+// 🔐 Autenticación (login con Google)
 // ==========================================================
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// ==========================================================
-// 🧭 EXPORTAR MÓDULOS
-// ==========================================================
-// De este modo otros archivos pueden importar:
-// import { db, auth, provider, signInWithPopup, signOut, onAuthStateChanged } from "/Archivo-Web-Nimroel/firebase-config.js";
-export {
-  app,
-  db,
-  auth,
-  provider,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged
-};
+// Exportar todo lo necesario para otros scripts
+export { app, db, auth, provider, signInWithPopup, signOut, onAuthStateChanged };
