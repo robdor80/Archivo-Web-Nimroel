@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sello del Santuario — ARCHEN • SANTUAR • VERAN</title>
+<style>
+  html,body{height:100%}
+  body{
+    margin:0; display:grid; place-items:center;
+    background:#f3eee7;
+    font-family:"Cinzel",serif; color:#3a372f;
+  }
+  .sheet{
+    background:#f8f5ef; padding:28px; border-radius:20px;
+    box-shadow:0 12px 40px rgba(0,0,0,.18);
+    max-width:min(92vw,760px);
+  }
+  h1{font-size:1.2rem; margin:0 0 14px}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0;justify-content:center}
+  .btn{border:1px solid #c8c0b2;background:#fff; padding:6px 10px;border-radius:10px;cursor:pointer;font-weight:700}
+  .btn:active{transform:translateY(1px)}
+  .help{margin:.4rem 0 0;color:#5f5a50;text-align:center}
+  .wrap-svg{display:flex;justify-content:center}
+  svg.ink-0 .ink{opacity:0}
+  svg.ink-1 .ink{opacity:.17}
+  svg.ink-2 .ink{opacity:.28}
+  .custos-control{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:15px;}
+  .custos-control input{width:80px;padding:4px;text-align:center;font-weight:bold;border-radius:8px;border:1px solid #ccc;}
+</style>
+<body>
+  <div class="sheet">
+    <h1>Sello en seco · Cadena de Custodios</h1>
+
+    <div class="wrap-svg">
+      <svg id="seal" class="ink-1" viewBox="0 0 300 300" width="300" height="300" role="img" aria-label="Sello en seco del Santuario de Nimroel">
+        <defs>
+          <filter id="deboss-stronger" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"/>
+            <feOffset in="blur" dx="4" dy="4" result="shad"/>
+            <feColorMatrix in="shad" type="matrix" values="
+              0 0 0 0 0.60
+              0 0 0 0 0.50
+              0 0 0 0 0.40
+              0 0 0 1.00 0" result="shadCol"/>
+            <feOffset in="blur" dx="-3.5" dy="-3.5" result="lite"/>
+            <feColorMatrix in="lite" type="matrix" values="
+              0 0 0 0 1
+              0 0 0 0 1
+              0 0 0 0 1
+              0 0 0 0.92 0" result="liteCol"/>
+            <feComposite in="liteCol" in2="shadCol" operator="over" result="mix"/>
+            <feComposite in="mix" in2="SourceGraphic" operator="in"/>
+          </filter>
+          <path id="arc-top" d="M 60 110 A 120 120 0 0 1 240 110"/>
+          <path id="arc-num" d="M 78 238 A 142 142 0 0 0 222 238"/>
+        </defs>
+
+        <!-- Contorno visible -->
+        <g opacity=".55">
+          <circle cx="150" cy="150" r="118" fill="none" stroke="rgba(0,0,0,.28)" stroke-width="3"/>
+          <circle cx="150" cy="150" r="118" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1"/>
+        </g>
+
+        <g filter="url(#deboss-stronger)">
+          <circle cx="150" cy="150" r="112" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="2"/>
+          <g fill="none" stroke="rgba(0,0,0,.65)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="150" cy="118" rx="48" ry="26"/>
+            <circle cx="150" cy="118" r="8" fill="rgba(0,0,0,.65)"/>
+            <path d="M 105 118 Q 150 153 195 118"/>
+            <path d="M 105 118 Q 150 83 195 118"/>
+            <path d="M 110 158 h 80 v 34 q -40 -10 -80 0 z"/>
+            <path d="M 150 158 v 34"/>
+          </g>
+
+          <g fill="rgba(0,0,0,.75)" font-size="13" font-weight="700" letter-spacing=".4px">
+            <text text-anchor="middle">
+              <textPath href="#arc-top" startOffset="50%">ARCHEN • SANTUAR • VERAN</textPath>
+            </text>
+          </g>
+
+          <g fill="rgba(0,0,0,.80)" font-size="20" font-weight="800" letter-spacing=".3px">
+            <text text-anchor="middle" id="custosText">
+              <textPath href="#arc-num" startOffset="50%">Custos 68</textPath>
+            </text>
+          </g>
+        </g>
+
+        <g class="ink" style="mix-blend-mode:multiply;">
+          <g fill="none" stroke="rgba(0,0,0,.85)" stroke-width="1.2">
+            <ellipse cx="150" cy="118" rx="48" ry="26"/>
+            <path d="M 105 118 Q 150 153 195 118"/>
+            <path d="M 105 118 Q 150 83 195 118"/>
+            <path d="M 110 158 h 80 v 34 q -40 -10 -80 0 z"/>
+            <path d="M 150 158 v 34"/>
+            <circle cx="150" cy="118" r="6" fill="rgba(0,0,0,.85)"/>
+          </g>
+          <g fill="rgba(0,0,0,.85)" font-size="13" font-weight="700" letter-spacing=".5px">
+            <text text-anchor="middle">
+              <textPath href="#arc-top" startOffset="50%">ARCHEN • SANTUAR • VERAN</textPath>
+            </text>
+          </g>
+          <g fill="rgba(0,0,0,.9)" font-size="20" font-weight="800" letter-spacing=".4px">
+            <text text-anchor="middle" id="custosTextInk">
+              <textPath href="#arc-num" startOffset="50%">Custos 68</textPath>
+            </text>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 🔢 Control del número de Custodio -->
+    <div class="custos-control">
+      <label for="custosNumero"><b>Nº Custodio:</b></label>
+      <input type="number" id="custosNumero" min="1" value="68" onchange="actualizarCustos()">
+    </div>
+
+    <div class="controls">
+      <button class="btn" onclick="ink(0)">Sin tinta</button>
+      <button class="btn" onclick="ink(1)">Tinta leve</button>
+      <button class="btn" onclick="ink(2)">Tinta media</button>
+      <button class="btn" onclick="descargarSello()">Descargar sello</button>
+    </div>
+
+    <p class="help">
+      Lema del Santuario: <b>ARCHEN • SANTUAR • VERAN</b>.<br>
+      Puedes cambiar el número del Custodio y ajustar el nivel de tinta.
+    </p>
+  </div>
+
+<script>
+  function ink(level){
+    const s=document.getElementById('seal');
+    s.classList.remove('ink-0','ink-1','ink-2');
+    s.classList.add('ink-'+(level||0));
+  }
+
+  function actualizarCustos(){
+    const n=document.getElementById("custosNumero").value;
+    document.querySelector("#custosText textPath").textContent="Custos "+n;
+    document.querySelector("#custosTextInk textPath").textContent="Custos "+n;
+  }
+
+  function descargarSello(){
+    const svg=document.getElementById("seal");
+    const custosNum=document.getElementById("custosNumero").value || "sin_numero";
+    const serializer=new XMLSerializer();
+    const svgData=serializer.serializeToString(svg);
+    const svgBlob=new Blob([svgData],{type:"image/svg+xml;charset=utf-8"});
+    const url=URL.createObjectURL(svgBlob);
+
+    const img=new Image();
+    img.onload=function(){
+      const canvas=document.createElement("canvas");
+      canvas.width=svg.viewBox.baseVal.width;
+      canvas.height=svg.viewBox.baseVal.height;
+      const ctx=canvas.getContext("2d");
+      ctx.drawImage(img,0,0);
+      URL.revokeObjectURL(url);
+
+      const link=document.createElement("a");
+      link.download=`sello_custos_${custosNum}.png`;
+      link.href=canvas.toDataURL("image/png");
+      link.click();
+    };
+    img.src=url;
+  }
+</script>
+</body>
+</html>

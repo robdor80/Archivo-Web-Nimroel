@@ -62,7 +62,7 @@ const botonesAbrir = {
 };
 
 // ==========================================================
-// 🖼️ FUNCIÓN DE VISTA PREVIA DE IMÁGENES
+// 🖼️ FUNCIÓN DE VISTA PREVIA DE IMÁGENES O FIRMAS HTML
 // ==========================================================
 function actualizarVistaPrevia(tipo) {
   const url = campos[tipo].value.trim();
@@ -75,6 +75,18 @@ function actualizarVistaPrevia(tipo) {
     return;
   }
 
+  // 💡 Si la URL es una página HTML, la mostramos en un iframe animado
+  if (url.endsWith(".html")) {
+    vista.innerHTML = `
+      <iframe src="${url}" 
+              style="width:100%;height:160px;border:none;border-radius:8px;"
+              sandbox="allow-scripts allow-same-origin"></iframe>`;
+    boton.disabled = false;
+    boton.onclick = () => window.open(url, "_blank");
+    return;
+  }
+
+  // 🖼️ Si es una imagen normal, mostramos la vista previa como siempre
   vista.innerHTML = `<img src="${url}" alt="vista previa" style="max-width:100%;max-height:100%;border-radius:8px;">`;
   boton.disabled = false;
   boton.onclick = () => window.open(url, "_blank");
