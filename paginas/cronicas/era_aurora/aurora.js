@@ -1,6 +1,6 @@
 // ==========================================================
 // CRÓNICAS — ERA DE LA AURORA
-// Carga dinámica de registros desde Firestore (versión mejorada)
+// Carga dinámica de registros desde Firestore (versión final optimizada)
 // ==========================================================
 
 // 🔥 Importar base de datos desde la raíz del repositorio
@@ -44,11 +44,14 @@ function abrirModal(data) {
     if (data.sello.endsWith(".html")) {
       sello.outerHTML = `
         <iframe id="modal-sello" src="${data.sello}"
-                style="width:120px;height:120px;border:none;border-radius:8px;"
+                style="width:140px;height:140px;border:none;border-radius:10px;overflow:hidden;"
                 sandbox="allow-scripts allow-same-origin"></iframe>`;
     } else {
       sello.src = data.sello;
       sello.style.display = "inline-block";
+      sello.style.maxWidth = "140px";
+      sello.style.borderRadius = "10px";
+      sello.style.boxShadow = "0 0 10px rgba(255,255,255,0.2)";
     }
   } else {
     sello.style.display = "none";
@@ -57,13 +60,18 @@ function abrirModal(data) {
   // === Firma del custodio ===
   if (data.firma) {
     if (data.firma.endsWith(".html")) {
+      // ✅ Firma HTML (animada o dibujada)
       firma.outerHTML = `
         <iframe id="modal-firma" src="${data.firma}"
-                style="width:160px;height:100px;border:none;border-radius:8px;"
+                style="width:240px;height:140px;border:none;border-radius:10px;overflow:hidden;"
                 sandbox="allow-scripts allow-same-origin"></iframe>`;
     } else {
+      // ✅ Firma como imagen estática
       firma.src = data.firma;
       firma.style.display = "inline-block";
+      firma.style.maxWidth = "240px";
+      firma.style.borderRadius = "10px";
+      firma.style.boxShadow = "0 0 10px rgba(255,255,255,0.2)";
     }
   } else {
     firma.style.display = "none";
