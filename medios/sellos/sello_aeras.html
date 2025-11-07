@@ -1,0 +1,91 @@
+<svg id="seal" class="ink-1" viewBox="0 0 300 300" role="img" aria-label="Sello del Santuario — ARCHEN • SANTUAR • VERAN">
+  <!-- Niveles de tinta (opacidad del grupo .ink) -->
+  <style>
+    svg.ink-0 .ink{opacity:0}
+    svg.ink-1 .ink{opacity:.17}
+    svg.ink-2 .ink{opacity:.28}
+  </style>
+
+  <defs>
+    <!-- Relieve hundido (deboss) -->
+    <filter id="deboss-stronger" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"/>
+      <feOffset in="blur" dx="4" dy="4" result="shad"/>
+      <feColorMatrix in="shad" type="matrix" values="
+        0 0 0 0 0.60
+        0 0 0 0 0.50
+        0 0 0 0 0.40
+        0 0 0 1.00 0" result="shadCol"/>
+      <feOffset in="blur" dx="-3.5" dy="-3.5" result="lite"/>
+      <feColorMatrix in="lite" type="matrix" values="
+        0 0 0 0 1
+        0 0 0 0 1
+        0 0 0 0 1
+        0 0 0 0.92 0" result="liteCol"/>
+      <feComposite in="liteCol" in2="shadCol" operator="over" result="mix"/>
+      <feComposite in="mix" in2="SourceGraphic" operator="in"/>
+    </filter>
+
+    <!-- Caminos para textos curvos -->
+    <path id="arc-top" d="M 60 110 A 120 120 0 0 1 240 110"/>
+    <path id="arc-num" d="M 78 238 A 142 142 0 0 0 222 238"/>
+  </defs>
+
+  <!-- Contorno visible de seguridad -->
+  <g opacity=".55">
+    <circle cx="150" cy="150" r="118" fill="none" stroke="rgba(0,0,0,.28)" stroke-width="3"/>
+    <circle cx="150" cy="150" r="118" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1"/>
+  </g>
+
+  <!-- Grupo con relieve en seco -->
+  <g filter="url(#deboss-stronger)">
+    <!-- Anillo interior -->
+    <circle cx="150" cy="150" r="112" fill="none" stroke="rgba(0,0,0,.20)" stroke-width="2"/>
+
+    <!-- Emblema de Aeras: ojo + libro -->
+    <g fill="none" stroke="rgba(0,0,0,.65)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="150" cy="118" rx="48" ry="26"/>
+      <circle cx="150" cy="118" r="8" fill="rgba(0,0,0,.65)"/>
+      <path d="M 105 118 Q 150 153 195 118"/>
+      <path d="M 105 118 Q 150 83 195 118"/>
+      <path d="M 110 158 h 80 v 34 q -40 -10 -80 0 z"/>
+      <path d="M 150 158 v 34"/>
+    </g>
+
+    <!-- Lema -->
+    <g fill="rgba(0,0,0,.75)" font-size="13" font-weight="700" letter-spacing=".4px">
+      <text text-anchor="middle">
+        <textPath href="#arc-top" startOffset="50%">ARCHEN • SANTUAR • VERAN</textPath>
+      </text>
+    </g>
+
+    <!-- Número dinámico -->
+    <g fill="rgba(0,0,0,.80)" font-size="20" font-weight="800" letter-spacing=".3px">
+      <text text-anchor="middle">
+        <textPath href="#arc-num" startOffset="50%">{{NUM}}</textPath>
+      </text>
+    </g>
+  </g>
+
+  <!-- Capa de “tinta” (frotado) controlada por ink-0/1/2 -->
+  <g class="ink" style="mix-blend-mode:multiply;">
+    <g fill="none" stroke="rgba(0,0,0,.85)" stroke-width="1.2">
+      <ellipse cx="150" cy="118" rx="48" ry="26"/>
+      <path d="M 105 118 Q 150 153 195 118"/>
+      <path d="M 105 118 Q 150 83 195 118"/>
+      <path d="M 110 158 h 80 v 34 q -40 -10 -80 0 z"/>
+      <path d="M 150 158 v 34"/>
+      <circle cx="150" cy="118" r="6" fill="rgba(0,0,0,.85)"/>
+    </g>
+    <g fill="rgba(0,0,0,.85)" font-size="13" font-weight="700" letter-spacing=".5px">
+      <text text-anchor="middle">
+        <textPath href="#arc-top" startOffset="50%">ARCHEN • SANTUAR • VERAN</textPath>
+      </text>
+    </g>
+    <g fill="rgba(0,0,0,.9)" font-size="20" font-weight="800" letter-spacing=".4px">
+      <text text-anchor="middle">
+        <textPath href="#arc-num" startOffset="50%">{{NUM}}</textPath>
+      </text>
+    </g>
+  </g>
+</svg>
