@@ -1,6 +1,6 @@
 // ==========================================================
 // CRÓNICAS — ERA DE LA AURORA
-// Carga dinámica de registros desde Firestore (versión final)
+// Carga dinámica de registros desde Firestore (versión mejorada)
 // ==========================================================
 
 // 🔥 Importar base de datos desde la raíz del repositorio
@@ -23,7 +23,7 @@ if (cerrarModal && modal) {
 }
 
 // ==========================================================
-// 🪶 MOSTRAR DATOS EN MODAL
+// 🪶 MOSTRAR DATOS EN MODAL (IMAGEN, SELLO, FIRMA)
 // ==========================================================
 function abrirModal(data) {
   document.getElementById("modal-titulo").textContent = data.titulo || "Sin título";
@@ -35,14 +35,39 @@ function abrirModal(data) {
   const sello = document.getElementById("modal-sello");
   const firma = document.getElementById("modal-firma");
 
+  // === Imagen principal ===
   modalImagen.src = data.imagen || "medios/img/placeholders/sin_imagen.webp";
   modalImagen.style.display = "block";
 
-  sello.src = data.sello || "";
-  sello.style.display = data.sello ? "inline-block" : "none";
+  // === Sello del custodio ===
+  if (data.sello) {
+    if (data.sello.endsWith(".html")) {
+      sello.outerHTML = `
+        <iframe id="modal-sello" src="${data.sello}"
+                style="width:120px;height:120px;border:none;border-radius:8px;"
+                sandbox="allow-scripts allow-same-origin"></iframe>`;
+    } else {
+      sello.src = data.sello;
+      sello.style.display = "inline-block";
+    }
+  } else {
+    sello.style.display = "none";
+  }
 
-  firma.src = data.firma || "";
-  firma.style.display = data.firma ? "inline-block" : "none";
+  // === Firma del custodio ===
+  if (data.firma) {
+    if (data.firma.endsWith(".html")) {
+      firma.outerHTML = `
+        <iframe id="modal-firma" src="${data.firma}"
+                style="width:160px;height:100px;border:none;border-radius:8px;"
+                sandbox="allow-scripts allow-same-origin"></iframe>`;
+    } else {
+      firma.src = data.firma;
+      firma.style.display = "inline-block";
+    }
+  } else {
+    firma.style.display = "none";
+  }
 
   modal.classList.remove("hidden");
 }
@@ -58,8 +83,8 @@ async function cargarCronicasAurora() {
     console.log(`📚 Total de crónicas detectadas: ${snapshot.size}`);
 
     contenedor.innerHTML = "";
-
     let contador = 0;
+
     snapshot.forEach(docSnap => {
       const data = docSnap.data();
       const era = (data.era || "").toLowerCase().trim();
@@ -69,9 +94,7 @@ async function cargarCronicasAurora() {
         const card = document.createElement("div");
         card.className = "cr-card";
 
-        const imagenSrc = data.imagen
-          ? data.imagen
-          : "medios/img/placeholders/sin_imagen.webp";
+        const imagenSrc = data.imagen || "medios/img/placeholders/sin_imagen.webp";
 
         card.innerHTML = `
           <div class="imagen-cronica">
