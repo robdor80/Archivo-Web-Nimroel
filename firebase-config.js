@@ -1,10 +1,9 @@
 // ==========================================================
 // 🔥 CONFIGURACIÓN GENERAL DE FIREBASE — Archivo del Santuario
-// Incluye Firestore + Autenticación con Google
+// Evita inicializar más de una vez
 // ==========================================================
 
-// Importar módulos principales de Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import {
   getAuth,
@@ -15,30 +14,28 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 // ==========================================================
-// ⚙️ Configuración de tu proyecto (mantén tus claves actuales)
+// ⚙️ Configuración del proyecto Firebase
 // ==========================================================
 const firebaseConfig = {
-  apiKey: "AIzaSy...", // tus claves reales
+  apiKey: "AIzaSyD3NEbGcUwBxwoOGBPO8PukmPHcfl42bE8",
   authDomain: "cronicas-de-nimroel.firebaseapp.com",
   projectId: "cronicas-de-nimroel",
   storageBucket: "cronicas-de-nimroel.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcd1234"
+  messagingSenderId: "689465837057",
+  appId: "1:689465837057:web:aecddb8b4a247bfe0de200"
 };
 
 // ==========================================================
-// 🚀 Inicializar Firebase
+// 🚀 Inicializar o reutilizar la app existente
 // ==========================================================
-const app = initializeApp(firebaseConfig);
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-// Base de datos (por si la usas después)
+// Base de datos
 const db = getFirestore(app);
 
-// ==========================================================
-// 🔐 Autenticación (login con Google)
-// ==========================================================
+// Autenticación
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// Exportar todo lo necesario para otros scripts
+// Exportar módulos
 export { app, db, auth, provider, signInWithPopup, signOut, onAuthStateChanged };
